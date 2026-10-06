@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, ArrowUpRight } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, ArrowUpRight, Headphones, PhoneCall, MessageSquare } from 'lucide-react';
 import { site } from '../../content/site';
 import { Panel } from './Panel';
 import { Container } from './Container';
@@ -28,6 +28,17 @@ export const Footer: React.FC = () => {
       <Panel variant="primary" padded={false} className="py-16 md:py-24 px-6 md:px-12 xl:px-16 relative overflow-hidden rounded-16 shadow-md">
         {/* Subtle decorative background glow orbs */}
         <Orbs preset="corner" count={2} />
+
+        {/* Decorative faint background vector icons at ~3% opacity per DESIGN.md section 6 */}
+        <div className="absolute -top-16 -left-12 pointer-events-none text-surface/[0.03] -rotate-12 select-none" aria-hidden="true">
+          <PhoneCall className="w-80 h-80" />
+        </div>
+        <div className="absolute top-1/4 -right-16 pointer-events-none text-surface/[0.03] rotate-12 select-none" aria-hidden="true">
+          <Headphones className="w-80 h-80" />
+        </div>
+        <div className="absolute -bottom-16 left-1/2 pointer-events-none text-surface/[0.025] -rotate-6 select-none" aria-hidden="true">
+          <MessageSquare className="w-72 h-72" />
+        </div>
 
         <Container className="relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-surface/10">

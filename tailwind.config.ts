@@ -49,6 +49,7 @@ export default {
         warning: withOpacity('--color-warning'),
         error: withOpacity('--color-error'),
         offline: withOpacity('--color-offline'),
+        star: withOpacity('--color-star'),
         'glass-bg': 'var(--glass-bg)',
         'glass-bg-strong': 'var(--glass-bg-strong)',
         'glass-border': 'var(--glass-border)',
@@ -57,6 +58,10 @@ export default {
         'orb-green': 'var(--orb-green)',
         'orb-navy': 'var(--orb-navy)',
         'orb-light': 'var(--orb-light)',
+      },
+      fill: {
+        star: 'var(--color-star)',
+        current: 'currentColor',
       },
       spacing: {
         4: 'var(--space-4)',

@@ -17,7 +17,7 @@ import { site } from '../content/site';
 export const Home: React.FC = () => {
   return (
     <PageShell
-      title="Premier Call Center & BPO Solutions"
+      title="Premier Call Center & Customer Care Solutions"
       description={site.hero.description}
     >
       {/* 1. Hero with floating glass stats bar */}
@@ -50,11 +50,11 @@ export const Home: React.FC = () => {
       {/* 10. Blogs and Gallery (featured post + stacked pair & facility masonry with Lightbox) */}
       <BlogGallery />
 
-      {/* 11. FAQ (8 items, 2 columns) */}
-      <Faq />
-
-      {/* 12. Contact Us (glass proposal form & operational channels) */}
+      {/* 11. Contact Us (glass proposal form & operational channels) */}
       <Contact />
+
+      {/* 12. FAQ (8 items, 2 columns) */}
+      <Faq />
     </PageShell>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Quote, Star, Headphones, PhoneCall, ArrowUpRight } from 'lucide-react';
+import { Quote, Star, Headphones, PhoneCall } from 'lucide-react';
 import { site } from '../../content/site';
 import { SectionHeader } from '../ui/SectionHeader';
 import { CardCornerGradient } from '../ui/CardCornerGradient';
@@ -64,9 +64,9 @@ export const Testimonials: React.FC = () => {
           {site.testimonials.trustScore && (
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 -mt-20 mb-32 text-13">
               <div className="inline-flex items-center gap-2 rounded-full bg-surface/10 backdrop-blur-md border border-white/15 px-16 py-8 text-surface shadow-xs">
-                <div className="flex text-secondary gap-0.5" aria-label="5 stars">
+                <div className="flex text-star gap-0.5" aria-label="5 stars">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-secondary text-secondary" />
+                    <Star key={i} fill="currentColor" className="h-3.5 w-3.5 fill-star text-star" />
                   ))}
                 </div>
                 <span className="font-bold text-surface">
@@ -75,20 +75,16 @@ export const Testimonials: React.FC = () => {
                 <span className="text-grey-3">·</span>
                 <span className="text-grey-2">{site.testimonials.trustScore.reviewCount}</span>
               </div>
-              <div className="hidden sm:inline-flex items-center gap-2 rounded-full bg-surface/10 backdrop-blur-md border border-white/15 px-16 py-8 text-grey-2 shadow-xs">
-                <span className="h-2 w-2 rounded-full bg-secondary animate-pulse" />
-                <span>{site.testimonials.trustScore.retentionRate}</span>
-              </div>
             </div>
           )}
 
-          {/* Reviews Grid Layout: 1 Featured Big Card (Left 7 cols) + 2 Interactive Small Cards (Right 5 cols) */}
+          {/* Reviews Grid Layout: 1 Featured Big Card (50% width) + 2 Interactive Small Cards (50% width) */}
           {featuredItem && (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 lg:gap-32 items-stretch">
-              {/* Featured Big Card (Left 7 Cols) - Stable outer card, transforming inner content */}
-              <div className="lg:col-span-7 flex flex-col">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 lg:gap-32 items-stretch">
+              {/* Featured Big Card (50% width) - Stable outer card, transforming inner content */}
+              <div className="flex flex-col">
                 <div
-                  className="h-full relative overflow-hidden rounded-16 bg-gradient-to-b from-white via-surface to-grey-1/90 border border-white/60 border-t-[3px] border-t-secondary p-24 sm:p-32 shadow-2xl transition-all duration-base flex flex-col justify-between group"
+                  className="h-full relative overflow-hidden rounded-16 bg-gradient-to-b from-white via-surface to-grey-1/90 border border-white/60 border-t-[3px] border-t-secondary p-24 sm:p-28 xl:p-32 shadow-2xl transition-all duration-base flex flex-col justify-between group"
                 >
                   {/* Subtle top border sheen sweep on cycle change */}
                   <div key={`sheen-${featuredItem.id}`} className="absolute top-0 left-0 right-0 h-[2px] overflow-hidden pointer-events-none">
@@ -106,10 +102,10 @@ export const Testimonials: React.FC = () => {
                   {/* Transforming inner content (smooth slide & scale transform without blinking card shell) */}
                   <div
                     key={`featured-content-${featuredItem.id}`}
-                    className="animate-review-featured relative z-10 flex flex-col sm:flex-row gap-20 md:gap-24 items-start sm:items-stretch h-full"
+                    className="animate-review-featured relative z-10 flex flex-col sm:flex-row gap-20 lg:gap-20 xl:gap-24 items-start sm:items-stretch h-full"
                   >
-                    {/* Portrait Image container */}
-                    <div className="relative w-full sm:w-52 md:w-56 lg:w-60 h-64 sm:h-auto rounded-12 overflow-hidden bg-grey-2 border border-grey-3 flex-shrink-0 shadow-sm">
+                    {/* Portrait Image container: widened to ~270px matching reference preview */}
+                    <div className="relative w-full sm:w-60 md:w-64 lg:w-[270px] xl:w-[280px] h-64 sm:h-auto rounded-12 overflow-hidden bg-grey-2 border border-grey-3 flex-shrink-0 shadow-sm">
                       <img
                         key={`featured-img-${featuredItem.id}`}
                         src={featuredItem.image}
@@ -119,48 +115,52 @@ export const Testimonials: React.FC = () => {
                       />
                     </div>
 
-                    {/* Content block */}
-                    <div className="flex-1 flex flex-col justify-between w-full">
-                      <div>
-                        {/* Stars & Big Quote Icon */}
-                        <div className="flex items-center justify-between gap-3 mb-4">
-                          <div className="flex text-secondary gap-1" aria-label={`${featuredItem.rating || 5} out of 5 stars`}>
+                    {/* Content block: adjusted typography and spacing to complement wider image */}
+                    <div className="flex-1 flex flex-col justify-between w-full min-w-0">
+                      {/* Top Meta: Stars, Service Category Eyebrow, and Large Quote Icon Visual */}
+                      <div className="flex items-start justify-between gap-4 mb-2">
+                        <div className="flex flex-col gap-1.5 min-w-0">
+                          <div className="flex text-star gap-1" aria-label={`${featuredItem.rating || 5} out of 5 stars`}>
                             {[...Array(featuredItem.rating || 5)].map((_, i) => (
-                              <Star key={i} className="h-4 w-4 fill-secondary text-secondary" />
+                              <Star key={i} fill="currentColor" className="h-4.5 w-4.5 fill-star text-star" />
                             ))}
                           </div>
-                          <Quote className="h-7 w-7 text-secondary/35 group-hover:text-secondary transition-colors" />
+                          {featuredItem.serviceCategory && (
+                            <span className="text-12 font-normal uppercase tracking-wider text-secondary-active">
+                              {featuredItem.serviceCategory}
+                            </span>
+                          )}
                         </div>
-
-                        {/* Testimonial Quote */}
-                        <blockquote className="text-15 sm:text-16 md:text-17 text-text leading-relaxed font-normal italic mb-6">
-                          "{featuredItem.quote}"
-                        </blockquote>
+                        <Quote
+                          strokeWidth={1.5}
+                          className="w-[88px] h-[88px] sm:w-[98px] sm:h-[98px] xl:w-[108px] xl:h-[108px] text-secondary/30 group-hover:text-secondary/55 transition-colors shrink-0 -mt-3 -mr-2 pointer-events-none select-none"
+                        />
                       </div>
 
-                      {/* Author info & highlight metric */}
-                      <div className="pt-4 border-t border-grey-3/80 flex flex-wrap items-center justify-between gap-2">
-                        <div>
-                          <span className="text-16 sm:text-18 font-bold text-primary block leading-tight">
-                            {featuredItem.author}
-                          </span>
-                          <span className="text-13 text-grey-5 block mt-0.5">
-                            {featuredItem.role}, <strong className="font-medium text-text-2">{featuredItem.company}</strong>
-                          </span>
-                        </div>
-                        {featuredItem.highlight && (
-                          <div className="inline-flex items-center gap-1.5 rounded-full bg-secondary/10 px-12 py-4 border border-secondary/25">
-                            <span className="text-12 font-bold text-secondary-active">{featuredItem.highlight}</span>
-                          </div>
-                        )}
+                      {/* Editorial Testimonial Quote in Two Sentences with Line Break Gap, Vertically Centered */}
+                      <blockquote className="my-auto py-2.5 text-15 sm:text-16 md:text-16 xl:text-17 text-primary/95 leading-relaxed font-normal italic flex flex-col gap-2.5">
+                        {featuredItem.quote.split('\n\n').map((paragraph, pIdx, arr) => (
+                          <p key={pIdx}>
+                            {pIdx === 0 && '“'}
+                            {paragraph}
+                            {pIdx === arr.length - 1 && '”'}
+                          </p>
+                        ))}
+                      </blockquote>
+
+                      {/* Author info */}
+                      <div className="pt-14 sm:pt-16 border-t border-grey-3/80 flex items-center">
+                        <span className="text-17 sm:text-18 font-bold text-primary block leading-tight">
+                          {featuredItem.author}
+                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Supporting Small Cards (Right 5 Cols, Stacked) - Click to turn into big card */}
-              <div className="lg:col-span-5 flex flex-col gap-20 lg:gap-24 justify-between">
+              {/* Supporting Small Cards (50% width, Stacked) - Click to turn into big card */}
+              <div className="flex flex-col gap-20 lg:gap-24 justify-between">
                 {/* Small Card 1 (Upcoming in cycle) */}
                 {smallItem1 && (
                   <div
@@ -185,53 +185,38 @@ export const Testimonials: React.FC = () => {
                       className="animate-review-small-1 relative z-10 flex flex-col justify-between h-full"
                     >
                       <div>
-                        {/* Card Top Row: Rating, "Click to view" hint, Quote Icon */}
+                        {/* Card Top Row: Rating & Quote Icon */}
                         <div className="flex items-center justify-between gap-2 mb-3">
-                          <div className="flex text-secondary gap-0.5" aria-label="5 stars">
+                          <div className="flex text-star gap-0.5" aria-label="5 stars">
                             {[...Array(smallItem1.rating || 5)].map((_, i) => (
-                              <Star key={i} className="h-3.5 w-3.5 fill-secondary text-secondary" />
+                              <Star key={i} fill="currentColor" className="h-3.5 w-3.5 fill-star text-star" />
                             ))}
-                          </div>
-
-                          <div className="flex items-center gap-1.5 text-11 font-medium text-secondary-active opacity-60 group-hover:opacity-100 transition-opacity">
-                            <span>Next review</span>
-                            <ArrowUpRight className="h-3.5 w-3.5" />
                           </div>
 
                           <Quote className="h-5 w-5 text-secondary/35 group-hover:text-secondary transition-colors flex-shrink-0" />
                         </div>
 
                         {/* Quote snippet */}
-                        <blockquote className="text-14 sm:text-15 text-text-2 leading-relaxed italic mb-4 line-clamp-3">
-                          "{smallItem1.quote}"
+                        <blockquote className="text-14 sm:text-15 text-text-2 leading-relaxed italic mb-16 sm:mb-20 line-clamp-4">
+                          "{smallItem1.quote.replace('\n\n', ' ')}"
                         </blockquote>
                       </div>
 
                       {/* Author row with avatar */}
-                      <div className="pt-4 border-t border-grey-3/80 flex items-center justify-between gap-3">
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className="h-11 w-11 rounded-full overflow-hidden bg-grey-2 border border-grey-3 flex-shrink-0 shadow-xs">
-                            <img
-                              src={smallItem1.image}
-                              alt={smallItem1.author}
-                              className="w-full h-full object-cover"
-                              loading="lazy"
-                            />
-                          </div>
-                          <div className="min-w-0">
-                            <span className="text-15 font-bold text-primary block leading-tight truncate">
-                              {smallItem1.author}
-                            </span>
-                            <span className="text-12 text-grey-5 block truncate mt-0.5">
-                              {smallItem1.role}, {smallItem1.company}
-                            </span>
-                          </div>
+                      <div className="pt-16 sm:pt-20 border-t border-grey-3/80 flex items-center gap-3.5">
+                        <div className="h-11 w-11 rounded-full overflow-hidden bg-grey-2 border border-grey-3 flex-shrink-0 shadow-xs">
+                          <img
+                            src={smallItem1.image}
+                            alt={smallItem1.author}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
                         </div>
-                        {smallItem1.highlight && (
-                          <span className="hidden sm:inline-flex text-11 font-semibold text-secondary-active bg-secondary/10 px-8 py-4 rounded-full border border-secondary/20 flex-shrink-0">
-                            {smallItem1.highlight}
+                        <div className="min-w-0">
+                          <span className="text-15 font-bold text-primary block leading-tight">
+                            {smallItem1.author}
                           </span>
-                        )}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -261,53 +246,38 @@ export const Testimonials: React.FC = () => {
                       className="animate-review-small-2 relative z-10 flex flex-col justify-between h-full"
                     >
                       <div>
-                        {/* Card Top Row: Rating, "Click to view" hint, Quote Icon */}
+                        {/* Card Top Row: Rating & Quote Icon */}
                         <div className="flex items-center justify-between gap-2 mb-3">
-                          <div className="flex text-secondary gap-0.5" aria-label="5 stars">
+                          <div className="flex text-star gap-0.5" aria-label="5 stars">
                             {[...Array(smallItem2.rating || 5)].map((_, i) => (
-                              <Star key={i} className="h-3.5 w-3.5 fill-secondary text-secondary" />
+                              <Star key={i} fill="currentColor" className="h-3.5 w-3.5 fill-star text-star" />
                             ))}
-                          </div>
-
-                          <div className="flex items-center gap-1.5 text-11 font-medium text-secondary-active opacity-60 group-hover:opacity-100 transition-opacity">
-                            <span>Up next</span>
-                            <ArrowUpRight className="h-3.5 w-3.5" />
                           </div>
 
                           <Quote className="h-5 w-5 text-secondary/35 group-hover:text-secondary transition-colors flex-shrink-0" />
                         </div>
 
                         {/* Quote snippet */}
-                        <blockquote className="text-14 sm:text-15 text-text-2 leading-relaxed italic mb-4 line-clamp-3">
-                          "{smallItem2.quote}"
+                        <blockquote className="text-14 sm:text-15 text-text-2 leading-relaxed italic mb-16 sm:mb-20 line-clamp-4">
+                          "{smallItem2.quote.replace('\n\n', ' ')}"
                         </blockquote>
                       </div>
 
                       {/* Author row with avatar */}
-                      <div className="pt-4 border-t border-grey-3/80 flex items-center justify-between gap-3">
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className="h-11 w-11 rounded-full overflow-hidden bg-grey-2 border border-grey-3 flex-shrink-0 shadow-xs">
-                            <img
-                              src={smallItem2.image}
-                              alt={smallItem2.author}
-                              className="w-full h-full object-cover"
-                              loading="lazy"
-                            />
-                          </div>
-                          <div className="min-w-0">
-                            <span className="text-15 font-bold text-primary block leading-tight truncate">
-                              {smallItem2.author}
-                            </span>
-                            <span className="text-12 text-grey-5 block truncate mt-0.5">
-                              {smallItem2.role}, {smallItem2.company}
-                            </span>
-                          </div>
+                      <div className="pt-16 sm:pt-20 border-t border-grey-3/80 flex items-center gap-3.5">
+                        <div className="h-11 w-11 rounded-full overflow-hidden bg-grey-2 border border-grey-3 flex-shrink-0 shadow-xs">
+                          <img
+                            src={smallItem2.image}
+                            alt={smallItem2.author}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
                         </div>
-                        {smallItem2.highlight && (
-                          <span className="hidden sm:inline-flex text-11 font-semibold text-secondary-active bg-secondary/10 px-8 py-4 rounded-full border border-secondary/20 flex-shrink-0">
-                            {smallItem2.highlight}
+                        <div className="min-w-0">
+                          <span className="text-15 font-bold text-primary block leading-tight">
+                            {smallItem2.author}
                           </span>
-                        )}
+                        </div>
                       </div>
                     </div>
                   </div>

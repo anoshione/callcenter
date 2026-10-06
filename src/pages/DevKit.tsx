@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Headphones, PhoneCall } from 'lucide-react';
 import { PageShell } from '../components/layout/PageShell';
 import { Section } from '../components/layout/Section';
 import { PageBanner } from '../components/layout/PageBanner';
@@ -39,6 +40,7 @@ export const DevKit: React.FC = () => {
         eyebrow="Phase 1 Verification"
         title="Design System Primitives Kit"
         subtitle="Interactive playground displaying all component states, variants, and validation tokens."
+        backgroundImage="/assets/about-training-lab.jpg"
       />
 
       {/* 1. Buttons */}
@@ -113,6 +115,12 @@ export const DevKit: React.FC = () => {
       {/* 3. GlassCard & Orbs */}
       <Section id="devkit-glass" variant="primary" panelClassName="py-16 relative overflow-hidden">
         <Orbs preset="corner" count={2} />
+        <div className="absolute top-8 left-8 pointer-events-none text-surface/[0.035] -rotate-12 select-none" aria-hidden="true">
+          <Headphones className="w-72 h-72" />
+        </div>
+        <div className="absolute -bottom-12 right-8 pointer-events-none text-surface/[0.035] rotate-12 select-none" aria-hidden="true">
+          <PhoneCall className="w-72 h-72" />
+        </div>
         <div className="relative z-10 flex flex-col gap-8">
           <SectionHeader
             onNavy

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Headphones, PhoneCall } from 'lucide-react';
 import { site } from '../../content/site';
 import { Button } from '../ui/Button';
 import { Orbs } from '../ui/Orbs';
@@ -12,6 +13,14 @@ export const CtaBanner: React.FC = () => {
           <div className="relative overflow-hidden rounded-16 bg-primary px-8 sm:px-12 md:px-14 py-32 shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Background Orbs */}
             <Orbs preset="banner" count={2} />
+
+            {/* Decorative faint background vector icons at ~3.5% opacity per DESIGN.md section 6 */}
+            <div className="absolute -top-10 -left-6 pointer-events-none text-surface/[0.035] -rotate-12 select-none" aria-hidden="true">
+              <Headphones className="w-56 h-56" />
+            </div>
+            <div className="absolute -bottom-14 right-1/3 pointer-events-none text-surface/[0.03] rotate-12 select-none" aria-hidden="true">
+              <PhoneCall className="w-60 h-60" />
+            </div>
 
             <div className="relative z-10 max-w-2xl text-center md:text-left flex flex-col justify-center">
               <h2 className="text-28 font-medium text-surface leading-tight tracking-tight">

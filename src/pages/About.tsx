@@ -20,8 +20,10 @@ export const About: React.FC = () => {
       {/* About Hero Header */}
       <PageBanner
         id="about-hero"
+        eyebrow={site.about.eyebrow}
         title={site.about.title}
         subtitle={site.about.mission}
+        backgroundImage="/assets/banners/about-banner.jpg"
       />
 
       {/* Mission & Vision Section */}
@@ -47,9 +49,9 @@ export const About: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 xl:gap-32 items-stretch">
             {/* Mission Card (Green Secondary Accent) */}
             <div className="relative overflow-hidden flex flex-col p-32 rounded-16 bg-white border border-grey-3/80 border-t-[3px] border-t-secondary shadow-sm hover:shadow-lg transition-all duration-base hover:-translate-y-1 group w-full">
-              {/* Background watermark icon visual in bottom right (visual accent, text floats on top) */}
-              <div className="pointer-events-none absolute -bottom-12 -right-12 select-none opacity-25 group-hover:opacity-40 transition-opacity z-0" aria-hidden="true">
-                <Target className="w-[260px] h-[260px] stroke-[1] text-secondary" />
+              {/* Background watermark icon visual in bottom right (cropped out of frame like contact card) */}
+              <div className="pointer-events-none absolute -bottom-100 -right-100 select-none text-secondary/[0.08] group-hover:text-secondary/[0.14] transition-colors z-0" aria-hidden="true">
+                <Target className="w-[280px] h-[280px] stroke-[1]" />
               </div>
 
               {/* Subtle top-right corner gradient in secondary green */}
@@ -87,9 +89,9 @@ export const About: React.FC = () => {
 
             {/* Vision Card (Navy Primary Accent) */}
             <div className="relative overflow-hidden flex flex-col p-32 rounded-16 bg-white border border-grey-3/80 border-t-[3px] border-t-primary shadow-sm hover:shadow-lg transition-all duration-base hover:-translate-y-1 group w-full">
-              {/* Background watermark icon visual in bottom right (visual accent, text floats on top) */}
-              <div className="pointer-events-none absolute -bottom-12 -right-12 select-none opacity-20 group-hover:opacity-35 transition-opacity z-0" aria-hidden="true">
-                <Compass className="w-[260px] h-[260px] stroke-[1] text-primary" />
+              {/* Background watermark icon visual in bottom right (cropped out of frame like contact card) */}
+              <div className="pointer-events-none absolute -bottom-100 -right-100 select-none text-primary/[0.08] group-hover:text-primary/[0.14] transition-colors z-0" aria-hidden="true">
+                <Compass className="w-[280px] h-[280px] stroke-[1]" />
               </div>
 
               {/* Subtle top-right corner gradient in primary navy */}
@@ -221,11 +223,11 @@ export const About: React.FC = () => {
       {/* Insights & Facility Gallery */}
       <BlogGallery />
 
-      {/* Frequently Asked Questions */}
-      <Faq />
-
       {/* Contact Proposal Form */}
       <Contact />
+
+      {/* Frequently Asked Questions */}
+      <Faq />
     </PageShell>
   );
 };

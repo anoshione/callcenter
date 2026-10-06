@@ -1,4 +1,5 @@
 import React from 'react';
+import { Headphones, PhoneCall, MessageSquare } from 'lucide-react';
 import { site } from '../../content/site';
 import { SectionHeader } from '../ui/SectionHeader';
 import { ServiceCard } from '../ui/ServiceCard';
@@ -13,12 +14,23 @@ export const Services: React.FC = () => {
         {/* Background orbs & subtle pattern */}
         <Orbs preset="subtle" count={2} />
 
+        {/* Decorative faint background vector icons at ~3.5% opacity per DESIGN.md section 6 */}
+        <div className="absolute top-12 left-10 pointer-events-none text-surface/[0.035] -rotate-12 select-none" aria-hidden="true">
+          <Headphones className="w-80 h-80" />
+        </div>
+        <div className="absolute top-1/2 -right-16 -translate-y-1/2 pointer-events-none text-surface/[0.035] rotate-12 select-none" aria-hidden="true">
+          <PhoneCall className="w-80 h-80" />
+        </div>
+        <div className="absolute -bottom-16 left-1/3 pointer-events-none text-surface/[0.03] rotate-6 select-none" aria-hidden="true">
+          <MessageSquare className="w-72 h-72" />
+        </div>
+
         <div className="mx-auto w-full max-w-[var(--container-max)] relative z-10 flex flex-col">
           {/* Section Header (Centered, 14px top/bottom, 28px middle, 32px gap to content) */}
           <SectionHeader
             onNavy
             eyebrow="Our Core Expertise"
-            title="Enterprise Contact Center & BPO Solutions"
+            title="Enterprise Contact Center & Call Center Solutions"
             subtitle="Bespoke frontline support, multi-tiered technical helpdesks, and compliant back-office operations tailored directly to your customer workflows."
           />
 

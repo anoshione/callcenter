@@ -240,7 +240,7 @@ export const site: SiteContent = {
   brand: {
     name: "CallcenterELE",
     tagline: "World Class Callcenter",
-    description: "Reliable, human-first call center and business process outsourcing engineered for seamless scalability and 24/7 service excellence.",
+    description: "Reliable, human-first call center services and customer support engineered for seamless scalability and 24/7 service excellence.",
     since: "2013", // TODO verify
   },
   nav: {
@@ -291,7 +291,7 @@ export const site: SiteContent = {
     ],
   },
   about: {
-    eyebrow: "About Us",
+    eyebrow: "Dedicated Call Center Partner",
     title: "World-Class Contact Center & Business Outsourcing",
     paragraphs: [
       "Welcome to CallcenterELE. We provide mission-critical customer care, technical troubleshooting, and tailored back-office operations to forward-thinking organizations worldwide.",
@@ -666,7 +666,7 @@ export const site: SiteContent = {
       {
         id: "post-2",
         slug: "inbound-vs-outbound-balance",
-        title: "Inbound vs Outbound BPO: Finding the Right Balance for Your Growth",
+        title: "Inbound vs Outbound Call Centers: Finding the Right Balance for Your Growth",
         category: "Strategy",
         date: "September 28, 2025",
         readTime: "6 min read",
@@ -835,8 +835,8 @@ export const site: SiteContent = {
       {
         id: "faq-1",
         column: 1,
-        question: "What is a BPO call center and how does it help my business?",
-        answer: "A Business Process Outsourcing (BPO) call center is an external partner that manages customer interactions—such as phone calls, emails, web chats, technical troubleshooting, and appointment setting—on your company's behalf. It allows you to offer professional 24/7 customer support, maintain high service levels, and scale operations rapidly without the significant capital expense of recruiting, training, and equipping an in-house team.",
+        question: "What is an outsourced call center and how does it help my business?",
+        answer: "An outsourced call center is a dedicated external partner that manages customer interactions—such as phone calls, emails, web chats, technical troubleshooting, and appointment setting—on your company's behalf. It allows you to offer professional 24/7 customer support, maintain high service levels, and scale operations rapidly without the significant capital expense of recruiting, training, and equipping an in-house team.",
       },
       {
         id: "faq-2",
@@ -885,17 +885,17 @@ export const site: SiteContent = {
   testimonials: {
     eyebrow: "Client Success Stories",
     title: "What Our Partners Say About Us",
-    subtitle: "Real operational feedback from enterprise leadership teams who trust CallcenterELE for high-touch customer support, Tier 2 technical helpdesks, and mission-critical BPO.",
+    subtitle: "Real operational feedback from enterprise leadership teams who trust CallcenterELE for high-touch customer support, Tier 2 technical helpdesks, and mission-critical voice operations.",
     trustScore: {
       rating: "4.9",
       scale: "5.0",
-      reviewCount: "180+ Enterprise Reviews",
+      reviewCount: "180+ Reviews",
       retentionRate: "98.7% Client Retention",
     },
     items: [
       {
         id: "test-1",
-        quote: "Partnering with CallcenterELE transformed our support responsiveness. Our CSAT jumped from 82% to 98% within four months, and our internal product team finally gained the bandwidth to focus purely on engineering innovation without customer tickets piling up.",
+        quote: "Partnering with CallcenterELE transformed our customer support responsiveness across all voice and digital channels.\n\nOur CSAT jumped to 98% within four months, giving our leadership team complete operational peace of mind.",
         author: "Marcus Vance", // TODO verify
         role: "Head of Operations",
         company: "CloudScale Systems",
@@ -907,7 +907,7 @@ export const site: SiteContent = {
       },
       {
         id: "test-2",
-        quote: "Their technical desk handles complex tier 2 software queries flawlessly. The transition was smooth, agent onboarding took less than two weeks, and the daily transparent reporting gives our leadership team complete peace of mind.",
+        quote: "Their technical helpdesk handles complex tier-2 software inquiries flawlessly and with rapid first-contact resolution.\n\nAgent onboarding took less than two weeks, and transparent daily reporting keeps our engineering team perfectly aligned.",
         author: "Alena Matry", // TODO verify
         role: "Director of Customer Care",
         company: "Zenith SaaS Suite",
@@ -919,7 +919,7 @@ export const site: SiteContent = {
       },
       {
         id: "test-3",
-        quote: "Professional, punctual, and genuinely empathetic. CallcenterELE treats our global logistics customers with the exact same care and dedication as our founding team. They are a true operational extension of our brand.",
+        quote: "Professional, punctual, and genuinely empathetic across every high-volume customer interaction.\n\nCallcenterELE treats our global logistics operations with the exact same care and dedication as our founding team.",
         author: "Sherlock Henderson", // TODO verify
         role: "VP of Growth & Logistics",
         company: "Horizon Logistics",
@@ -931,7 +931,7 @@ export const site: SiteContent = {
       },
       {
         id: "test-4",
-        quote: "Scaling our patient intake operations during peak healthcare open enrollment was seamless. CallcenterELE's HIPAA-compliant medical scheduling pods handled over 40,000 inbound inquiries with zero downtime and exceptional bedside manner.",
+        quote: "Scaling our patient intake operations during peak healthcare open enrollment was completely seamless.\n\nTheir compliant medical scheduling pods handled over 40,000 inquiries with zero downtime and exceptional care.",
         author: "Dr. Evelyn Reed", // TODO verify
         role: "Chief Operating Officer",
         company: "Vertex Health Partners",
@@ -943,7 +943,7 @@ export const site: SiteContent = {
       },
       {
         id: "test-5",
-        quote: "We needed a strict SOC 2 and PCI-compliant team to manage fraud alert escalation calls and customer verification. CallcenterELE delivered seasoned analysts with unmatched security diligence.",
+        quote: "We needed a strict SOC 2 and PCI-compliant team to manage fraud alert escalations and customer verification.\n\nCallcenterELE delivered seasoned security analysts who operate with unmatched diligence and reliability.",
         author: "David Chen", // TODO verify
         role: "Head of Risk & Compliance",
         company: "FinGuard Security",
@@ -955,7 +955,7 @@ export const site: SiteContent = {
       },
       {
         id: "test-6",
-        quote: "CallcenterELE's outbound B2B appointment setting team consistently booked high-intent enterprise discovery calls for our sales division, doubling our qualified pipeline in under 90 days.",
+        quote: "CallcenterELE's outbound appointment setting team consistently booked high-intent enterprise discovery calls for our sales division.\n\nTheir targeted outreach doubled our qualified pipeline in under 90 days.",
         author: "Claire Moreau", // TODO verify
         role: "VP of Global Sales",
         company: "Aurora Global Connect",

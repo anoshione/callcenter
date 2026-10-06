@@ -30,7 +30,7 @@ export const PageShell: React.FC<PageShellProps> = ({
   useEffect(() => {
     const fullTitle = title
       ? `${title} | ${site.brand.name}`
-      : `${site.brand.name} | Premier BPO & Contact Center`;
+      : `${site.brand.name} | Premier Call Center & Customer Support`;
     document.title = fullTitle;
 
     if (description) {

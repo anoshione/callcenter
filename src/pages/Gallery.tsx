@@ -33,6 +33,7 @@ export const Gallery: React.FC = () => {
         eyebrow={site.gallery.eyebrow}
         title={site.gallery.title}
         subtitle={site.gallery.subtitle}
+        backgroundImage="/assets/banners/gallery-banner.jpg"
       />
 
       <Section id="gallery-grid" variant="surface" padded={false}>
@@ -97,11 +98,11 @@ export const Gallery: React.FC = () => {
         onNavigate={setLightboxIndex}
       />
 
-      {/* Frequently Asked Questions */}
-      <Faq />
-
       {/* Contact Proposal Form */}
       <Contact />
+
+      {/* Frequently Asked Questions */}
+      <Faq />
     </PageShell>
   );
 };

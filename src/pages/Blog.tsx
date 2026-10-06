@@ -25,6 +25,7 @@ export const Blog: React.FC = () => {
         eyebrow={site.blogs.eyebrow}
         title={site.blogs.title}
         subtitle={site.blogs.subtitle}
+        backgroundImage="/assets/banners/blog-banner.jpg"
       />
 
       {/* Main Blog Feed Section - Matching Home Page Style & Spacing */}
@@ -49,24 +50,24 @@ export const Blog: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="p-6 md:p-7 flex flex-col justify-between flex-1 gap-4">
+                  <div className="px-20 py-16 md:px-24 md:py-16 flex flex-col justify-between flex-1 gap-12">
                     <div>
-                      <div className="text-12 mb-2">
+                      <div className="text-12 mb-1">
                         <span className="font-bold text-secondary-active uppercase tracking-wider">
                           {featuredPost.category}
                         </span>
                       </div>
 
-                      <h3 className="text-22 md:text-26 font-bold text-primary group-hover:text-secondary-active transition-colors leading-snug">
+                      <h3 className="text-20 md:text-22 font-bold text-primary group-hover:text-secondary-active transition-colors leading-snug">
                         <Link to={`/blog/${featuredPost.slug}`}>{featuredPost.title}</Link>
                       </h3>
-
-                      <p className="text-14 md:text-15 text-text-2 leading-relaxed mt-2.5">
-                        {featuredPost.excerpt}
-                      </p>
                     </div>
 
-                    <div className="flex items-center justify-between text-12 text-grey-5 pt-3.5 border-t border-grey-3">
+                    <p className="my-auto py-1 text-14 md:text-15 text-text-2 leading-relaxed">
+                      {featuredPost.excerpt}
+                    </p>
+
+                    <div className="flex items-center justify-between text-12 text-grey-5 pt-2.5 border-t border-grey-3">
                       <span className="font-medium text-text-2">{featuredPost.author.name}</span>
                       <Link
                         to={`/blog/${featuredPost.slug}`}
@@ -81,11 +82,11 @@ export const Blog: React.FC = () => {
             )}
 
             {/* Stacked Pair (right half, 50% width) */}
-            <div className="flex flex-col gap-6 md:gap-7 h-full">
+            <div className="flex flex-col gap-16 h-full">
               {stackedPosts.map((post, i) => (
                 <Reveal key={post.id} direction="up" delayMs={100 * (i + 1)} className="flex-1 flex">
                   <article
-                    className="flex flex-col sm:flex-row gap-5 p-6 md:p-7 rounded-16 border border-grey-3 bg-surface hover:shadow-md transition-all duration-base group w-full flex-1"
+                    className="flex flex-col sm:flex-row gap-16 p-12 sm:px-16 sm:py-12 rounded-16 border border-grey-3 bg-surface hover:shadow-md transition-all duration-base group w-full flex-1"
                   >
                     <div className="sm:w-2/5 aspect-[4/3] rounded-12 overflow-hidden bg-grey-2 flex-shrink-0">
                       <img
@@ -98,20 +99,21 @@ export const Blog: React.FC = () => {
                       />
                     </div>
 
-                    <div className="flex flex-col justify-between flex-1 py-0.5">
+                    <div className="flex flex-col justify-between flex-1 py-1">
                       <div>
                         <span className="text-12 font-bold uppercase tracking-wider text-secondary-active">
                           {post.category}
                         </span>
-                        <h4 className="text-17 md:text-18 font-medium text-primary group-hover:text-secondary-active transition-colors line-clamp-2 mt-1.5 leading-snug">
+                        <h4 className="text-16 md:text-17 font-medium text-primary group-hover:text-secondary-active transition-colors mt-1 leading-snug">
                           <Link to={`/blog/${post.slug}`}>{post.title}</Link>
                         </h4>
-                        <p className="text-13 md:text-14 text-text-2 line-clamp-2 mt-2 leading-relaxed">
-                          {post.excerpt}
-                        </p>
                       </div>
 
-                      <div className="flex items-center justify-between text-12 text-grey-5 pt-3.5 border-t border-grey-3">
+                      <p className="my-auto py-1 text-13 md:text-14 text-text-2 leading-relaxed">
+                        {post.excerpt}
+                      </p>
+
+                      <div className="flex items-center justify-between text-12 text-grey-5 pt-2 border-t border-grey-3">
                         <span className="font-medium text-text-2">{post.author.name}</span>
                         <Link
                           to={`/blog/${post.slug}`}
@@ -146,24 +148,24 @@ export const Blog: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="p-6 md:p-7 flex flex-col justify-between flex-1 gap-4">
+                    <div className="px-20 py-16 md:px-24 md:py-16 flex flex-col justify-between flex-1 gap-12">
                       <div>
-                        <div className="text-12 mb-2">
+                        <div className="text-12 mb-1">
                           <span className="font-bold text-secondary-active uppercase tracking-wider">
                             {post.category}
                           </span>
                         </div>
 
-                        <h3 className="text-20 md:text-22 font-bold text-primary group-hover:text-secondary-active transition-colors leading-snug line-clamp-2">
+                        <h3 className="text-18 md:text-20 font-bold text-primary group-hover:text-secondary-active transition-colors leading-snug">
                           <Link to={`/blog/${post.slug}`}>{post.title}</Link>
                         </h3>
-
-                        <p className="text-14 md:text-15 text-text-2 leading-relaxed mt-2.5 line-clamp-3">
-                          {post.excerpt}
-                        </p>
                       </div>
 
-                      <div className="flex items-center justify-between text-12 text-grey-5 pt-3.5 border-t border-grey-3">
+                      <p className="my-auto py-1 text-14 text-text-2 leading-relaxed">
+                        {post.excerpt}
+                      </p>
+
+                      <div className="flex items-center justify-between text-12 text-grey-5 pt-2.5 border-t border-grey-3">
                         <span className="font-medium text-text-2">{post.author.name}</span>
                         <Link
                           to={`/blog/${post.slug}`}
@@ -181,11 +183,11 @@ export const Blog: React.FC = () => {
         </div>
       </Section>
 
-      {/* Frequently Asked Questions */}
-      <Faq />
-
       {/* Contact Proposal Form */}
       <Contact />
+
+      {/* Frequently Asked Questions */}
+      <Faq />
     </PageShell>
   );
 };

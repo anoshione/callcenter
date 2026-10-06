@@ -33,9 +33,9 @@ export const PostCard: React.FC<PostCardProps> = ({
           </div>
         </div>
 
-        <div className="flex flex-col flex-1 p-6 md:p-8 gap-3 justify-between">
+        <div className="flex flex-col flex-1 px-20 py-16 md:px-24 md:py-16 gap-12 justify-between">
           <div>
-            <div className="flex items-center gap-4 text-12 text-text-2 mb-2">
+            <div className="flex items-center gap-4 text-12 text-text-2 mb-1">
               <span className="font-bold text-secondary-active uppercase tracking-wider">
                 {post.category}
               </span>
@@ -46,22 +46,22 @@ export const PostCard: React.FC<PostCardProps> = ({
               </span>
             </div>
 
-            <h3 className="text-24 md:text-28 font-medium text-primary group-hover:text-secondary-active transition-colors leading-tight">
+            <h3 className="text-20 md:text-24 font-medium text-primary group-hover:text-secondary-active transition-colors leading-snug">
               <Link to={`/blog/${post.slug}`}>{post.title}</Link>
             </h3>
-
-            <p className="text-14 md:text-16 text-text leading-relaxed mt-3">
-              {post.excerpt}
-            </p>
           </div>
 
-          <div className="pt-4 border-t border-grey-3 flex items-center justify-between text-14">
+          <p className="my-auto py-1 text-14 md:text-15 text-text leading-relaxed">
+            {post.excerpt}
+          </p>
+
+          <div className="pt-2.5 border-t border-grey-3 flex items-center justify-between text-13">
             <span className="text-grey-5">{post.author.name}</span>
             <Link
               to={`/blog/${post.slug}`}
               className="font-medium text-primary flex items-center gap-1 group-hover:text-secondary-active transition-colors"
             >
-              Read full article <ArrowRight className="h-5 w-5" />
+              Read full article <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
@@ -72,9 +72,9 @@ export const PostCard: React.FC<PostCardProps> = ({
   if (variant === 'compact') {
     return (
       <article
-        className={`flex flex-col sm:flex-row gap-4 p-5 rounded-16 border border-grey-3 bg-surface hover:shadow-md transition-all duration-base group ${className}`}
+        className={`flex flex-col sm:flex-row gap-16 p-12 sm:px-16 sm:py-12 rounded-16 border border-grey-3 bg-surface hover:shadow-md transition-all duration-base group ${className}`}
       >
-        <div className="sm:w-2/5 aspect-[4/3] rounded-16 overflow-hidden bg-grey-2 flex-shrink-0">
+        <div className="sm:w-2/5 aspect-[4/3] rounded-12 overflow-hidden bg-grey-2 flex-shrink-0">
           <img
             src={post.image}
             alt={post.title}
@@ -85,18 +85,19 @@ export const PostCard: React.FC<PostCardProps> = ({
           />
         </div>
 
-        <div className="flex flex-col justify-between flex-1 gap-2">
+        <div className="flex flex-col justify-between flex-1 py-1">
           <div>
             <span className="text-12 font-bold uppercase tracking-wider text-secondary-active">
               {post.category}
             </span>
-            <h4 className="text-16 font-medium text-primary group-hover:text-secondary-active transition-colors line-clamp-2 mt-1 leading-snug">
+            <h4 className="text-16 font-medium text-primary group-hover:text-secondary-active transition-colors mt-1 leading-snug">
               <Link to={`/blog/${post.slug}`}>{post.title}</Link>
             </h4>
-            <p className="text-12 text-text-2 line-clamp-2 mt-1">
-              {post.excerpt}
-            </p>
           </div>
+
+          <p className="my-auto py-1 text-12 text-text-2 leading-relaxed">
+            {post.excerpt}
+          </p>
 
           <div className="flex items-center justify-between text-12 text-grey-5 pt-2 border-t border-grey-3">
             <span>{post.readTime}</span>
@@ -125,7 +126,7 @@ export const PostCard: React.FC<PostCardProps> = ({
         />
       </div>
 
-      <div className="flex flex-col flex-1 p-6 gap-3 justify-between">
+      <div className="flex flex-col flex-1 px-20 py-16 md:px-24 md:py-16 gap-12 justify-between">
         <div>
           <div className="flex items-center justify-between text-12 text-text-2 mb-2">
             <span className="font-bold text-secondary-active uppercase tracking-wider">
@@ -140,11 +141,11 @@ export const PostCard: React.FC<PostCardProps> = ({
           <h3 className="text-20 font-medium text-primary group-hover:text-secondary-active transition-colors leading-snug">
             <Link to={`/blog/${post.slug}`}>{post.title}</Link>
           </h3>
-
-          <p className="text-14 text-text leading-relaxed mt-2 line-clamp-3">
-            {post.excerpt}
-          </p>
         </div>
+
+        <p className="my-auto py-1 text-14 text-text leading-relaxed">
+          {post.excerpt}
+        </p>
 
         <div className="pt-3 border-t border-grey-3 flex items-center justify-between text-12 text-grey-5">
           <span>{post.author.name}</span>

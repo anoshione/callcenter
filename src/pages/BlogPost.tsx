@@ -23,7 +23,10 @@ export const BlogPost: React.FC = () => {
       title={post.title}
       description={post.excerpt}
     >
-      <PageBanner id="post-header">
+      <PageBanner
+        id="post-header"
+        backgroundImage={post.image || '/assets/banners/blog-banner.jpg'}
+      >
         <Link
           to="/blog"
           className="inline-flex items-center gap-2 text-14 text-secondary hover:underline self-center mb-2"
@@ -93,11 +96,11 @@ export const BlogPost: React.FC = () => {
         </div>
       </Section>
 
-      {/* Frequently Asked Questions */}
-      <Faq />
-
       {/* Contact Proposal Form */}
       <Contact />
+
+      {/* Frequently Asked Questions */}
+      <Faq />
     </PageShell>
   );
 };
