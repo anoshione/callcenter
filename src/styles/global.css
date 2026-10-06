@@ -1,0 +1,538 @@
+@import "@fontsource/roboto/300.css";
+@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/700.css";
+@import "./tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --page-pad: var(--space-16);
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --page-pad: var(--space-32);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    :root {
+      --page-pad: var(--space-64);
+    }
+  }
+
+  @media (min-width: 1920px) {
+    :root {
+      --page-pad: 240px;
+    }
+  }
+
+  html {
+    font-family: var(--font-family);
+    scroll-behavior: smooth;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: var(--color-surface);
+  }
+
+  /* Accessible focus rings */
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+}
+
+/* Glass fallback for browsers without backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-surface {
+    background-color: var(--glass-bg-strong) !important;
+  }
+  .glass-surface-dark {
+    background-color: var(--color-primary) !important;
+  }
+}
+
+/* Smooth morphing navbar background transition */
+.nav-bg-morph {
+  transition: top 700ms cubic-bezier(0.22, 1, 0.36, 1),
+              height 700ms cubic-bezier(0.22, 1, 0.36, 1),
+              left 700ms cubic-bezier(0.22, 1, 0.36, 1),
+              right 700ms cubic-bezier(0.22, 1, 0.36, 1),
+              border-radius 700ms cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 700ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Continuous Marquee Animations */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 35s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+/* Ambient Orb Drift Animation (DESIGN.md section 6: transforms only, slow drift) */
+@keyframes orb-drift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(24px, -16px) scale(1.04);
+  }
+  66% {
+    transform: translate(-16px, 20px) scale(0.96);
+  }
+}
+
+.animate-orb {
+  animation: orb-drift 28s ease-in-out infinite;
+}
+
+/* Modal / Lightbox Fade In */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in var(--dur-base) var(--ease-out) forwards;
+}
+
+/* Steps Timeline Progression Animation (Card stroke, surface tint, and flowing progress beam) */
+@keyframes stepCard1 {
+  0%, 18% {
+    border-color: var(--color-secondary);
+    background-color: color-mix(in srgb, var(--color-secondary) 8%, var(--color-surface));
+    box-shadow: 0 0 0 2.5px var(--color-secondary), 0 0 36px color-mix(in srgb, var(--color-secondary) 55%, transparent), 0 20px 36px -6px rgba(0, 0, 0, 0.25);
+    transform: translateY(-8px);
+  }
+  24%, 94% {
+    border-color: color-mix(in srgb, var(--color-grey-3) 80%, transparent);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-md);
+    transform: translateY(0);
+  }
+  100% {
+    border-color: var(--color-secondary);
+    background-color: color-mix(in srgb, var(--color-secondary) 8%, var(--color-surface));
+    box-shadow: 0 0 0 2.5px var(--color-secondary), 0 0 36px color-mix(in srgb, var(--color-secondary) 55%, transparent), 0 20px 36px -6px rgba(0, 0, 0, 0.25);
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes stepCard2 {
+  0%, 19% {
+    border-color: color-mix(in srgb, var(--color-grey-3) 80%, transparent);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-md);
+    transform: translateY(0);
+  }
+  25%, 43% {
+    border-color: var(--color-secondary);
+    background-color: color-mix(in srgb, var(--color-secondary) 8%, var(--color-surface));
+    box-shadow: 0 0 0 2.5px var(--color-secondary), 0 0 36px color-mix(in srgb, var(--color-secondary) 55%, transparent), 0 20px 36px -6px rgba(0, 0, 0, 0.25);
+    transform: translateY(-8px);
+  }
+  49%, 100% {
+    border-color: color-mix(in srgb, var(--color-grey-3) 80%, transparent);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-md);
+    transform: translateY(0);
+  }
+}
+
+@keyframes stepCard3 {
+  0%, 44% {
+    border-color: color-mix(in srgb, var(--color-grey-3) 80%, transparent);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-md);
+    transform: translateY(0);
+  }
+  50%, 68% {
+    border-color: var(--color-secondary);
+    background-color: color-mix(in srgb, var(--color-secondary) 8%, var(--color-surface));
+    box-shadow: 0 0 0 2.5px var(--color-secondary), 0 0 36px color-mix(in srgb, var(--color-secondary) 55%, transparent), 0 20px 36px -6px rgba(0, 0, 0, 0.25);
+    transform: translateY(-8px);
+  }
+  74%, 100% {
+    border-color: color-mix(in srgb, var(--color-grey-3) 80%, transparent);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-md);
+    transform: translateY(0);
+  }
+}
+
+@keyframes stepCard4 {
+  0%, 69% {
+    border-color: color-mix(in srgb, var(--color-grey-3) 80%, transparent);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-md);
+    transform: translateY(0);
+  }
+  75%, 93% {
+    border-color: var(--color-secondary);
+    background-color: color-mix(in srgb, var(--color-secondary) 8%, var(--color-surface));
+    box-shadow: 0 0 0 2.5px var(--color-secondary), 0 0 36px color-mix(in srgb, var(--color-secondary) 55%, transparent), 0 20px 36px -6px rgba(0, 0, 0, 0.25);
+    transform: translateY(-8px);
+  }
+  98%, 100% {
+    border-color: color-mix(in srgb, var(--color-grey-3) 80%, transparent);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-md);
+    transform: translateY(0);
+  }
+}
+
+@keyframes stepBadge1 {
+  0%, 18% {
+    border-color: var(--color-secondary);
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--color-secondary) 75%, transparent);
+    transform: scale(1.14);
+  }
+  24%, 94% {
+    border-color: var(--color-grey-3);
+    background-color: var(--color-grey-2);
+    color: var(--color-grey-5);
+    box-shadow: none;
+    transform: scale(1);
+  }
+  100% {
+    border-color: var(--color-secondary);
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--color-secondary) 75%, transparent);
+    transform: scale(1.14);
+  }
+}
+
+@keyframes stepBadge2 {
+  0%, 19% {
+    border-color: var(--color-grey-3);
+    background-color: var(--color-grey-2);
+    color: var(--color-grey-5);
+    box-shadow: none;
+    transform: scale(1);
+  }
+  25%, 43% {
+    border-color: var(--color-secondary);
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--color-secondary) 75%, transparent);
+    transform: scale(1.14);
+  }
+  49%, 100% {
+    border-color: var(--color-grey-3);
+    background-color: var(--color-grey-2);
+    color: var(--color-grey-5);
+    box-shadow: none;
+    transform: scale(1);
+  }
+}
+
+@keyframes stepBadge3 {
+  0%, 44% {
+    border-color: var(--color-grey-3);
+    background-color: var(--color-grey-2);
+    color: var(--color-grey-5);
+    box-shadow: none;
+    transform: scale(1);
+  }
+  50%, 68% {
+    border-color: var(--color-secondary);
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--color-secondary) 75%, transparent);
+    transform: scale(1.14);
+  }
+  74%, 100% {
+    border-color: var(--color-grey-3);
+    background-color: var(--color-grey-2);
+    color: var(--color-grey-5);
+    box-shadow: none;
+    transform: scale(1);
+  }
+}
+
+@keyframes stepBadge4 {
+  0%, 69% {
+    border-color: var(--color-grey-3);
+    background-color: var(--color-grey-2);
+    color: var(--color-grey-5);
+    box-shadow: none;
+    transform: scale(1);
+  }
+  75%, 93% {
+    border-color: var(--color-secondary);
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--color-secondary) 75%, transparent);
+    transform: scale(1.14);
+  }
+  98%, 100% {
+    border-color: var(--color-grey-3);
+    background-color: var(--color-grey-2);
+    color: var(--color-grey-5);
+    box-shadow: none;
+    transform: scale(1);
+  }
+}
+
+@keyframes stepBeam1 {
+  0%, 12% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  16% {
+    opacity: 1;
+  }
+  22% {
+    opacity: 1;
+  }
+  26%, 100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes stepBeam2 {
+  0%, 37% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  41% {
+    opacity: 1;
+  }
+  47% {
+    opacity: 1;
+  }
+  51%, 100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes stepBeam3 {
+  0%, 62% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  66% {
+    opacity: 1;
+  }
+  72% {
+    opacity: 1;
+  }
+  76%, 100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.animate-step-card-1 {
+  animation: stepCard1 8s ease-in-out infinite;
+}
+.animate-step-card-2 {
+  animation: stepCard2 8s ease-in-out infinite;
+}
+.animate-step-card-3 {
+  animation: stepCard3 8s ease-in-out infinite;
+}
+.animate-step-card-4 {
+  animation: stepCard4 8s ease-in-out infinite;
+}
+
+.animate-step-badge-1 {
+  animation: stepBadge1 8s ease-in-out infinite;
+}
+.animate-step-badge-2 {
+  animation: stepBadge2 8s ease-in-out infinite;
+}
+.animate-step-badge-3 {
+  animation: stepBadge3 8s ease-in-out infinite;
+}
+.animate-step-badge-4 {
+  animation: stepBadge4 8s ease-in-out infinite;
+}
+
+.animate-step-beam-1 {
+  animation: stepBeam1 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.animate-step-beam-2 {
+  animation: stepBeam2 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.animate-step-beam-3 {
+  animation: stepBeam3 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Review transformation & expansion keyframes - silky transform without blinking */
+@keyframes review-featured-transform {
+  0% {
+    opacity: 0.15;
+    transform: translateX(28px) scale(0.975);
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.animate-review-featured {
+  animation: review-featured-transform 320ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes review-photo-zoom {
+  0% {
+    opacity: 0.3;
+    transform: scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-review-photo {
+  animation: review-photo-zoom 340ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes review-small-1-transform {
+  0% {
+    opacity: 0.15;
+    transform: translateY(20px) scale(0.985);
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-review-small-1 {
+  animation: review-small-1-transform 280ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes review-small-2-transform {
+  0% {
+    opacity: 0.15;
+    transform: translateY(24px) scale(0.975);
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-review-small-2 {
+  animation: review-small-2-transform 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes review-sheen {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.animate-review-sheen {
+  animation: review-sheen 450ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-orb,
+  .animate-marquee,
+  .animate-marquee-reverse,
+  .animate-step-card-1,
+  .animate-step-card-2,
+  .animate-step-card-3,
+  .animate-step-card-4,
+  .animate-step-badge-1,
+  .animate-step-badge-2,
+  .animate-step-badge-3,
+  .animate-step-badge-4,
+  .animate-step-beam-1,
+  .animate-step-beam-2,
+  .animate-step-beam-3,
+  .animate-review-featured,
+  .animate-review-photo,
+  .animate-review-small-1,
+  .animate-review-small-2,
+  .animate-review-sheen {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+

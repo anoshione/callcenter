@@ -1,0 +1,161 @@
+/*
+  Design tokens: source of truth.
+  Generated from callcenter_tokens.json (Figma export, mode: design-tokens-semantic-updated).
+  Figma's "gery" typo is renamed to "grey". Do not edit values here unless the designer says so.
+  Re-export from Figma and regenerate this file when tokens change.
+*/
+
+:root {
+  /* ---------- Neutral ---------- */
+  --color-grey-1: #FAFAFA;
+  --color-grey-2: #F2F2F2;
+  --color-grey-3: #DEDEDE;
+  --color-grey-4: #949494;   /* borders / disabled only, fails AA as text */
+  --color-grey-5: #575757;
+  --color-surface: #FFFFFF;
+  --color-text: #1D1D1D;     /* body text (Figma: Text-black) */
+  --color-text-2: #273854;   /* secondary slate-navy text (Figma: Text 2) */
+
+  /* ---------- Primary (navy) ---------- */
+  --color-primary: #00203C;
+  --color-primary-hover: #001B33;
+  --color-primary-active: #00162B;
+  --color-primary-disabled: #B3BDC8;
+
+  /* ---------- Secondary (green) ---------- */
+  --color-secondary: #009966;
+  --color-secondary-hover: #008A5C;
+  --color-secondary-active: #007A52;
+  --color-secondary-disabled: #B3E0D1;
+
+  /* ---------- Status ---------- */
+  --color-success: #16A34A;
+  --color-warning: #D97706;
+  --color-error: #DC2626;
+  --color-offline: #94A3B8;
+
+  /* ---------- Spacing (gap) ---------- */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-28: 28px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+
+  /* ---------- Radius ---------- */
+  --radius-4: 4px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-20: 20px;
+  --radius-24: 24px;
+  --radius-28: 28px;
+  --radius-32: 32px;
+  --radius-64: 64px;
+  --radius-round: 999px;
+
+  /* ---------- Type ---------- */
+  --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fs-12: 12px;  --lh-12: 16px;
+  --fs-14: 14px;  --lh-14: 16px;
+  --fs-16: 16px;  --lh-16: 20px;
+  --fs-20: 20px;  --lh-20: 24px;
+  --fs-24: 24px;  --lh-24: 28px;
+  --fs-28: 28px;  --lh-28: 32px;
+  --fs-32: 32px;  --lh-32: 36px;
+  --fs-36: 36px;  --lh-36: 40px;
+  --fs-48: 48px;  --lh-48: 64px;
+  --fs-72: 72px;  --lh-72: 96px;
+  --fs-96: 96px;  --lh-96: 128px;
+}
+
+/* ================================================================
+   DERIVED TOKENS: the only additions allowed. Built from the above.
+   ================================================================ */
+:root {
+  /* weights (Roboto 300 / 400 / 500 / 700 only) */
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+
+  /* layout */
+  --space-section: calc(var(--space-64) * 2);   /* 128, section vertical padding */
+  --space-section-sm: var(--space-64);          /* tablet / mobile */
+  --space-100: 100px;
+  --space-section-gap: var(--space-100);        /* 100px consistent section and panel gap */
+  --frame-inset: var(--space-12);               /* gap around viewport and between panels */
+  --container-max: 1440px;
+  --grid-cols: 12;
+  --grid-gutter: var(--space-24);
+  --page-pad: var(--space-16);                  /* min side padding, raised at breakpoints in global.css */
+
+  /* effects */
+  --gradient-hover: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-primary) 6%, transparent),
+    color-mix(in srgb, var(--color-secondary) 8%, transparent)
+  );
+  --shadow-sm: 0 1px 2px color-mix(in srgb, var(--color-primary) 8%, transparent);
+  --shadow-md: 0 12px 32px -12px color-mix(in srgb, var(--color-primary) 22%, transparent);
+  --focus-ring: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-secondary);
+
+  /* motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 450ms;
+}
+
+/* ================================================================
+   DERIVED: blur and glass system. Colors are mixed from brand tokens only.
+   ================================================================ */
+:root {
+  /* blur radii */
+  --blur-sm: 8px;
+  --blur-md: 16px;     /* nav, small glass chips */
+  --blur-lg: 32px;     /* glass cards, stats bar, image scrims */
+  --blur-xl: 64px;     /* hero / banner backdrops */
+  --blur-orb: 96px;    /* decorative color orbs (filter: blur) */
+
+  /* glass surfaces (light) */
+  --glass-bg: color-mix(in srgb, var(--color-surface) 72%, transparent);
+  --glass-bg-strong: color-mix(in srgb, var(--color-surface) 86%, transparent);
+  --glass-border: color-mix(in srgb, var(--color-surface) 55%, transparent);
+
+  /* glass surfaces (on navy) */
+  --glass-bg-dark: color-mix(in srgb, var(--color-primary) 55%, transparent);
+  --glass-border-dark: color-mix(in srgb, var(--color-surface) 16%, transparent);
+
+  /* orb colors */
+  --orb-green: color-mix(in srgb, var(--color-secondary) 45%, transparent);
+  --orb-navy: color-mix(in srgb, var(--color-text-2) 55%, transparent);
+  --orb-light: color-mix(in srgb, var(--color-surface) 40%, transparent);
+
+  /* card corner gradients */
+  --gradient-card-corner: radial-gradient(
+    ellipse at top right,
+    color-mix(in srgb, var(--color-secondary) 16%, transparent) 0%,
+    color-mix(in srgb, var(--color-secondary) 4%, transparent) 48%,
+    transparent 76%
+  );
+  --gradient-card-corner-hover: radial-gradient(
+    ellipse at top right,
+    color-mix(in srgb, var(--color-secondary) 22%, transparent) 0%,
+    color-mix(in srgb, var(--color-secondary) 6%, transparent) 50%,
+    transparent 76%
+  );
+}
+
+/* Lighter blur on small screens (GPU cost). */
+@media (max-width: 767px) {
+  :root {
+    --blur-lg: 16px;
+    --blur-xl: 32px;
+    --blur-orb: 56px;
+  }
+}
