@@ -78,7 +78,7 @@ export const About: React.FC = () => {
         {/* Right Visual: Single big image with floating glass stat card */}
         <div className="lg:col-span-6 relative flex justify-end items-center w-full">
           <Reveal direction="left" delayMs={200} className="relative w-full">
-            <div className="relative w-full pb-36 sm:pb-40">
+            <div className="relative w-full pb-[28px] sm:pb-[32px]">
               {/* Single Big Image: Modern Call Center Operations Floor */}
               <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] rounded-24 overflow-hidden border border-white/80 shadow-2xl group">
                 <img
@@ -90,8 +90,8 @@ export const About: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent pointer-events-none" />
               </div>
 
-              {/* Single Floating Stat Card in our style placed at bottom right */}
-              <div id="about-proof-badge" className="absolute bottom-0 right-0 sm:right-6 z-20">
+              {/* Single Floating Stat Card placed overlapping the bottom-right of the photo */}
+              <div id="about-proof-badge" className="absolute bottom-0 right-4 sm:right-8 z-20">
                 <div className="relative overflow-hidden flex items-center gap-16 p-16 sm:p-20 rounded-16 bg-white/95 backdrop-blur-xl border border-white/80 shadow-2xl transition-all duration-base hover:-translate-y-1 group">
                   <CardCornerGradient size="sm" variant="secondary" />
                   <div className="relative z-10 flex h-[48px] w-[48px] min-w-[48px] items-center justify-center rounded-12 bg-secondary/15 text-secondary-active flex-shrink-0 shadow-xs">
