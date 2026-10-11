@@ -102,46 +102,52 @@ export const Nav: React.FC<NavProps> = ({ isScrolled = false }) => {
                   alt={site.brand.name}
                   className="h-10 w-10 object-contain transition-transform duration-base group-hover:scale-105"
                 />
-                <div className="flex flex-col">
-                  <span className="text-18 sm:text-20 font-bold tracking-tight text-primary leading-tight">
-                    {site.brand.name}
-                  </span>
-                  <span className="text-12 text-text-2 hidden sm:inline-block font-normal">
-                    {site.brand.tagline}
-                  </span>
-                </div>
+                <span className="text-18 sm:text-20 font-bold tracking-tight text-primary leading-tight">
+                  {site.brand.name}
+                </span>
               </Link>
 
-              {/* Desktop Nav Links */}
-              <nav
-                aria-label="Main Navigation"
-                className="hidden xl:flex items-center gap-16 xl:gap-20 text-15 font-medium"
-              >
-                {navLinks.map((item) => {
-                  const isActive = item.href.includes('#')
-                    ? location.pathname === '/' && location.hash === item.href.substring(item.href.indexOf('#'))
-                    : location.pathname === item.href && !location.hash;
+              {/* Right Navigation & Action Group (Desktop) - aligned right with 32px spacing to CTA */}
+              <div className="hidden xl:flex items-center gap-32 ml-auto">
+                {/* Desktop Nav Links - 16px gap between each button */}
+                <nav
+                  aria-label="Main Navigation"
+                  className="flex items-center gap-16 text-15 font-medium"
+                >
+                  {navLinks.map((item) => {
+                    const isActive = item.href.includes('#')
+                      ? location.pathname === '/' && location.hash === item.href.substring(item.href.indexOf('#'))
+                      : location.pathname === item.href && !location.hash;
 
-                  return (
-                    <Link
-                      key={item.href}
-                      to={item.href}
-                      onClick={(e) => handleLinkClick(item.href, e)}
-                      className={`px-6 py-2.5 rounded-round transition-colors duration-fast whitespace-nowrap ${
-                        isActive
-                          ? 'text-primary font-bold bg-white/50 shadow-xs'
-                          : 'text-text hover:text-primary hover:bg-white/30'
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                  );
-                })}
-              </nav>
+                    return (
+                      <Link
+                        key={item.href}
+                        to={item.href}
+                        onClick={(e) => handleLinkClick(item.href, e)}
+                        className={`px-16 py-8 rounded-round transition-colors duration-fast whitespace-nowrap ${
+                          isActive
+                            ? 'text-primary font-bold bg-white/50 shadow-xs'
+                            : 'text-text hover:text-primary hover:bg-white/30'
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </nav>
 
-              {/* Right Action Button & Mobile Hamburger */}
-              <div className="flex items-center gap-3">
-                {/* Explore Our Services button with unified 2-state and standardized padding */}
+                {/* Explore Our Services CTA Button */}
+                <Button
+                  to={ctaButton.href}
+                  variant="primary"
+                  className="inline-flex"
+                >
+                  {ctaButton.label}
+                </Button>
+              </div>
+
+              {/* Mobile Action Button & Hamburger Toggle (< xl) */}
+              <div className="flex xl:hidden items-center gap-3 ml-auto">
                 <Button
                   to={ctaButton.href}
                   variant="primary"
@@ -150,11 +156,10 @@ export const Nav: React.FC<NavProps> = ({ isScrolled = false }) => {
                   {ctaButton.label}
                 </Button>
 
-                {/* Mobile menu toggle */}
                 <button
                   type="button"
                   onClick={() => setMobileMenuOpen((prev) => !prev)}
-                  className="xl:hidden flex h-10 w-10 items-center justify-center rounded-round bg-grey-2 text-primary hover:bg-grey-3 transition-colors"
+                  className="flex h-10 w-10 items-center justify-center rounded-round bg-grey-2 text-primary hover:bg-grey-3 transition-colors"
                   aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
                   aria-expanded={mobileMenuOpen}
                   aria-controls="mobile-nav-drawer"

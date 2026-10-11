@@ -29,7 +29,7 @@ export const Blog: React.FC = () => {
       />
 
       {/* Main Blog Feed Section - Matching Home Page Style & Spacing */}
-      <Section id="blog-feed" variant="surface" padded={false}>
+      <Section id="blog-feed" variant="surface" padded={false} overflowHidden={false} panelClassName="pb-32 lg:pb-48">
         <div className="flex flex-col gap-24 xl:gap-32">
           {/* Top Featured Split: Left 50% Featured Post, Right 50% Stacked Pair */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 xl:gap-32 items-stretch">

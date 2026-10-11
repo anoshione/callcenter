@@ -75,7 +75,11 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="w-full py-0 px-3 bg-surface mb-[var(--space-section-gap)]">
+    <section
+      id="contact"
+      className="w-full py-0 px-3 bg-surface"
+      style={{ marginBottom: 'var(--space-section-gap)' }}
+    >
       {/* Outer panel with Google Map background from https://maps.app.goo.gl/R3Ldi2NzX2cpvKsR9 */}
       <div className="relative overflow-hidden rounded-32 py-16 md:py-20 px-6 md:px-12 xl:px-16 shadow-md w-full">
         {/* Background Map Container with subtle visibility */}
@@ -346,7 +350,7 @@ export const Contact: React.FC = () => {
                         type="submit"
                         isLoading={status === 'submitting'}
                         variant="primary"
-                        className="w-full sm:w-auto px-32"
+                        className="w-full sm:w-auto"
                       >
                         Send Proposal
                       </Button>

@@ -22,19 +22,12 @@ export const CtaBanner: React.FC = () => {
               <PhoneCall className="w-60 h-60" />
             </div>
 
-            <div className="relative z-10 max-w-2xl text-center md:text-left flex flex-col justify-center">
+            <div className="relative z-10 max-w-3xl text-center md:text-left flex flex-col justify-center">
               <h2 className="text-28 font-medium text-surface leading-tight tracking-tight">
                 {site.ctaBanner.headline}
               </h2>
-              <p className="text-14 sm:text-15 text-grey-2 mt-2 leading-relaxed">
-                {site.ctaBanner.subheadLine1 && site.ctaBanner.subheadLine2 ? (
-                  <>
-                    <span className="block">{site.ctaBanner.subheadLine1}</span>
-                    <span className="block">{site.ctaBanner.subheadLine2}</span>
-                  </>
-                ) : (
-                  site.ctaBanner.subhead
-                )}
+              <p className="text-14 sm:text-15 text-grey-2 mt-2 leading-normal">
+                {site.ctaBanner.subhead}
               </p>
             </div>
 

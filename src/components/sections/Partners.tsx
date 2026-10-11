@@ -54,7 +54,7 @@ export const Partners: React.FC = () => {
           <SectionHeader
             eyebrow={eyebrow}
             title={title}
-            subtitle="Empowering scale-ups and Fortune 500 enterprises with resilient 24/7 customer service and support infrastructure."
+            subtitle={site.partners.subtitle || "Trusted by high-growth startups and global enterprise leaders."}
           />
         </div>
 

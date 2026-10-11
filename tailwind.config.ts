@@ -72,6 +72,7 @@ export default {
         24: 'var(--space-24)',
         28: 'var(--space-28)',
         32: 'var(--space-32)',
+        36: 'var(--space-36)',
         48: 'var(--space-48)',
         64: 'var(--space-64)',
         100: 'var(--space-100)',

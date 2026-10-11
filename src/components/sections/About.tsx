@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, Award } from 'lucide-react';
+import { Award, UserCheck, BarChart3, Sliders, ShieldCheck } from 'lucide-react';
 import { CardCornerGradient } from '../ui/CardCornerGradient';
 import { site } from '../../content/site';
 import { Section } from '../layout/Section';
@@ -8,8 +8,23 @@ import { Button } from '../ui/Button';
 import { Reveal } from '../ui/Reveal';
 
 export const About: React.FC = () => {
+  const renderPropIcon = (name: string, className: string) => {
+    switch (name) {
+      case 'UserCheck':
+        return <UserCheck className={className} />;
+      case 'BarChart3':
+        return <BarChart3 className={className} />;
+      case 'Sliders':
+        return <Sliders className={className} />;
+      case 'ShieldCheck':
+        return <ShieldCheck className={className} />;
+      default:
+        return <UserCheck className={className} />;
+    }
+  };
+
   return (
-    <Section id="about" variant="surface" padded={false} overflowHidden={false} className="pb-10 sm:pb-14">
+    <Section id="about" variant="surface" padded={false} overflowHidden={false} className="!mb-32">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 md:gap-16 xl:gap-24 items-center">
         {/* Left Text Content (6 cols) */}
         <div className="lg:col-span-6 flex flex-col items-start">
@@ -37,33 +52,17 @@ export const About: React.FC = () => {
             </div>
           </Reveal>
 
-          {/* Quick value props list in 1 column with 32px gap to button */}
+          {/* Quick value props list with dedicated, crisp visual badges */}
           <Reveal direction="up" delayMs={200} className="w-full mb-32">
-            <div className="flex flex-col gap-3 w-full">
-              <div className="flex items-center gap-3 text-15 text-text font-medium">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-secondary/15 text-secondary-active flex-shrink-0">
-                  <Check className="h-4 w-4 stroke-[2.5]" />
-                </span>
-                <span>Dedicated Account Supervisors</span>
-              </div>
-              <div className="flex items-center gap-3 text-15 text-text font-medium">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-secondary/15 text-secondary-active flex-shrink-0">
-                  <Check className="h-4 w-4 stroke-[2.5]" />
-                </span>
-                <span>Real-Time SLA Dashboards</span>
-              </div>
-              <div className="flex items-center gap-3 text-15 text-text font-medium">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-secondary/15 text-secondary-active flex-shrink-0">
-                  <Check className="h-4 w-4 stroke-[2.5]" />
-                </span>
-                <span>Continuous Agent Calibration</span>
-              </div>
-              <div className="flex items-center gap-3 text-15 text-text font-medium">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-secondary/15 text-secondary-active flex-shrink-0">
-                  <Check className="h-4 w-4 stroke-[2.5]" />
-                </span>
-                <span>ISO & SOC 2 Ready Security</span>
-              </div>
+            <div className="flex flex-col gap-14 w-full">
+              {site.about.valueProps?.map((prop, idx) => (
+                <div key={idx} className="flex items-center gap-14 text-16 text-primary font-medium group">
+                  <span className="flex w-[36px] h-[36px] min-w-[36px] min-h-[36px] items-center justify-center rounded-12 bg-secondary/12 border border-secondary/25 text-secondary-active shadow-xs transition-[background-color,color,border-color] duration-base group-hover:bg-secondary group-hover:text-surface group-hover:border-secondary shrink-0">
+                    {renderPropIcon(prop.iconName, 'w-[20px] h-[20px] min-w-[20px] min-h-[20px] stroke-[2]')}
+                  </span>
+                  <span className="leading-snug">{prop.title}</span>
+                </div>
+              ))}
             </div>
           </Reveal>
 
@@ -79,7 +78,7 @@ export const About: React.FC = () => {
         {/* Right Visual: Single big image with floating glass stat card */}
         <div className="lg:col-span-6 relative flex justify-center items-center">
           <Reveal direction="left" delayMs={200} className="relative w-full max-w-lg lg:max-w-xl">
-            <div className="relative w-full pb-10 sm:pb-12">
+            <div className="relative w-full pb-48">
               {/* Single Big Image: Modern Call Center Operations Floor */}
               <div className="relative w-full aspect-[4/3] sm:aspect-[16/12] rounded-24 overflow-hidden border border-white/80 shadow-2xl group">
                 <img
@@ -92,11 +91,11 @@ export const About: React.FC = () => {
               </div>
 
               {/* Single Floating Stat Card in our style placed at bottom right */}
-              <div className="absolute -bottom-6 right-4 sm:-bottom-8 sm:right-8 z-20">
+              <div id="about-proof-badge" className="absolute bottom-0 right-4 sm:right-8 z-20">
                 <div className="relative overflow-hidden flex items-center gap-16 p-16 sm:p-20 rounded-16 bg-white/95 backdrop-blur-xl border border-white/80 shadow-2xl transition-all duration-base hover:-translate-y-1 group">
                   <CardCornerGradient size="sm" variant="secondary" />
                   <div className="relative z-10 flex h-[48px] w-[48px] min-w-[48px] items-center justify-center rounded-12 bg-secondary/15 text-secondary-active flex-shrink-0 shadow-xs">
-                    <Award className="h-6 w-6 stroke-[2]" />
+                    <Award className="w-[24px] h-[24px] stroke-[2]" />
                   </div>
                   <div className="relative z-10 flex flex-col pr-4">
                     <span className="font-bold text-24 sm:text-28 text-primary leading-none">

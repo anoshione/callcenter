@@ -29,7 +29,11 @@ export const PageBanner: React.FC<PageBannerProps> = ({
   children,
 }) => {
   return (
-    <section id={id} className={`w-full px-3 pt-3 bg-surface mb-[var(--space-section-gap)] ${className}`}>
+    <section
+      id={id}
+      className={`w-full px-3 pt-3 bg-surface ${className}`}
+      style={{ marginBottom: 'var(--space-section-gap)' }}
+    >
       {/* Background container starting 12px from top & sides, 100px bottom padding */}
       <div className="relative w-full overflow-hidden rounded-16 bg-primary text-surface shadow-md pt-[184px] pb-100 text-center">
         {/* Background photo layer with smooth top fade to primary color & semi-transparent overlay */}

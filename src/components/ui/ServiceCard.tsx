@@ -1,15 +1,20 @@
 import React from 'react';
-import { Check } from 'lucide-react';
+import { PointerIcon, getIconForPointer } from './PointerIcon';
 import { Eyebrow } from './Eyebrow';
 import { Button } from './Button';
+
+export interface ServicePointerItem {
+  text: string;
+  iconName?: string;
+}
 
 export interface ServiceCardProps {
   id: string;
   slug: string;
   title: string;
   eyebrow: string;
-  description: string;
-  pointers: string[];
+  description?: string;
+  pointers: (string | ServicePointerItem)[];
   image: string;
   ctaText?: string;
   onCtaClick?: () => void;
@@ -20,7 +25,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   slug,
   title,
   eyebrow,
-  description,
   pointers,
   image,
   ctaText,
@@ -53,24 +57,25 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
             {title}
           </h3>
 
-          <p className="text-15 md:text-16 text-text-2 leading-relaxed mt-3">
-            {description}
-          </p>
-
           {/* Key Deliverables Pointers */}
-          <div className="mt-24 pt-6 border-t border-grey-3">
+          <div className="mt-20 pt-6 border-t border-grey-3">
             <span className="text-12 font-bold uppercase tracking-wider text-primary block mb-3.5">
               Included Deliverables:
             </span>
             <ul className="flex flex-col gap-3">
-              {pointers.map((pointer, idx) => (
-                <li key={idx} className="flex items-start gap-3 text-14 text-text leading-snug">
-                  <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-secondary/15 text-secondary-active mt-0.5">
-                    <Check className="h-3.5 w-3.5 stroke-[2.5]" />
-                  </span>
-                  <span>{pointer}</span>
-                </li>
-              ))}
+              {pointers.map((item, idx) => {
+                const text = typeof item === 'string' ? item : item.text;
+                const iconName = typeof item === 'string' ? getIconForPointer(item) : (item.iconName || getIconForPointer(item.text));
+
+                return (
+                  <li key={idx} className="flex items-start gap-3 text-14 text-text leading-snug group/item">
+                    <span className="flex w-[24px] h-[24px] min-w-[24px] min-h-[24px] flex-shrink-0 items-center justify-center rounded-full bg-secondary/15 text-secondary-active border border-secondary/25 mt-0.5 shadow-xs transition-colors duration-base group-hover/item:bg-secondary/25 group-hover/item:border-secondary/40">
+                      <PointerIcon name={iconName} className="w-[14px] h-[14px] stroke-[2.2]" />
+                    </span>
+                    <span className="pt-0.5">{text}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>

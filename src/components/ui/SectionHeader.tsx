@@ -38,7 +38,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
 
       {subtitle && (
         <p
-          className={`text-14 leading-normal max-w-2xl ${
+          className={`text-14 leading-normal max-w-3xl ${
             onNavy ? 'text-grey-2' : 'text-text-2'
           }`}
         >

@@ -47,7 +47,7 @@ export const Hero: React.FC = () => {
           ))}
         </div>
 
-        {/* Subtle Digital Acoustic Waves Background */}
+        {/* Subtle Digital Acoustic Waves Background - Strictly parallel wave lines, shifted down so only Wave 1 passes through the buttons' bottom half side */}
         <svg
           className="absolute inset-0 w-full h-full pointer-events-none"
           viewBox="0 0 1440 680"
@@ -55,23 +55,23 @@ export const Hero: React.FC = () => {
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
         >
-          {/* Wave 1: Slate Navy - flows across the upper portion of the About Us button */}
+          {/* Wave 1: Slate Navy - passes directly through the bottom half side of the action buttons */}
           <path
-            d="M-50 460 C 100 450, 220 476, 360 488 C 520 500, 720 468, 1020 446 C 1220 432, 1380 456, 1550 448"
+            d="M-50 498 C 100 488, 220 514, 360 526 C 520 538, 720 506, 1020 484 C 1220 470, 1380 494, 1550 486"
             stroke="var(--color-primary)"
-            strokeOpacity="0.4"
+            strokeOpacity="0.45"
             strokeWidth="1.5"
           />
-          {/* Wave 2: Primary Navy - flows directly through the center of the About Us button */}
+          {/* Wave 2: Primary Navy - runs strictly parallel (+18px) cleanly under the action buttons */}
           <path
-            d="M-50 478 C 100 468, 220 492, 360 502 C 520 514, 720 482, 1020 460 C 1220 446, 1380 470, 1550 462"
+            d="M-50 516 C 100 506, 220 532, 360 544 C 520 556, 720 524, 1020 502 C 1220 488, 1380 512, 1550 504"
             stroke="var(--color-primary)"
             strokeOpacity="0.6"
             strokeWidth="1.5"
           />
-          {/* Wave 3: Secondary Emerald Green - flows across the lower portion of the About Us button */}
+          {/* Wave 3: Secondary Emerald Green - runs strictly parallel (+18px) comfortably under the action buttons */}
           <path
-            d="M-50 496 C 100 486, 220 508, 360 518 C 520 528, 720 496, 1020 474 C 1220 460, 1380 484, 1550 476"
+            d="M-50 534 C 100 524, 220 550, 360 562 C 520 574, 720 542, 1020 520 C 1220 506, 1380 530, 1550 522"
             stroke="var(--color-secondary)"
             strokeOpacity="0.75"
             strokeWidth="1.5"
@@ -107,43 +107,14 @@ export const Hero: React.FC = () => {
                 {site.hero.primaryCta.label}
               </Button>
 
-              {/* Relative wrapper for the transparent About Us button with decorative lines flowing directly through its background */}
-              <div className="relative inline-flex items-center">
-                {/* Visual lines cutting directly behind the About Us button to highlight transparency */}
-                <svg
-                  className="absolute -left-12 -right-16 top-1/2 -translate-y-1/2 h-16 pointer-events-none -z-0 overflow-visible"
-                  viewBox="0 0 240 60"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  {/* Primary Navy Wave Line passing behind the button */}
-                  <path
-                    d="M-30 38 C 20 24, 60 48, 120 30 C 170 16, 210 40, 270 24"
-                    stroke="var(--color-primary)"
-                    strokeOpacity="0.45"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  {/* Secondary Emerald Green Wave Line passing behind the button */}
-                  <path
-                    d="M-20 26 C 30 12, 70 36, 130 18 C 180 6, 220 28, 280 14"
-                    stroke="var(--color-secondary)"
-                    strokeOpacity="0.8"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-
-                {/* Outline Pill Button - transparent with backdrop-filter so passing lines are clearly visible */}
-                <Button
-                  to={site.hero.secondaryCta.href}
-                  variant="outline"
-                  className="relative z-10 backdrop-blur-[2px] bg-surface/20 hover:bg-primary hover:text-surface transition-all"
-                >
-                  {site.hero.secondaryCta.label}
-                </Button>
-              </div>
+              {/* Outline Pill Button - transparent with backdrop-filter so the single passing wave line is clearly visible behind */}
+              <Button
+                to={site.hero.secondaryCta.href}
+                variant="outline"
+                className="relative z-10 backdrop-blur-[2px] bg-surface/20 hover:bg-primary hover:text-surface transition-all"
+              >
+                {site.hero.secondaryCta.label}
+              </Button>
             </div>
           </div>
         </div>

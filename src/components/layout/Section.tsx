@@ -30,7 +30,12 @@ export const Section: React.FC<SectionProps> = ({
   ...props
 }) => {
   return (
-    <section id={id} className={`w-full mb-[var(--space-section-gap)] last:mb-[var(--space-section-gap)] ${className}`} {...props}>
+    <section
+      id={id}
+      className={`w-full ${className}`}
+      style={{ marginBottom: 'var(--space-section-gap)', ...props.style }}
+      {...props}
+    >
       <Panel
         variant={variant}
         padded={padded}

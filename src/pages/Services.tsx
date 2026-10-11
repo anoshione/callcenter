@@ -7,7 +7,7 @@ import { GetStarted } from '../components/sections/GetStarted';
 import { Faq } from '../components/sections/Faq';
 import { Contact } from '../components/sections/Contact';
 import { Button } from '../components/ui/Button';
-import { Check } from 'lucide-react';
+import { PointerIcon, getIconForPointer } from '../components/ui/PointerIcon';
 import { site } from '../content/site';
 
 export const Services: React.FC = () => {
@@ -20,7 +20,7 @@ export const Services: React.FC = () => {
         id="services-hero"
         eyebrow="Tailored Call Center Solutions"
         title="Bespoke Services Engineered for Scale"
-        subtitle="We adapt directly to your tooling, volume patterns, and compliance requirements without rigid pre-packaged pricing."
+        subtitle="Custom support solutions tailored directly to your workflows and volume targets."
         backgroundImage="/assets/banners/services-banner.jpg"
       />
 
@@ -64,14 +64,19 @@ export const Services: React.FC = () => {
                     Core Operational Deliverables:
                   </h3>
                   <ul className="flex flex-col gap-3 text-14 text-text">
-                    {srv.pointers.map((p, i) => (
-                      <li key={i} className="flex items-center gap-2.5">
-                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-secondary/15 text-secondary-active shrink-0">
-                          <Check className="h-3.5 w-3.5 stroke-[2.5]" />
-                        </span>
-                        <span className="leading-snug">{p}</span>
-                      </li>
-                    ))}
+                    {srv.pointers.map((item, i) => {
+                      const text = typeof item === 'string' ? item : item.text;
+                      const iconName = typeof item === 'string' ? getIconForPointer(item) : (item.iconName || getIconForPointer(item.text));
+
+                      return (
+                        <li key={i} className="flex items-center gap-3 group/item">
+                          <span className="flex w-[24px] h-[24px] min-w-[24px] min-h-[24px] items-center justify-center rounded-full bg-secondary/15 text-secondary-active border border-secondary/25 shrink-0 shadow-xs transition-colors duration-base group-hover/item:bg-secondary/25 group-hover/item:border-secondary/40">
+                            <PointerIcon name={iconName} className="w-[14px] h-[14px] stroke-[2.2]" />
+                          </span>
+                          <span className="leading-snug">{text}</span>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
 

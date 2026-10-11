@@ -41,8 +41,8 @@ export const About: React.FC = () => {
             <h2 className="text-32 sm:text-36 md:text-40 font-bold text-primary tracking-tight leading-tight mb-3">
               Mission &amp; Vision
             </h2>
-            <p className="text-15 sm:text-16 text-text-2 max-w-2xl leading-relaxed">
-              Guiding principles driving dependable customer care, operational excellence, and enterprise-grade SLA transparency.
+            <p className="text-15 sm:text-16 text-text-2 max-w-3xl leading-normal">
+              Guiding principles driving dependable customer care and operational excellence.
             </p>
           </div>
 
@@ -136,17 +136,17 @@ export const About: React.FC = () => {
           <SectionHeader
             eyebrow="Our Core Principles"
             title="The Values That Drive Every Customer Touchpoint"
-            subtitle="Our operating philosophy anchors quality, continuous calibration, and client transparency in every agent workflow."
+            subtitle="Core principles anchoring quality and transparency in every agent workflow."
           />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-20 xl:gap-24">
             {site.about.values.map((val, i) => {
               const num = `0${i + 1}`;
               const valueIcons = [
-                <HeartHandshake key="empathy" className="h-5 w-5 text-primary" />,
-                <ShieldCheck key="accountability" className="h-5 w-5 text-primary" />,
-                <GraduationCap key="training" className="h-5 w-5 text-primary" />,
-                <Lock key="security" className="h-5 w-5 text-primary" />,
+                <HeartHandshake key="empathy" className="w-[20px] h-[20px] stroke-[2] text-primary" />,
+                <ShieldCheck key="accountability" className="w-[20px] h-[20px] stroke-[2] text-primary" />,
+                <GraduationCap key="training" className="w-[20px] h-[20px] stroke-[2] text-primary" />,
+                <Lock key="security" className="w-[20px] h-[20px] stroke-[2] text-primary" />,
               ];
 
               return (
@@ -166,11 +166,11 @@ export const About: React.FC = () => {
                     <div>
                       {/* Top Row: Number Badge & Principle Icon */}
                       <div className="flex items-center justify-between w-full mb-5">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-12 font-mono text-14 font-bold bg-primary/5 border border-primary/15 text-primary group-hover:bg-primary group-hover:text-surface group-hover:border-primary transition-all duration-base shadow-xs">
+                        <div className="flex w-[40px] h-[40px] min-w-[40px] min-h-[40px] items-center justify-center rounded-12 font-mono text-14 font-bold bg-primary/5 border border-primary/15 text-primary group-hover:bg-primary group-hover:text-surface group-hover:border-primary transition-all duration-base shadow-xs">
                           {num}
                         </div>
-                        <div className="flex h-10 w-10 items-center justify-center rounded-12 bg-primary/5 border border-primary/10 text-primary group-hover:bg-primary/10 transition-colors">
-                          {valueIcons[i] || <ShieldCheck className="h-5 w-5 text-primary" />}
+                        <div className="flex w-[40px] h-[40px] min-w-[40px] min-h-[40px] items-center justify-center rounded-12 bg-primary/5 border border-primary/10 text-primary group-hover:bg-primary/10 transition-colors">
+                          {valueIcons[i] || <ShieldCheck className="w-[20px] h-[20px] stroke-[2] text-primary" />}
                         </div>
                       </div>
 
@@ -196,7 +196,7 @@ export const About: React.FC = () => {
           <SectionHeader
             eyebrow="Company History"
             title="Milestones of Growth & Service"
-            subtitle="A decade of continuous innovation, facility expansion, and trusted partnerships worldwide."
+            subtitle="A decade of continuous growth, facility expansion, and trusted partnerships."
           />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

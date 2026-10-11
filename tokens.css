@@ -149,6 +149,9 @@
     color-mix(in srgb, var(--color-secondary) 6%, transparent) 50%,
     transparent 76%
   );
+
+  /* derived spacing */
+  --space-36: 36px;
 }
 
 /* Lighter blur on small screens (GPU cost). */

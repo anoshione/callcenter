@@ -31,7 +31,7 @@ export const Services: React.FC = () => {
             onNavy
             eyebrow="Our Core Expertise"
             title="Enterprise Contact Center & Call Center Solutions"
-            subtitle="Bespoke frontline support, multi-tiered technical helpdesks, and compliant back-office operations tailored directly to your customer workflows."
+            subtitle="Scalable customer support and technical helpdesk solutions."
           />
 
           {/* 6 Service Cards Grid (3 per row) */}

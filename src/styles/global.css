@@ -25,12 +25,6 @@
     }
   }
 
-  @media (min-width: 1920px) {
-    :root {
-      --page-pad: 240px;
-    }
-  }
-
   html {
     font-family: var(--font-family);
     scroll-behavior: smooth;

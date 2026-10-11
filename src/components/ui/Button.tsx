@@ -36,7 +36,7 @@ export const Button: React.FC<ButtonProps> = ({
   const Component: React.ElementType = asProp || (to ? Link : href ? 'a' : 'button');
   const isInteractive = !disabled && !isLoading;
 
-  // Unified padding across all button sizes: strictly 12px top & bottom (py-12) and 16px sides (px-16)
+  // Unified padding across all button sizes: strictly 12px top & bottom (py-12) and 20px sides (px-20)
   const sizeStyles: Record<ButtonSize, string> = {
     sm: 'text-14',
     md: 'text-16',
@@ -95,7 +95,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <Component
-      className={`relative inline-flex items-center justify-center gap-2.5 rounded-round font-medium py-12 px-16 transition-all duration-base ease-out-custom select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 ${
+      className={`relative inline-flex items-center justify-center gap-2.5 rounded-round font-medium py-12 px-20 transition-all duration-base ease-out-custom select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 ${
         sizeStyles[size]
       } ${getVariantStyles()} ${
         isInteractive ? 'active:scale-[0.98]' : 'cursor-not-allowed opacity-75'

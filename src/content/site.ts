@@ -19,13 +19,18 @@ export interface HeroSlide {
   subtitle: string;
 }
 
+export interface ServicePointer {
+  text: string;
+  iconName: string;
+}
+
 export interface ServiceItem {
   id: string;
   slug: string;
   title: string;
   eyebrow: string;
   description: string;
-  pointers: string[];
+  pointers: (string | ServicePointer)[];
   deliverables: string;
   targetAudience: string;
   iconName: string;
@@ -140,6 +145,7 @@ export interface SiteContent {
     visionParagraphs?: string[];
     values: { title: string; description: string }[];
     milestones: { year: string; title: string; description: string }[];
+    valueProps?: { title: string; iconName: string }[];
   };
   ctaBanner: {
     headline: string;
@@ -164,6 +170,7 @@ export interface SiteContent {
   partners: {
     eyebrow: string;
     title: string;
+    subtitle?: string;
     row1: PartnerItem[];
     row2: PartnerItem[];
   };
@@ -260,7 +267,7 @@ export const site: SiteContent = {
     titleLine1: "Exceptional Support",
     titleLine2: "Every Call, Every Time",
     titleHighlight: "",
-    description: "Dependable customer service and call center solutions built around your business. We turn every customer interaction into a better experience",
+    description: "Dependable 24/7 call center solutions engineered to elevate your customer experience.",
     primaryCta: { label: "Get In Touch", href: "/#contact" },
     secondaryCta: { label: "About Us", href: "/about" },
     stats: [
@@ -302,7 +309,13 @@ export const site: SiteContent = {
       label: "Customer Satisfaction",
     },
     learnMoreHref: "/about",
-    mission: "To empower organizations worldwide with dependable, human-first customer care supported by scalable technology and trained domain experts.",
+    valueProps: [
+      { title: "Dedicated Account Supervisors", iconName: "UserCheck" },
+      { title: "Real-Time SLA Dashboards", iconName: "BarChart3" },
+      { title: "Continuous Agent Calibration", iconName: "Sliders" },
+      { title: "ISO & SOC 2 Ready Security", iconName: "ShieldCheck" },
+    ],
+    mission: "Empowering organizations worldwide with dependable, human-first customer care.",
     missionEyebrow: "Core Purpose",
     missionParagraphs: [
       "To pioneer world-class customer support across voice, live chat, and omnichannel ticketing, securing 100% SLA-backed execution directly integrated into our clients' CRM ecosystems with complete operational transparency.",
@@ -341,9 +354,7 @@ export const site: SiteContent = {
   },
   ctaBanner: {
     headline: "Ensure Your Business Continuity & Service Levels",
-    subheadLine1: "Customized solutions engineered to seamlessly scale with",
-    subheadLine2: "your business demands without long-term lock-in.",
-    subhead: "Customized solutions engineered to seamlessly scale with your business demands without long-term lock-in.",
+    subhead: "Customized support solutions engineered to scale seamlessly with your business.",
     ctaLabel: "Get In Touch",
     ctaHref: "/#contact",
   },
@@ -355,10 +366,10 @@ export const site: SiteContent = {
       title: "Customer Support Services",
       description: "Deliver outstanding customer experiences with responsive, omni-channel, and professional support teams dedicated to your brand.",
       pointers: [
-        "24/7 Multi-channel Coverage",
-        "Bilingual Support Specialists",
-        "Custom SLA & Quality Auditing",
-        "Seamless CRM & Helpdesk Sync",
+        { text: "24/7 Multi-channel Coverage", iconName: "Clock" },
+        { text: "Bilingual Support Specialists", iconName: "Languages" },
+        { text: "Custom SLA & Quality Auditing", iconName: "ShieldCheck" },
+        { text: "Seamless CRM & Helpdesk Sync", iconName: "RefreshCw" },
       ],
       deliverables: "Frontline tier 1 and tier 2 customer care, active escalation handling, CSAT surveys, and dedicated supervisor oversight.",
       targetAudience: "Growing enterprises, e-commerce retailers, and SaaS firms requiring dependable round-the-clock customer care.",
@@ -372,10 +383,10 @@ export const site: SiteContent = {
       title: "Technical Support Services",
       description: "We provide system maintenance, remote diagnostics, software troubleshooting, and expert IT help desk services.",
       pointers: [
-        "Tier 1 - 3 Escalation Desk",
-        "Remote Diagnostics & Logging",
-        "Knowledge Base Curation",
-        "Incident Triage & Tracking",
+        { text: "Tier 1 - 3 Escalation Desk", iconName: "Layers" },
+        { text: "Remote Diagnostics & Logging", iconName: "Activity" },
+        { text: "Knowledge Base Curation", iconName: "BookOpen" },
+        { text: "Incident Triage & Tracking", iconName: "LifeBuoy" },
       ],
       deliverables: "Comprehensive issue resolution logs, remote desktop troubleshooting, bug verification, and root-cause summaries.",
       targetAudience: "Software companies, hardware vendors, and technology providers needing technically proficient agents.",
@@ -389,10 +400,10 @@ export const site: SiteContent = {
       title: "Appointment Setting",
       description: "Our experts schedule high-quality appointments with verified decision-makers to accelerate your sales pipeline.",
       pointers: [
-        "B2B & B2C Decision-Maker Outreach",
-        "Direct Calendar Integration",
-        "Custom Lead Qualification Matrix",
-        "Live Call Transfer Capability",
+        { text: "B2B & B2C Decision-Maker Outreach", iconName: "Users" },
+        { text: "Direct Calendar Integration", iconName: "CalendarCheck" },
+        { text: "Custom Lead Qualification Matrix", iconName: "Filter" },
+        { text: "Live Call Transfer Capability", iconName: "PhoneForwarded" },
       ],
       deliverables: "Pre-qualified sales meetings, calendar invitations, recorded qualification calls, and weekly pipeline updates.",
       targetAudience: "B2B sales organizations, professional services, consultancies, and commercial brokers.",
@@ -406,10 +417,10 @@ export const site: SiteContent = {
       title: "Inbound Call Center",
       description: "Deliver exceptional customer experiences with our 24/7 inbound call support, intelligent routing, and order handling.",
       pointers: [
-        "Live Answering & IVR Navigation",
-        "Order Processing & Billing Help",
-        "Emergency Escalation Dispatch",
-        "Zero-Abandonment Target Routing",
+        { text: "Live Answering & IVR Navigation", iconName: "PhoneIncoming" },
+        { text: "Order Processing & Billing Help", iconName: "CreditCard" },
+        { text: "Emergency Escalation Dispatch", iconName: "Zap" },
+        { text: "Zero-Abandonment Target Routing", iconName: "Workflow" },
       ],
       deliverables: "Zero-wait call queues, emergency overflow handling, call recording archives, and weekly call volume distribution analytics.",
       targetAudience: "Healthcare providers, financial institutions, logistics carriers, and direct-to-consumer businesses.",
@@ -423,10 +434,10 @@ export const site: SiteContent = {
       title: "Outbound Call Center",
       description: "Connect with targeted leads, verify prospect data, and scale your business using our compliant outbound outreach.",
       pointers: [
-        "Warm & Cold Prospect Outreach",
-        "Market Research & Opinion Surveys",
-        "Customer Win-Back Campaigns",
-        "Full Telephony Compliance Auditing",
+        { text: "Warm & Cold Prospect Outreach", iconName: "PhoneOutgoing" },
+        { text: "Market Research & Opinion Surveys", iconName: "BarChart3" },
+        { text: "Customer Win-Back Campaigns", iconName: "HeartHandshake" },
+        { text: "Full Telephony Compliance Auditing", iconName: "Scale" },
       ],
       deliverables: "High-connect outbound calling campaigns, verified prospect contact records, customer survey reports, and ROI tracking.",
       targetAudience: "Enterprises seeking market expansion, proactive customer re-engagement, and comprehensive feedback collection.",
@@ -440,10 +451,10 @@ export const site: SiteContent = {
       title: "IT Services",
       description: "Innovative technology, infrastructure support, and cloud systems to help your business grow faster in the digital world.",
       pointers: [
-        "Cloud & Server Uptime Monitoring",
-        "Cybersecurity & Access Control",
-        "Automated Backup & Disaster Recovery",
-        "Continuous Patch Management",
+        { text: "Cloud & Server Uptime Monitoring", iconName: "Server" },
+        { text: "Cybersecurity & Access Control", iconName: "Lock" },
+        { text: "Automated Backup & Disaster Recovery", iconName: "HardDrive" },
+        { text: "Continuous Patch Management", iconName: "Cpu" },
       ],
       deliverables: "Proactive 24/7 infrastructure monitoring, patch deployment schedules, security vulnerability checks, and architecture tuning.",
       targetAudience: "Companies requiring high-availability system maintenance and scalable cloud infrastructure without in-house overhead.",
@@ -457,10 +468,10 @@ export const site: SiteContent = {
       title: "Live Chat & Email Support",
       description: "Instantaneous web chat and thoughtful email communication delivering fast resolutions with a human touch.",
       pointers: [
-        "Sub-60s Initial Chat Response",
-        "Omnichannel Ticketing Integration",
-        "Proactive On-Site Triggers",
-        "Personalized Tone-of-Voice Alignment",
+        { text: "Sub-60s Initial Chat Response", iconName: "Timer" },
+        { text: "Omnichannel Ticketing Integration", iconName: "Inbox" },
+        { text: "Proactive On-Site Triggers", iconName: "Sparkles" },
+        { text: "Personalized Tone-of-Voice Alignment", iconName: "Smile" },
       ],
       deliverables: "Real-time web chat routing, email backlog resolution, canned response library maintenance, and satisfaction tracking.",
       targetAudience: "High-volume web stores, digital platforms, and apps with heavy conversational traffic.",
@@ -474,10 +485,10 @@ export const site: SiteContent = {
       title: "Back-Office & Data Entry",
       description: "High-accuracy data entry, document verification, claims processing, and back-office administrative operations.",
       pointers: [
-        "99.8% Verified Data Accuracy",
-        "Confidential Document Processing",
-        "Rapid SLA-Backed Turnarounds",
-        "Double-Entry Quality Auditing",
+        { text: "99.8% Verified Data Accuracy", iconName: "Target" },
+        { text: "Confidential Document Processing", iconName: "FileText" },
+        { text: "Rapid SLA-Backed Turnarounds", iconName: "Gauge" },
+        { text: "Double-Entry Quality Auditing", iconName: "CheckCheck" },
       ],
       deliverables: "Structured data entry, order reconciliation, document cataloging, and variance resolution logs.",
       targetAudience: "Logistics coordinators, medical practices, insurance companies, and financial departments.",
@@ -488,36 +499,36 @@ export const site: SiteContent = {
   howWeWork: {
     eyebrow: "Our Proven Process",
     title: "How We Deliver Operational Excellence",
-    subtitle: "A structured, five-stage implementation methodology designed to launch smoothly and scale reliably.",
+    subtitle: "A structured five-stage process built for smooth launch and rapid scale.",
     steps: [
       {
         number: "01",
         title: "Discover & Assess",
-        description: "We conduct an in-depth audit of your current channels, call volumes, peak intervals, customer personas, and tech stack.",
+        description: "In-depth audit of your communication channels, call volume patterns, customer personas, and CRM stack.",
         iconName: "Search",
       },
       {
         number: "02",
         title: "Design & Blueprint",
-        description: "We formulate customized routing workflows, escalation protocols, brand tone guidelines, and tailored SLA benchmarks.",
+        description: "Customized routing workflows, escalation protocols, brand voice guidelines, and tailored SLA benchmarks.",
         iconName: "Compass",
       },
       {
         number: "03",
         title: "Onboard & Train",
-        description: "Our dedicated agents undergo rigorous product training, simulated scenario calls, and quality calibration tests.",
+        description: "Rigorous product training for dedicated agents, simulated scenario calls, and quality calibration.",
         iconName: "GraduationCap",
       },
       {
         number: "04",
         title: "Go Live & Shadow",
-        description: "Phased production rollout with real-time supervisor shadowing, active call interception, and queue stabilization.",
+        description: "Phased production rollout with active supervisor shadowing, call monitoring, and queue stabilization.",
         iconName: "Rocket",
       },
       {
         number: "05",
         title: "Analyze & Optimize",
-        description: "Transparent daily reporting, weekly metric reviews, continuous coaching, and process improvements.",
+        description: "Transparent daily dashboards, weekly metric reviews, ongoing coaching, and continuous optimization.",
         iconName: "TrendingUp",
       },
     ],
@@ -525,6 +536,7 @@ export const site: SiteContent = {
   partners: {
     eyebrow: "Trusted By Industry Leaders",
     title: "Organizations We've Proudly Supported",
+    subtitle: "Trusted by high-growth startups and global enterprise leaders.",
     row1: [
       { id: "p-1", name: "CloudScale Systems", category: "Technology", logoText: "CLOUDSCALE" },
       { id: "p-2", name: "Horizon Logistics", category: "Supply Chain", logoText: "HORIZON" },
@@ -545,7 +557,7 @@ export const site: SiteContent = {
   team: {
     eyebrow: "Our Specialists",
     title: "Meet Our Operational Leadership",
-    subtitle: "Experienced operations directors, technical architects, and quality supervisors ensuring your success.",
+    subtitle: "Dedicated operations leaders ensuring quality across every shift.",
     members: [
       {
         id: "tm-1",
@@ -616,7 +628,7 @@ export const site: SiteContent = {
   getStarted: {
     eyebrow: "Four Simple Steps",
     title: "Getting Started With Us",
-    subtitle: "Transparent, consultative onboarding with zero hidden fees or rigid one-size-fits-all pricing tiers.",
+    subtitle: "A clear, consultative onboarding process with zero hidden fees.",
     steps: [
       {
         step: "01",
@@ -645,7 +657,7 @@ export const site: SiteContent = {
   blogs: {
     eyebrow: "Industry Insights",
     title: "News, Strategies & Contact Center Insights",
-    subtitle: "Proven methodologies, technology trends, and best practices from customer support professionals.",
+    subtitle: "Proven operational strategies and frontline support best practices.",
     posts: [
       {
         id: "post-1",
@@ -743,7 +755,7 @@ export const site: SiteContent = {
   gallery: {
     eyebrow: "Our Facility & Culture",
     title: "Inside Our State-of-the-Art Operations",
-    subtitle: "A glimpse into the professional environments, modern infrastructure, and collaborative teams that drive our client success.",
+    subtitle: "A visual look inside our modern operations floors and training labs.",
     categories: ["All", "Operations", "Technology", "Training", "Team Culture"],
     items: [
       {
@@ -814,7 +826,7 @@ export const site: SiteContent = {
   contact: {
     eyebrow: "GET IN TOUCH",
     title: "Discuss Your Outsourcing & Support Goals",
-    description: "Connect with our client solutions team. We will review your channel requirements, staffing goals, and supply a clear, custom proposal.",
+    description: "Connect with our solutions team to discuss your needs and request a quote.",
     phone: "+880 1958-063324",
     email: "elearningcallcenter@gmail.com",
     address: "Khaja IT Park (2nd to 6th Floor), 07 South Kallyanpur, Mirpur Road, Dhaka-1207, Bangladesh",
@@ -830,7 +842,7 @@ export const site: SiteContent = {
   faqs: {
     eyebrow: "Frequently Asked Questions",
     title: "Everything You Need to Know",
-    subtitle: "Clear answers to common questions about our onboarding, security, service models, and pricing approach.",
+    subtitle: "Clear answers about our onboarding, security standards, and quoting model.",
     items: [
       {
         id: "faq-1",
@@ -885,7 +897,7 @@ export const site: SiteContent = {
   testimonials: {
     eyebrow: "Client Success Stories",
     title: "What Our Partners Say About Us",
-    subtitle: "Real operational feedback from enterprise leadership teams who trust CallcenterELE for high-touch customer support, Tier 2 technical helpdesks, and mission-critical voice operations.",
+    subtitle: "Real operational feedback from leaders who trust our support teams.",
     trustScore: {
       rating: "4.9",
       scale: "5.0",

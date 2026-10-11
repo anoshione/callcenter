@@ -19,7 +19,7 @@ export const Container: React.FC<ContainerProps> = ({
 }) => {
   return (
     <Component
-      className={`mx-auto w-full max-w-[var(--container-max)] px-[var(--page-pad)] ${className}`}
+      className={`mx-auto w-full max-w-[var(--container-max)] px-[var(--page-pad)] 2xl:px-0 ${className}`}
       {...props}
     >
       {children}
