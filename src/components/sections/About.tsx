@@ -54,9 +54,9 @@ export const About: React.FC = () => {
 
           {/* Quick value props list with dedicated, crisp visual badges */}
           <Reveal direction="up" delayMs={200} className="w-full mb-32">
-            <div className="flex flex-col gap-4 w-full">
+            <div className="flex flex-col gap-8 w-full">
               {site.about.valueProps?.map((prop, idx) => (
-                <div key={idx} className="flex items-center gap-4 text-16 text-primary font-medium group">
+                <div key={idx} className="flex items-center gap-8 text-16 text-primary font-medium group">
                   <span className="flex w-[32px] h-[32px] min-w-[32px] min-h-[32px] items-center justify-center rounded-8 bg-secondary/12 border border-secondary/25 text-secondary-active shadow-xs transition-[background-color,color,border-color] duration-base group-hover:bg-secondary group-hover:text-surface group-hover:border-secondary shrink-0">
                     {renderPropIcon(prop.iconName, 'w-[18px] h-[18px] min-w-[18px] min-h-[18px] stroke-[2]')}
                   </span>
