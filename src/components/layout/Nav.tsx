@@ -107,8 +107,8 @@ export const Nav: React.FC<NavProps> = ({ isScrolled = false }) => {
                 </span>
               </Link>
 
-              {/* Right Navigation & Action Group (Desktop) - aligned right with 32px spacing to CTA */}
-              <div className="hidden xl:flex items-center gap-32 ml-auto">
+              {/* Right Navigation & Action Group (Desktop) - aligned right with 24px spacing to CTA */}
+              <div className="hidden xl:flex items-center gap-24 ml-auto">
                 {/* Desktop Nav Links - 4px gap between each button */}
                 <nav
                   aria-label="Main Navigation"
