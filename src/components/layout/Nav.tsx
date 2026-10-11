@@ -109,10 +109,10 @@ export const Nav: React.FC<NavProps> = ({ isScrolled = false }) => {
 
               {/* Right Navigation & Action Group (Desktop) - aligned right with 32px spacing to CTA */}
               <div className="hidden xl:flex items-center gap-32 ml-auto">
-                {/* Desktop Nav Links - 16px gap between each button */}
+                {/* Desktop Nav Links - 12px gap between each button */}
                 <nav
                   aria-label="Main Navigation"
-                  className="flex items-center gap-16 text-15 font-medium"
+                  className="flex items-center gap-12 text-15 font-medium"
                 >
                   {navLinks.map((item) => {
                     const isActive = item.href.includes('#')
