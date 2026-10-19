@@ -19,6 +19,48 @@ You are a senior front-end engineer and designer-minded implementer building a m
 7. **Do not copy from the reference.** Read DESIGN.md section 11. No stock photos (one has a third-party logo), no dummy or call-tracking copy, no payment logos, no real contact details unless provided in `site.ts`. Use local placeholders from `src/assets/placeholders/`. No hotlinked images.
 8. **Complete files.** No "rest of code here" or truncated components.
 9. **One question at most, and only if blocked.** Otherwise state the assumption and continue.
+10. **Button & pill integrity (Pre-Flight Check).** Follow the "Mandatory Pre-Flight: Button, Pill & Badge Integrity Protocol" before touching any code. In this project `px-4` is 4px (NOT 16px). Never use `px-4` for button/pill padding. Maintain proper optical padding on pills, keep `whitespace-nowrap`, and never break existing button padding.
+
+## Mandatory Pre-Flight: Button, Pill & Badge Integrity Protocol
+
+FOLLOW THIS PROTOCOL ON EVERY PROMPT BEFORE CHANGING ANY COMPONENT:
+
+### 1. The Tailwind Token Spacing Rule (`px-4` = 4px Trap)
+In this project's `tailwind.config.ts`, spacing utility numbers map to explicit pixel tokens:
+- `4` = `var(--space-4)` (4px)
+- `8` = `var(--space-8)` (8px)
+- `12` = `var(--space-12)` (12px)
+- `16` = `var(--space-16)` (16px)
+- `20` = `var(--space-20)` (20px)
+- `24` = `var(--space-24)` (24px)
+- `28` = `var(--space-28)` (28px)
+- `32` = `var(--space-32)` (32px)
+
+**CRITICAL:** In standard Tailwind `px-4` is 16px, but in this codebase **`px-4` IS 4 PIXELS**.
+Writing `px-4`, `pl-4`, `pr-4`, or `gap-4` applies 4px, which collapses button and pill padding into the border.
+- **NEVER** use `px-4` or `p-4` on buttons, badges, or pills.
+- Always use `px-16` (16px), `px-20` (20px), or `px-24` (24px).
+
+### 2. Pill & Capsule Optical Padding Geometry
+Any element with `rounded-full` or `rounded-round` has curved semi-circular end-caps that eat into horizontal space:
+- **Standard Pill / Capsule**: Requires generous side padding: minimum `px-20` (20px), ideally `px-24` (24px).
+- **Pill with Leading Circular Icon**: The icon provides natural visual inset on the left, but the text on the right will hit the curved cap unless compensated optically. Always use **asymmetric optical padding**:
+  - Left padding: `pl-12 sm:pl-16`
+  - Right padding: `pr-20 sm:pr-24` (at least 20-24px after text)
+  - Vertical padding: `py-8 sm:py-10`
+
+### 3. Component Button Preservation
+- Always use the centralized `<Button>` component (`src/components/ui/Button.tsx`).
+- Do NOT pass ad-hoc `px-*` or `py-*` classes into `<Button className="...">` that override its calibrated `paddingStyles`.
+- All buttons must retain `whitespace-nowrap`, `shrink-0` (in flex rows), and touch targets ≥ 44px.
+- When `withArrow` is enabled, the trailing arrow circle must rotate 45° on hover (`group-hover:-rotate-45`).
+
+### 4. Pre-Flight Checklist Before Applying Edits
+Before touching any file:
+1. Scan the target file for all buttons, badges, and pill tags.
+2. Verify that no button or pill is using `px-4` or raw px classes.
+3. Verify that pill elements have generous trailing padding (`pr-20`+).
+4. After making changes, visually inspect and test responsive widths to guarantee buttons never break, wrap, or lose side padding.
 
 ## Stack
 

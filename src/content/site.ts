@@ -35,6 +35,8 @@ export interface ServiceItem {
   targetAudience: string;
   iconName: string;
   image: string;
+  tags?: string[];
+  rating?: string;
 }
 
 export interface ProcessStep {
@@ -375,6 +377,8 @@ export const site: SiteContent = {
       targetAudience: "Growing enterprises, e-commerce retailers, and SaaS firms requiring dependable round-the-clock customer care.",
       iconName: "Headphones",
       image: "/assets/service-customer-support.jpg",
+      tags: ["24/7 Support", "Omnichannel"],
+      rating: "4.9",
     },
     {
       id: "srv-2",
@@ -392,6 +396,8 @@ export const site: SiteContent = {
       targetAudience: "Software companies, hardware vendors, and technology providers needing technically proficient agents.",
       iconName: "Cpu",
       image: "/assets/service-technical-support.jpg",
+      tags: ["Tier 1 - 3 SLA", "Helpdesk"],
+      rating: "4.9",
     },
     {
       id: "srv-3",
@@ -409,6 +415,8 @@ export const site: SiteContent = {
       targetAudience: "B2B sales organizations, professional services, consultancies, and commercial brokers.",
       iconName: "CalendarCheck",
       image: "/assets/service-appointment-setting.jpg",
+      tags: ["B2B Outreach", "Verified Leads"],
+      rating: "4.9",
     },
     {
       id: "srv-4",
@@ -426,6 +434,8 @@ export const site: SiteContent = {
       targetAudience: "Healthcare providers, financial institutions, logistics carriers, and direct-to-consumer businesses.",
       iconName: "PhoneCall",
       image: "/assets/service-inbound.jpg",
+      tags: ["24/7 Live Voice", "Zero-Wait"],
+      rating: "4.9",
     },
     {
       id: "srv-5",
@@ -443,6 +453,8 @@ export const site: SiteContent = {
       targetAudience: "Enterprises seeking market expansion, proactive customer re-engagement, and comprehensive feedback collection.",
       iconName: "PhoneForwarded",
       image: "/assets/service-outbound.jpg",
+      tags: ["Outbound Sales", "Compliance"],
+      rating: "4.8",
     },
     {
       id: "srv-6",
@@ -460,6 +472,8 @@ export const site: SiteContent = {
       targetAudience: "Companies requiring high-availability system maintenance and scalable cloud infrastructure without in-house overhead.",
       iconName: "Server",
       image: "/assets/service-it-services.jpg",
+      tags: ["Infrastructure", "99.9% Uptime"],
+      rating: "4.9",
     },
     {
       id: "srv-7",
@@ -477,6 +491,8 @@ export const site: SiteContent = {
       targetAudience: "High-volume web stores, digital platforms, and apps with heavy conversational traffic.",
       iconName: "MessageSquare",
       image: "/assets/service-live-chat.jpg",
+      tags: ["Omnichannel", "Sub-60s SLA"],
+      rating: "4.9",
     },
     {
       id: "srv-8",
@@ -494,6 +510,8 @@ export const site: SiteContent = {
       targetAudience: "Logistics coordinators, medical practices, insurance companies, and financial departments.",
       iconName: "FileSpreadsheet",
       image: "/assets/service-back-office.jpg",
+      tags: ["Back-Office", "99.8% Accuracy"],
+      rating: "4.9",
     },
   ],
   howWeWork: {
@@ -651,7 +669,7 @@ export const site: SiteContent = {
         description: "Your fully vetted, trained team goes live under dedicated management with continuous daily performance audits.",
       },
     ],
-    ctaLabel: "Schedule a Discovery Call",
+    ctaLabel: "Get Service",
     ctaHref: "/#contact",
   },
   blogs: {
@@ -896,7 +914,7 @@ export const site: SiteContent = {
   },
   testimonials: {
     eyebrow: "Client Success Stories",
-    title: "What Our Partners Say About Us",
+    title: "What our Clients say!",
     subtitle: "Real operational feedback from leaders who trust our support teams.",
     trustScore: {
       rating: "4.9",

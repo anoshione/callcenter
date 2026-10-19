@@ -29,23 +29,23 @@ export const Home: React.FC = () => {
       {/* 3. CTA Banner */}
       <CtaBanner />
 
-      {/* 4. Our Services (all 8 cards with pointers and CTAs) */}
+      {/* 4. Partners (2 anti-directional marquee rows) */}
+      <Partners />
+
+      {/* 5. Our Services (all 8 cards with pointers and CTAs) */}
       <Services />
 
-      {/* 5. How We Work (5 delivery stages) */}
+      {/* 6. How We Work (5 delivery stages) */}
       <HowWeWork />
-
-      {/* 6. Partners (2 anti-directional marquee rows) */}
-      <Partners />
 
       {/* 7. Client Reviews & Testimonials */}
       <Reviews />
 
-      {/* 8. Our Team (4 at once carousel) */}
-      <Team />
-
-      {/* 9. Steps to Get Started (4 connected timeline steps) */}
+      {/* 8. Steps to Get Started (4 connected timeline steps) */}
       <GetStarted />
+
+      {/* 9. Our Team (4 at once carousel) */}
+      <Team />
 
       {/* 10. Blogs and Gallery (featured post + stacked pair & facility masonry with Lightbox) */}
       <BlogGallery />

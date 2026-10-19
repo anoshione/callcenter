@@ -82,18 +82,21 @@ export const Contact: React.FC = () => {
     >
       {/* Outer panel with Google Map background from https://maps.app.goo.gl/R3Ldi2NzX2cpvKsR9 */}
       <div className="relative overflow-hidden rounded-32 py-16 md:py-20 px-6 md:px-12 xl:px-16 shadow-md w-full">
-        {/* Background Map Container with subtle visibility */}
+        {/* Background Map Container with sharp visibility (no blur) and top white shade */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
-          {/* Static satellite map: slight 1px blur to keep city grid recognizable without visual noise */}
           <img
             src="/assets/clean-contact-map.jpg"
             alt="Operations Center Location Map"
-            className="w-full h-full object-cover scale-105 filter blur-[1px] saturate-[0.7] contrast-[1.05]"
+            className="w-full h-full object-cover object-center"
           />
 
-          {/* Balanced translucent overlays: keep map barely visible while protecting header text legibility */}
-          <div className="absolute inset-0 bg-surface/50" />
-          <div className="absolute inset-0 bg-gradient-to-b from-surface/85 via-surface/35 to-surface/80" />
+          {/* Top white shade: clean luminous gradient protecting header text legibility while letting the map stay crisp and recognizable below */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.88) 18%, rgba(255, 255, 255, 0.45) 38%, rgba(255, 255, 255, 0.12) 65%, rgba(255, 255, 255, 0.22) 100%)',
+            }}
+          />
         </div>
 
         {/* Form Content Structure */}
@@ -106,21 +109,23 @@ export const Contact: React.FC = () => {
               subtitle={site.contact.description}
             />
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 xl:gap-32 items-stretch">
-              {/* Left Info Panel (5 cols) */}
-              <div className="lg:col-span-5 relative overflow-hidden flex flex-col justify-between gap-32 p-24 sm:p-32 xl:p-48 rounded-16 bg-gradient-to-b from-white/95 via-surface/95 to-grey-1/90 backdrop-blur-xl border border-white/80 border-t-[3px] border-t-secondary shadow-2xl transition-all duration-base group">
-                {/* Background Paperplane Send Watermark Visual */}
-                <div className="pointer-events-none absolute -bottom-10 -right-10 select-none text-secondary/[0.08]" aria-hidden="true">
-                  <Send className="w-52 h-52 stroke-[1]" />
-                </div>
+            {/* Unified Wrapper Container wrapping both Left Details & Right Form */}
+            <div className="relative overflow-hidden rounded-24 xl:rounded-32 bg-white/85 backdrop-blur-xl border border-white/90 shadow-2xl p-6 sm:p-8 md:p-10 xl:p-12 transition-all duration-base group">
+              <CardCornerGradient size="lg" />
 
-                <CardCornerGradient size="lg" />
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 xl:gap-12 items-stretch relative z-10">
+                {/* Left Info Column (5 cols) */}
+                <div className="lg:col-span-5 flex flex-col justify-between gap-32 p-2 sm:p-4 md:p-6 relative">
+                  {/* Background Paperplane Send Watermark Visual on Left Info Side extending under form */}
+                  <div className="pointer-events-none absolute -bottom-12 lg:-bottom-20 -right-48 lg:-right-64 select-none text-secondary/[0.08] transition-transform duration-slow group-hover:scale-105 z-0" aria-hidden="true">
+                    <Send className="w-56 h-56 sm:w-72 sm:h-72 stroke-[1.25]" />
+                  </div>
 
-                <div className="relative z-10">
-                  <h3 className="text-20 md:text-22 font-bold text-primary">
-                    Contact Us
-                  </h3>
-                </div>
+                  <div className="relative z-10">
+                    <h3 className="text-22 md:text-26 font-bold text-primary">
+                      Contact Us
+                    </h3>
+                  </div>
 
                 {/* Direct Contact Details */}
                 <div className="relative z-10 flex flex-col gap-24 text-15">
@@ -210,13 +215,13 @@ export const Contact: React.FC = () => {
                     })}
                   </div>
                 </div>
-              </div>
+                </div>
 
-              {/* Right Form Card (7 cols) with generous padding */}
-              <div className="lg:col-span-7 relative overflow-hidden rounded-16 bg-gradient-to-b from-white/95 via-surface/95 to-grey-1/90 backdrop-blur-xl border border-white/80 border-t-[3px] border-t-secondary shadow-2xl p-24 sm:p-32 xl:p-48 flex flex-col justify-between transition-all duration-base group">
-                <CardCornerGradient size="lg" />
+                {/* Right Form Container (7 cols) - Nested Container Card for Proposal Form */}
+                <div className="lg:col-span-7 relative z-10 overflow-hidden rounded-20 xl:rounded-24 bg-gradient-to-br from-surface/90 via-grey-1/80 to-surface/85 backdrop-blur-xl border border-grey-3/80 shadow-md p-6 sm:p-8 xl:p-10 flex flex-col justify-between transition-all duration-base group/form">
+                  <CardCornerGradient size="md" />
 
-                <div className="relative z-10 flex flex-col h-full justify-between">
+                  <div className="relative z-10 flex flex-col h-full justify-between">
                 {status === 'success' ? (
                   <div className="my-auto flex flex-col items-center text-center p-32 gap-20 bg-grey-1/80 rounded-16 border border-secondary/30">
                     <div className="flex h-16 w-16 items-center justify-center rounded-full bg-secondary/20 text-secondary-active">
@@ -236,7 +241,7 @@ export const Contact: React.FC = () => {
                 ) : (
                   <form onSubmit={handleSubmit} className="flex flex-col gap-24">
                     <div>
-                      <h3 className="text-22 md:text-26 font-medium text-primary">
+                      <h3 className="text-22 md:text-26 font-bold text-primary">
                         Request a Custom Proposal
                       </h3>
                     </div>
@@ -262,7 +267,7 @@ export const Contact: React.FC = () => {
                           value={formData.fullName}
                           onChange={handleChange}
                           placeholder="e.g. Sarah Jenkins"
-                          className="rounded-16 border border-grey-3/80 bg-white/90 hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 transition-all px-16 py-12 text-15 text-text placeholder:text-grey-4"
+                          className="rounded-16 border border-grey-3 bg-white hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 shadow-xs transition-all px-16 py-12 text-15 text-text placeholder:text-grey-4"
                         />
                       </div>
 
@@ -279,12 +284,12 @@ export const Contact: React.FC = () => {
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="e.g. sarah@company.com"
-                          className="rounded-16 border border-grey-3/80 bg-white/90 hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 transition-all px-16 py-12 text-15 text-text placeholder:text-grey-4"
+                          className="rounded-16 border border-grey-3 bg-white hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 shadow-xs transition-all px-16 py-12 text-15 text-text placeholder:text-grey-4"
                         />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-20">
                       {/* Phone */}
                       <div className="flex flex-col gap-2">
                         <label htmlFor="phone" className="text-14 font-medium text-text">
@@ -297,7 +302,7 @@ export const Contact: React.FC = () => {
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="e.g. +1 (555) 019-2834"
-                          className="rounded-16 border border-grey-3/80 bg-white/90 hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 transition-all px-16 py-12 text-15 text-text placeholder:text-grey-4"
+                          className="rounded-16 border border-grey-3 bg-white hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 shadow-xs transition-all px-16 py-12 text-15 text-text placeholder:text-grey-4"
                         />
                       </div>
 
@@ -312,7 +317,7 @@ export const Contact: React.FC = () => {
                             name="service"
                             value={formData.service}
                             onChange={handleChange}
-                            className="w-full appearance-none rounded-16 border border-grey-3/80 bg-white/90 hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 transition-all pl-16 pr-48 py-12 text-15 text-text cursor-pointer"
+                            className="w-full appearance-none rounded-16 border border-grey-3 bg-white hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 shadow-xs transition-all pl-16 pr-48 py-12 text-15 text-text cursor-pointer"
                           >
                             <option value="">Select a service</option>
                             {site.services.map((srv) => (
@@ -341,16 +346,16 @@ export const Contact: React.FC = () => {
                         value={formData.message}
                         onChange={handleChange}
                         placeholder="Describe your current team size, expected call/ticket volume, hours needed, or CRM tools..."
-                        className="rounded-16 border border-grey-3/80 bg-white/90 hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 transition-all px-16 py-12 text-15 text-text placeholder:text-grey-4 resize-none"
+                        className="rounded-16 border border-grey-3 bg-white hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 shadow-xs transition-all px-16 py-12 text-15 text-text placeholder:text-grey-4 resize-none"
                       />
                     </div>
 
-                    <div className="pt-8 flex justify-center">
+                    <div className="pt-8 flex justify-end">
                       <Button
                         type="submit"
                         isLoading={status === 'submitting'}
                         variant="primary"
-                        className="w-full sm:w-auto"
+                        className="w-full sm:w-auto px-32 shadow-sm"
                       >
                         Send Proposal
                       </Button>
@@ -360,7 +365,8 @@ export const Contact: React.FC = () => {
                 </div>
               </div>
             </div>
-          </Reveal>
+          </div>
+        </Reveal>
         </div>
       </div>
     </section>

@@ -36,11 +36,49 @@ export const Button: React.FC<ButtonProps> = ({
   const Component: React.ElementType = asProp || (to ? Link : href ? 'a' : 'button');
   const isInteractive = !disabled && !isLoading;
 
-  // Unified padding across all button sizes: strictly 12px top & bottom (py-12) and 20px sides (px-20)
-  const sizeStyles: Record<ButtonSize, string> = {
-    sm: 'text-14',
-    md: 'text-16',
-    lg: 'text-16',
+  // Padding styles: When withArrow is true, snug right padding to nest the circular arrow badge
+  const paddingStyles: Record<ButtonSize, string> = withArrow
+    ? {
+        sm: 'py-8 pl-16 pr-8 text-14 gap-12',
+        md: 'py-8 pl-20 pr-8 text-16 gap-12',
+        lg: 'py-12 pl-24 pr-12 text-16 gap-16',
+      }
+    : {
+        sm: 'py-12 px-20 text-14 gap-2.5',
+        md: 'py-12 px-20 text-16 gap-2.5',
+        lg: 'py-12 px-20 text-16 gap-2.5',
+      };
+
+  const arrowBadgeSizes: Record<ButtonSize, { badge: string; iconSize: number }> = {
+    sm: { badge: 'w-7 h-7 min-w-[28px] min-h-[28px]', iconSize: 14 },
+    md: { badge: 'w-8 h-8 min-w-[32px] min-h-[32px]', iconSize: 16 },
+    lg: { badge: 'w-9 h-9 min-w-[36px] min-h-[36px]', iconSize: 18 },
+  };
+
+  const getArrowBadgeColors = (): string => {
+    switch (variant) {
+      case 'primary':
+        if (onNavy) {
+          return 'bg-primary text-surface group-hover:bg-surface group-hover:text-primary';
+        }
+        return 'bg-surface text-primary group-hover:bg-primary group-hover:text-surface';
+
+      case 'secondary':
+        if (onNavy) {
+          return 'bg-primary text-secondary group-hover:bg-secondary group-hover:text-primary';
+        }
+        return 'bg-primary text-secondary group-hover:bg-primary group-hover:text-surface';
+
+      case 'outline':
+        if (onNavy) {
+          return 'bg-surface/20 text-surface group-hover:bg-surface group-hover:text-primary';
+        }
+        return 'bg-primary text-surface group-hover:bg-surface group-hover:text-primary';
+
+      case 'link':
+      default:
+        return 'bg-primary text-surface group-hover:bg-surface group-hover:text-primary';
+    }
   };
 
   // Base 2-state variant styles:
@@ -95,8 +133,8 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <Component
-      className={`relative inline-flex items-center justify-center gap-2.5 rounded-round font-medium py-12 px-20 transition-all duration-base ease-out-custom select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 ${
-        sizeStyles[size]
+      className={`relative inline-flex items-center justify-center rounded-round font-medium transition-all duration-base ease-out-custom select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 ${
+        paddingStyles[size]
       } ${getVariantStyles()} ${
         isInteractive ? 'active:scale-[0.98]' : 'cursor-not-allowed opacity-75'
       } group ${className}`}
@@ -113,11 +151,17 @@ export const Button: React.FC<ButtonProps> = ({
         <>
           <span>{children}</span>
           {withArrow && (
-            <ArrowRight
-              size={20}
-              strokeWidth={2}
-              className="shrink-0 transition-transform duration-base ease-out-custom group-hover:translate-x-1"
-            />
+            <span
+              className={`inline-flex items-center justify-center rounded-full shrink-0 shadow-xs transition-colors duration-base ${
+                arrowBadgeSizes[size].badge
+              } ${getArrowBadgeColors()}`}
+            >
+              <ArrowRight
+                size={arrowBadgeSizes[size].iconSize}
+                strokeWidth={2.5}
+                className="shrink-0 transform rotate-0 group-hover:-rotate-45 transition-transform duration-base ease-out-custom"
+              />
+            </span>
           )}
         </>
       )}

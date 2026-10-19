@@ -1,6 +1,7 @@
 import React from 'react';
 import { Headphones, PhoneCall, MessageSquare } from 'lucide-react';
 import { site } from '../../content/site';
+import { Container } from '../layout/Container';
 import { SectionHeader } from '../ui/SectionHeader';
 import { ServiceCard } from '../ui/ServiceCard';
 import { Button } from '../ui/Button';
@@ -10,7 +11,9 @@ import { Reveal } from '../ui/Reveal';
 export const Services: React.FC = () => {
   return (
     <section id="services" className="w-full py-0 px-3 bg-surface mb-[var(--space-section-gap)]">
-      <div className="relative overflow-hidden rounded-16 bg-primary px-6 md:px-12 xl:px-16 py-32 shadow-md w-full">
+      {/* Navy background panel: full-bleed (12px frame inset each side), zero horizontal
+          padding — content gutters come from the standard Container (--page-pad). */}
+      <div className="relative overflow-hidden rounded-16 bg-primary py-32 shadow-md w-full">
         {/* Background orbs & subtle pattern */}
         <Orbs preset="subtle" count={2} />
 
@@ -25,7 +28,8 @@ export const Services: React.FC = () => {
           <MessageSquare className="w-72 h-72" />
         </div>
 
-        <div className="mx-auto w-full max-w-[var(--container-max)] relative z-10 flex flex-col">
+        {/* Standard content container: max-w 1440, centered, --page-pad gutters (16/32/64) */}
+        <Container className="relative z-10 flex flex-col">
           {/* Section Header (Centered, 14px top/bottom, 28px middle, 32px gap to content) */}
           <SectionHeader
             onNavy
@@ -51,7 +55,8 @@ export const Services: React.FC = () => {
                   description={service.description}
                   pointers={service.pointers}
                   image={service.image}
-                  ctaText={`Discuss ${service.title}`}
+                  tags={service.tags}
+                  rating={service.rating}
                   className="w-full"
                 />
               </Reveal>
@@ -60,11 +65,11 @@ export const Services: React.FC = () => {
 
           {/* View all services footer bar */}
           <Reveal direction="up" delayMs={100} className="flex items-center justify-center pt-6">
-            <Button to="/services" variant="outline" onNavy>
-              Explore In-Depth Service Specifications
+            <Button to="/services" variant="outline" onNavy withArrow>
+              See More
             </Button>
           </Reveal>
-        </div>
+        </Container>
       </div>
     </section>
   );

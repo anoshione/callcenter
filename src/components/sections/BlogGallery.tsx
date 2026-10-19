@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Headphones, MessageSquare } from 'lucide-react';
 import { site } from '../../content/site';
 import { Section } from '../layout/Section';
+import { Container } from '../layout/Container';
 import { SectionHeader } from '../ui/SectionHeader';
 import { Button } from '../ui/Button';
+import { Orbs } from '../ui/Orbs';
 import { Reveal } from '../ui/Reveal';
 import { Lightbox, LightboxItem } from '../ui/Lightbox';
 
 export const BlogGallery: React.FC = () => {
   const posts = site.blogs.posts;
   const featuredPost = posts[0];
-  const stackedPosts = posts.slice(1, 3);
+  const latestPosts = posts.slice(1, 5);
   const galleryItems = site.gallery.items.slice(0, 6);
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -25,7 +28,7 @@ export const BlogGallery: React.FC = () => {
   const renderGalleryCard = (item: (typeof galleryItems)[0], originalIdx: number) => {
     if (!item) return null;
     return (
-      <Reveal key={item.id} direction="up" delayMs={originalIdx * 60} className="flex">
+      <Reveal key={item.id} direction="up" delayMs={originalIdx * 60} className="flex w-full">
         <button
           type="button"
           onClick={() => {
@@ -60,122 +63,134 @@ export const BlogGallery: React.FC = () => {
   };
 
   return (
-    <Section id="blogs-gallery" variant="surface" padded={false}>
+    <Section id="blogs-gallery" variant="surface" padded={false} fullWidthContent className="px-3">
       <div className="flex flex-col gap-[var(--space-section-gap)]">
-        {/* ================= Part 1: Blog Insights ================= */}
-        <div className="flex flex-col">
-          {/* Section Header (Centered, 14px top/bottom, 28px middle, 32px gap to content) */}
+        {/* ================= Part 1: Blog Insights (navy panel, mirrors Services) ================= */}
+        {/* Navy background panel: full-bleed (12px frame inset), content gutters from Container */}
+        <div className="relative overflow-hidden rounded-16 bg-primary py-32 shadow-md w-full">
+          {/* Background orbs & subtle pattern */}
+          <Orbs preset="subtle" count={2} />
+
+          {/* Decorative faint background vector icons at ~3.5% opacity per DESIGN.md section 6 */}
+          <div className="absolute top-12 left-10 pointer-events-none text-surface/[0.035] -rotate-12 select-none" aria-hidden="true">
+            <Headphones className="w-80 h-80" />
+          </div>
+          <div className="absolute -bottom-16 right-8 pointer-events-none text-surface/[0.03] rotate-12 select-none" aria-hidden="true">
+            <MessageSquare className="w-72 h-72" />
+          </div>
+
+          {/* Standard content container: max-w 1440, centered, --page-pad gutters */}
+          <Container className="relative z-10 flex flex-col">
+          {/* Section Header (Centered, on navy) */}
           <SectionHeader
+            onNavy
             eyebrow={site.blogs.eyebrow}
             title={site.blogs.title}
             subtitle={site.blogs.subtitle}
           />
 
-          {/* Featured Post (left half) + Stacked Pair & View All button (right half) */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 xl:gap-32 items-stretch">
-            {/* Featured Post (left half, 50% width) */}
+          {/* Main Grid: Left Featured Glass Card (~60%), Right Latest Posts (4 items) (~40%) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 xl:gap-32 items-stretch">
+            {/* Featured Post (left side, 7 cols) */}
             {featuredPost && (
-              <Reveal direction="up" delayMs={50} className="flex h-full">
-                <article className="flex flex-col rounded-16 border border-grey-3 bg-surface overflow-hidden shadow-sm hover:shadow-md transition-all duration-base group w-full justify-between">
-                  <div>
-                    <div className="aspect-[16/10] w-full overflow-hidden bg-grey-2 relative">
-                      <img
-                        src={featuredPost.image}
-                        alt={featuredPost.title}
-                        className="w-full h-full object-cover transition-transform duration-base group-hover:scale-104"
-                        width="800"
-                        height="500"
-                        loading="lazy"
-                      />
-                    </div>
-                  </div>
+              <Reveal direction="up" delayMs={50} className="lg:col-span-7 flex h-full">
+                <article className="group relative w-full min-h-[380px] sm:min-h-[420px] lg:min-h-[460px] rounded-24 overflow-hidden border border-white/10 bg-grey-2 shadow-sm hover:shadow-lg transition-all duration-base flex flex-col justify-end">
+                  {/* Background Image */}
+                  <img
+                    src={featuredPost.image}
+                    alt={featuredPost.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-slow group-hover:scale-105"
+                    width="800"
+                    height="540"
+                    loading="lazy"
+                  />
 
-                  <div className="px-20 py-16 md:px-24 md:py-16 flex flex-col justify-between flex-1 gap-12">
-                    <div>
-                      <div className="text-12 mb-1">
-                        <span className="font-bold text-secondary-active uppercase tracking-wider">
-                          {featuredPost.category}
-                        </span>
-                      </div>
-
-                      <h3 className="text-20 md:text-22 font-bold text-primary group-hover:text-secondary-active transition-colors leading-snug">
-                        <Link to={`/blog/${featuredPost.slug}`}>{featuredPost.title}</Link>
-                      </h3>
-                    </div>
-
-                    <p className="my-auto py-1 text-14 md:text-15 text-text-2 leading-relaxed">
-                      {featuredPost.excerpt}
-                    </p>
-
-                    <div className="flex items-center justify-between text-12 text-grey-5 pt-2.5 border-t border-grey-3">
-                      <span className="font-medium text-text-2">{featuredPost.author.name}</span>
-                      <Link
-                        to={`/blog/${featuredPost.slug}`}
-                        className="text-primary font-medium hover:text-secondary-active transition-colors flex items-center gap-1"
-                      >
-                        <span>Read full story</span> &rarr;
+                  {/* Frosted progressive scrim starting above the text area with translucent blur */}
+                  <div
+                    className="relative z-10 w-full px-20 sm:px-24 md:px-28 pt-48 sm:pt-64 pb-16 sm:pb-20 flex flex-col justify-end"
+                    style={{
+                      background: 'linear-gradient(to top, color-mix(in srgb, var(--color-primary) 80%, transparent) 0%, color-mix(in srgb, var(--color-primary) 70%, transparent) 40%, color-mix(in srgb, var(--color-primary) 45%, transparent) 70%, color-mix(in srgb, var(--color-primary) 12%, transparent) 90%, transparent 100%)',
+                      backdropFilter: 'blur(var(--blur-md))',
+                      WebkitBackdropFilter: 'blur(var(--blur-md))',
+                      maskImage: 'linear-gradient(to top, black 0%, black 75%, transparent 100%)',
+                      WebkitMaskImage: 'linear-gradient(to top, black 0%, black 75%, transparent 100%)',
+                    }}
+                  >
+                    {/* Featured Title starting at the selected bottom area */}
+                    <h3 className="text-18 sm:text-20 md:text-22 xl:text-24 font-bold text-surface leading-snug mb-6 sm:mb-8 group-hover:text-secondary transition-colors">
+                      <Link to={`/blog/${featuredPost.slug}`}>
+                        {featuredPost.title}
                       </Link>
+                    </h3>
+
+                    {/* Featured Meta */}
+                    <div className="flex items-center gap-8 text-12 sm:text-13 text-surface/80 font-normal">
+                      <span>{featuredPost.date}</span>
+                      <span>•</span>
+                      <span>{featuredPost.readTime}</span>
                     </div>
                   </div>
                 </article>
               </Reveal>
             )}
 
-            {/* Stacked Pair + View All Button (right half, 50% width) */}
-            <div className="flex flex-col gap-16 h-full">
-              {stackedPosts.map((post, i) => (
-                <Reveal key={post.id} direction="up" delayMs={100 * (i + 1)} className="flex-1 flex">
-                  <article
-                    className="flex flex-col sm:flex-row gap-16 p-12 sm:px-16 sm:py-12 rounded-16 border border-grey-3 bg-surface hover:shadow-md transition-all duration-base group w-full flex-1"
-                  >
-                    <div className="sm:w-2/5 aspect-[4/3] rounded-12 overflow-hidden bg-grey-2 flex-shrink-0">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-full object-cover transition-transform duration-base group-hover:scale-105"
-                        width="300"
-                        height="225"
-                        loading="lazy"
-                      />
-                    </div>
+            {/* Right Column: Latest post heading + 4 compact horizontal items (5 cols) */}
+            <div className="lg:col-span-5 flex flex-col justify-between h-full pt-8 lg:pt-0">
+              {/* Column Header */}
+              <div className="flex items-center justify-between mb-16 sm:mb-20">
+                <h3 className="text-22 sm:text-24 font-bold text-surface tracking-tight">
+                  Latest post
+                </h3>
+              </div>
 
-                    <div className="flex flex-col justify-between flex-1 py-1">
-                      <div>
-                        <span className="text-12 font-bold uppercase tracking-wider text-secondary-active">
-                          {post.category}
-                        </span>
-                        <h4 className="text-16 md:text-17 font-medium text-primary group-hover:text-secondary-active transition-colors mt-1 leading-snug">
+              {/* 4 Stacked Items */}
+              <div className="flex flex-col justify-between flex-1 gap-12 sm:gap-16">
+                {latestPosts.map((post, i) => (
+                  <Reveal key={post.id} direction="up" delayMs={60 * (i + 1)}>
+                    <article className="group flex items-center gap-14 sm:gap-16 p-6 sm:p-8 rounded-16 hover:bg-white/[0.06] transition-all duration-base cursor-pointer">
+                      <Link
+                        to={`/blog/${post.slug}`}
+                        className="w-[56px] h-[56px] sm:w-[64px] sm:h-[64px] rounded-14 sm:rounded-16 overflow-hidden flex-shrink-0 bg-grey-2 border border-white/20 shadow-xs block"
+                      >
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="w-full h-full object-cover transition-transform duration-base group-hover:scale-110"
+                          width="64"
+                          height="64"
+                          loading="lazy"
+                        />
+                      </Link>
+
+                      <div className="flex flex-col justify-center min-w-0 flex-1">
+                        <h4 className="text-14 sm:text-15 font-semibold text-surface leading-snug group-hover:text-secondary transition-colors line-clamp-2 mb-4">
                           <Link to={`/blog/${post.slug}`}>{post.title}</Link>
                         </h4>
+                        <div className="flex items-center gap-6 text-12 text-surface/70 font-normal">
+                          <span>{post.date}</span>
+                          <span>•</span>
+                          <span>{post.readTime}</span>
+                        </div>
                       </div>
-
-                      <p className="my-auto py-1 text-13 md:text-14 text-text-2 leading-relaxed">
-                        {post.excerpt}
-                      </p>
-
-                      <div className="flex items-center justify-between text-12 text-grey-5 pt-2 border-t border-grey-3">
-                        <span className="font-medium text-text-2">{post.author.name}</span>
-                        <Link to={`/blog/${post.slug}`} className="text-primary font-medium hover:text-secondary-active transition-colors flex items-center gap-1">
-                          <span>Read</span> &rarr;
-                        </Link>
-                      </div>
-                    </div>
-                  </article>
-                </Reveal>
-              ))}
-
-              {/* View All Articles button spanning the full width of the smaller cards column */}
-              <Reveal direction="up" delayMs={200} className="w-full">
-                <Button to="/blog" variant="outline" className="w-full justify-center">
-                  View All Articles
-                </Button>
-              </Reveal>
+                    </article>
+                  </Reveal>
+                ))}
+              </div>
             </div>
           </div>
+
+          {/* Centered View All Posts Button at the bottom of the section */}
+          <div className="flex justify-center mt-32">
+            <Button to="/blog" variant="outline" onNavy withArrow>
+              View All Posts
+            </Button>
+          </div>
+          </Container>
         </div>
 
-        {/* ================= Part 2: Facility Gallery ================= */}
-        <div className="flex flex-col">
+        {/* ================= Part 2: Facility Gallery (in the standard 1440 container) ================= */}
+        <Container>
+          <div className="flex flex-col">
           {/* Section Header (Centered, 14px top/bottom, 28px middle, 32px gap to content) */}
           <SectionHeader
             eyebrow={site.gallery.eyebrow}
@@ -183,40 +198,19 @@ export const BlogGallery: React.FC = () => {
             subtitle={site.gallery.subtitle}
           />
 
-          {/* 3 Staggered Columns: Col 1 at 0px, Col 2 at 32px down, Col 3 at 64px down with button at top right */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-24 xl:gap-32 items-start">
-            {/* Column 1 */}
-            <div className="flex flex-col gap-24">
-              {renderGalleryCard(galleryItems[0], 0)}
-              {renderGalleryCard(galleryItems[3], 3)}
-            </div>
-
-            {/* Column 2 (Starts 32px down) */}
-            <div className="flex flex-col gap-24 lg:pt-[var(--space-32)]">
-              {renderGalleryCard(galleryItems[1], 1)}
-              {renderGalleryCard(galleryItems[4], 4)}
-            </div>
-
-            {/* Column 3 (Starts 64px down, with View All Gallery button in top-right blank space) */}
-            <div className="flex flex-col gap-24">
-              {/* Top-Right Button in the 64px offset area on desktop */}
-              <div className="hidden lg:flex justify-end items-center h-[var(--space-64)]">
-                <Button to="/gallery" variant="outline">
-                  View All Gallery
-                </Button>
-              </div>
-              {renderGalleryCard(galleryItems[2], 2)}
-              {renderGalleryCard(galleryItems[5], 5)}
-            </div>
+          {/* Symmetric Grid: 3 columns x 2 rows (desktop), 2 columns (tablet), 1 column (mobile) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-24 xl:gap-32">
+            {galleryItems.map((item, idx) => renderGalleryCard(item, idx))}
           </div>
 
-          {/* Fallback button below photos on mobile / tablet */}
-          <Reveal direction="up" delayMs={150} className="flex lg:hidden justify-center pt-8">
-            <Button to="/gallery" variant="outline">
+          {/* Centered View All Gallery Button at the bottom of the section (matching blog section) */}
+          <div className="flex justify-center mt-32">
+            <Button to="/gallery" variant="primary" withArrow>
               View All Gallery
             </Button>
-          </Reveal>
-        </div>
+          </div>
+          </div>
+        </Container>
       </div>
 
       {/* Lightbox Preview Modal */}

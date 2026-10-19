@@ -2,6 +2,10 @@
 @import "@fontsource/roboto/400.css";
 @import "@fontsource/roboto/500.css";
 @import "@fontsource/roboto/700.css";
+@import "@fontsource/roboto/900.css";
+@import "@fontsource/montserrat/700.css";
+@import "@fontsource/montserrat/800.css";
+@import "@fontsource/montserrat/900.css";
 @import "./tokens.css";
 
 @tailwind base;
@@ -495,6 +499,25 @@
   animation: review-sheen 450ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
+/* How We Work Process Card top corner stroke animation (Top-Left extending to full border on hover) */
+.process-card-stroke {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 3px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 11 89;
+  stroke-dashoffset: 6.6;
+  transition: stroke-dasharray 600ms cubic-bezier(0.16, 1, 0.3, 1),
+              stroke-dashoffset 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .process-card-stroke,
+.group:focus-within .process-card-stroke {
+  stroke-dasharray: 100 0;
+  stroke-dashoffset: 6.6;
+}
+
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -524,8 +547,10 @@
   .animate-review-photo,
   .animate-review-small-1,
   .animate-review-small-2,
-  .animate-review-sheen {
+  .animate-review-sheen,
+  .process-card-stroke {
     animation: none !important;
+    transition: none !important;
     transform: none !important;
   }
 }

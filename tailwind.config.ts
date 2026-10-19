@@ -96,6 +96,7 @@ export default {
       },
       fontFamily: {
         roboto: ['var(--font-family)'],
+        montserrat: ['"Montserrat"', 'var(--font-family)', 'sans-serif'],
       },
       scale: {
         104: '1.04',
@@ -129,6 +130,8 @@ export default {
         regular: 'var(--fw-regular)',
         medium: 'var(--fw-medium)',
         bold: 'var(--fw-bold)',
+        extrabold: '800',
+        black: '900',
       },
       blur: {
         sm: 'var(--blur-sm)',

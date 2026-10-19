@@ -1,160 +1,299 @@
-import React from 'react';
-import { Headphones, PhoneCall } from 'lucide-react';
+import React, { useRef, useState, useEffect } from 'react';
+import { TrendingUp, Handshake, Lightbulb, Rocket } from 'lucide-react';
 import { site } from '../../content/site';
+import { Section } from '../layout/Section';
 import { SectionHeader } from '../ui/SectionHeader';
 import { Button } from '../ui/Button';
-import { Orbs } from '../ui/Orbs';
 import { Reveal } from '../ui/Reveal';
-import { CardCornerGradient } from '../ui/CardCornerGradient';
+
+interface InfographicCardProps {
+  isTypeA: boolean;
+  isPrimary: boolean;
+  stepNumber: number;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+}
+
+const InfographicCard: React.FC<InfographicCardProps> = ({
+  isTypeA,
+  isPrimary,
+  stepNumber,
+  title,
+  description,
+  icon,
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [dims, setDims] = useState({ w: 560, h: 220 });
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const update = () => {
+      if (containerRef.current) {
+        setDims({
+          w: containerRef.current.offsetWidth,
+          h: containerRef.current.offsetHeight,
+        });
+      }
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, []);
+
+  const { w, h } = dims;
+  const strokeClass = isPrimary ? 'text-primary' : 'text-secondary';
+  const titleClass = isPrimary ? 'text-primary' : 'text-secondary-active';
+
+  // Geometry tokens matching reference: 84px diameter true circle
+  const cr = 42; // Circle radius
+  const r = 26;  // Corner radius
+
+  if (isTypeA) {
+    // Card 1 & 3: Top-right number, bottom-right curl
+    const cx = Math.max(r + cr + 10, w - 56);
+    const cy = h - 2.5 - cr; // Exact tangent to bottom edge (h - 2.5)
+    const dottedStartX = cx - 75;
+    const dottedEndX = cx - 26;
+
+    // Unbroken continuous vector stroke with mathematically exact 270-degree circle
+    const pathD = `
+      M ${dottedStartX} 2.5
+      L ${r} 2.5
+      A ${r} ${r} 0 0 0 2.5 ${r}
+      L 2.5 ${h - r}
+      A ${r} ${r} 0 0 0 ${r} ${h - 2.5}
+      L ${cx} ${h - 2.5}
+      A ${cr} ${cr} 0 1 0 ${cx - cr} ${cy}
+    `.trim();
+
+    return (
+      <div
+        ref={containerRef}
+        className={`group relative w-full min-h-[220px] flex flex-col justify-center transition-transform duration-base hover:-translate-y-1 pl-36 sm:pl-48 pr-[100px] sm:pr-[125px] py-28 sm:py-32 ${strokeClass}`}
+      >
+        {/* Continuous SVG Vector Frame */}
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none overflow-visible"
+          viewBox={`0 0 ${w} ${h}`}
+          fill="none"
+          aria-hidden="true"
+        >
+          {/* Main Continuous Stroke */}
+          <path
+            d={pathD}
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+          />
+
+          {/* Dotted line leading to Number */}
+          <line
+            x1={dottedStartX}
+            y1="2.5"
+            x2={dottedEndX}
+            y2="2.5"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeDasharray="1 8"
+          />
+
+          {/* Typographic Outlined Number matching reference DIN / Bahnschrift / Montserrat font */}
+          <text
+            x={cx}
+            y={54}
+            fontFamily="'Bahnschrift', 'DIN Alternate', 'Montserrat', var(--font-family), sans-serif"
+            fontWeight="bold"
+            fontSize="60"
+            fill="var(--color-surface)"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            textAnchor="middle"
+          >
+            {stepNumber}
+          </text>
+        </svg>
+
+        {/* Large prominent icon centered inside circle */}
+        <div
+          className="absolute flex items-center justify-center text-current pointer-events-none transition-transform duration-base group-hover:scale-110"
+          style={{
+            left: cx - 24,
+            top: cy - 24,
+            width: 48,
+            height: 48,
+          }}
+          aria-hidden="true"
+        >
+          {icon}
+        </div>
+
+        {/* Card Content with bold Montserrat heading and clean typography */}
+        <div className="relative z-10 max-w-[420px]">
+          <h3 className={`font-montserrat font-extrabold text-20 sm:text-22 md:text-24 uppercase tracking-normal mb-2 leading-snug ${titleClass}`}>
+            {title}
+          </h3>
+          <p className="text-15 md:text-16 text-text-2 leading-relaxed font-normal">
+            {description}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Type B: Card 2 & 4: Top-left curl, bottom-left number
+  const cx = 56;
+  const cy = 2.5 + cr; // Exact tangent to top line (2.5)
+  const dottedStartX = cx + 26;
+  const dottedEndX = cx + 75;
+
+  // Unbroken continuous vector stroke with mathematically exact 270-degree circle
+  const pathD = `
+    M ${cx + cr} ${cy}
+    A ${cr} ${cr} 0 1 1 ${cx} 2.5
+    L ${w - r} 2.5
+    A ${r} ${r} 0 0 1 ${w - 2.5} ${r}
+    L ${w - 2.5} ${h - r}
+    A ${r} ${r} 0 0 1 ${w - r} ${h - 2.5}
+    L ${dottedEndX} ${h - 2.5}
+  `.trim();
+
+  return (
+    <div
+      ref={containerRef}
+      className={`group relative w-full min-h-[220px] flex flex-col justify-center transition-transform duration-base hover:-translate-y-1 pl-[100px] sm:pl-[125px] pr-36 sm:pr-48 py-28 sm:py-32 ${strokeClass}`}
+    >
+      {/* Continuous SVG Vector Frame */}
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none overflow-visible"
+        viewBox={`0 0 ${w} ${h}`}
+        fill="none"
+        aria-hidden="true"
+      >
+        {/* Main Continuous Stroke */}
+        <path
+          d={pathD}
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+
+        {/* Dotted line leading to Number */}
+        <line
+          x1={dottedEndX}
+          y1={h - 2.5}
+          x2={dottedStartX}
+          y2={h - 2.5}
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeDasharray="1 8"
+        />
+
+        {/* Typographic Outlined Number sitting on bottom line matching reference font */}
+        <text
+          x={cx}
+          y={h - 2.5}
+          fontFamily="'Bahnschrift', 'DIN Alternate', 'Montserrat', var(--font-family), sans-serif"
+          fontWeight="bold"
+          fontSize="60"
+          fill="var(--color-surface)"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          textAnchor="middle"
+        >
+          {stepNumber}
+        </text>
+      </svg>
+
+      {/* Large prominent icon centered inside circle */}
+      <div
+        className="absolute flex items-center justify-center text-current pointer-events-none transition-transform duration-base group-hover:scale-110"
+        style={{
+          left: cx - 24,
+          top: cy - 24,
+          width: 48,
+          height: 48,
+        }}
+        aria-hidden="true"
+      >
+        {icon}
+      </div>
+
+      {/* Card Content with bold Montserrat heading and clean typography */}
+      <div className="relative z-10 max-w-[420px]">
+        <h3 className={`font-montserrat font-extrabold text-20 sm:text-22 md:text-24 uppercase tracking-normal mb-2 leading-snug ${titleClass}`}>
+          {title}
+        </h3>
+        <p className="text-15 md:text-16 text-text-2 leading-relaxed font-normal">
+          {description}
+        </p>
+      </div>
+    </div>
+  );
+};
 
 export const GetStarted: React.FC = () => {
   const { steps, eyebrow, title, subtitle, ctaLabel, ctaHref } = site.getStarted;
 
+  const iconList = [
+    <TrendingUp key="trending-up" style={{ width: 36, height: 36 }} strokeWidth={2.2} />,
+    <Handshake key="handshake" style={{ width: 36, height: 36 }} strokeWidth={2.2} />,
+    <Lightbulb key="lightbulb" style={{ width: 36, height: 36 }} strokeWidth={2.2} />,
+    <Rocket key="rocket" style={{ width: 36, height: 36 }} strokeWidth={2.2} />,
+  ];
+
   return (
-    <section id="get-started" className="w-full py-0 px-3 bg-surface mb-[var(--space-section-gap)]">
-      <div className="relative overflow-hidden rounded-16 bg-primary px-6 md:px-12 xl:px-16 py-32 shadow-md w-full">
-        {/* Background orbs & subtle atmosphere */}
-        <Orbs preset="subtle" count={2} />
+    <Section id="get-started" variant="surface" padded={false} className="pb-16 sm:pb-24">
+      <div className="flex flex-col">
+        {/* Section Header */}
+        <SectionHeader
+          eyebrow={eyebrow}
+          title={title}
+          subtitle={subtitle}
+        />
 
-        {/* Decorative faint background vector icons at ~3.5% opacity per DESIGN.md section 6 */}
-        <div className="absolute top-12 left-10 pointer-events-none text-surface/[0.035] -rotate-12 select-none" aria-hidden="true">
-          <Headphones className="w-72 h-72" />
+        {/* 2x2 Infographic Grid matching reference screenshot with zero white background */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full">
+          {steps.map((item, idx) => {
+            const isPrimary = idx % 2 === 0;
+            const isTypeA = idx === 0 || idx === 2; // Card 1 & 3 (Left side: top number, bottom-right curl)
+            const numberVal = idx + 1;
+            const icon = iconList[idx] || <TrendingUp style={{ width: 36, height: 36 }} strokeWidth={2.2} />;
+
+            return (
+              <Reveal key={item.step} direction="up" delayMs={idx * 80} className="flex">
+                <InfographicCard
+                  isTypeA={isTypeA}
+                  isPrimary={isPrimary}
+                  stepNumber={numberVal}
+                  title={item.title}
+                  description={item.description}
+                  icon={icon}
+                />
+              </Reveal>
+            );
+          })}
         </div>
-        <div className="absolute -bottom-16 right-8 pointer-events-none text-surface/[0.035] rotate-12 select-none" aria-hidden="true">
-          <PhoneCall className="w-80 h-80" />
-        </div>
 
-        <div className="mx-auto w-full max-w-[var(--container-max)] relative z-10 flex flex-col">
-          {/* Section Header (Centered, 14px top/bottom, 28px middle, 32px gap to content, onNavy) */}
-          <SectionHeader
-            onNavy
-            eyebrow={eyebrow}
-            title={title}
-            subtitle={subtitle}
-          />
-
-          {/* Timeline Grid: Narrower cards with wide, spacious gaps and animated progression flow */}
-          <div className="w-full mb-32">
-            <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-32 lg:gap-48 xl:gap-64">
-              {steps.map((item, idx) => (
-                <Reveal
-                  key={item.step}
-                  direction="up"
-                  delayMs={idx * 80}
-                  className="flex relative"
-                >
-                  <div
-                    className={`relative z-10 flex flex-col items-start justify-between gap-20 p-24 md:p-28 xl:p-32 rounded-16 overflow-hidden border border-t-[3px] shadow-md hover:shadow-xl transition-all duration-base hover:-translate-y-1.5 w-full group ${
-                      idx === 3
-                        ? 'bg-gradient-to-b from-[#E6F4EF] via-white to-[#DCF0E8] border-secondary border-t-secondary shadow-xl ring-2 ring-secondary/30'
-                        : 'bg-gradient-to-b from-white via-surface to-[#F0F7F4] border-white/60 border-t-secondary/60 hover:border-secondary hover:border-t-secondary'
-                    } ${
-                      idx === 0
-                        ? 'animate-step-card-1'
-                        : idx === 1
-                        ? 'animate-step-card-2'
-                        : idx === 2
-                        ? 'animate-step-card-3'
-                        : 'animate-step-card-4'
-                    }`}
-                  >
-                    {/* Background oversized numeral watermark visual */}
-                    <span className="pointer-events-none absolute -bottom-3 -right-1 font-mono text-[76px] font-black text-secondary/[0.09] select-none leading-none group-hover:text-secondary/[0.18] transition-colors" aria-hidden="true">
-                      {item.step}
-                    </span>
-
-                    {/* Subtle top-right corner gradient */}
-                    <CardCornerGradient size="md" />
-
-                    {/* Step indicator with synchronized progression pulse */}
-                    <div
-                      className={`relative z-10 flex h-11 w-11 items-center justify-center rounded-12 font-mono text-14 font-bold shadow-xs transition-all duration-base ${
-                        idx === 3
-                          ? 'bg-secondary text-primary border border-secondary shadow-sm'
-                          : 'bg-primary/5 border border-primary/15 text-primary group-hover:bg-secondary/15 group-hover:text-secondary-active group-hover:border-secondary/30'
-                      } ${
-                        idx === 0
-                          ? 'animate-step-badge-1'
-                          : idx === 1
-                          ? 'animate-step-badge-2'
-                          : idx === 2
-                          ? 'animate-step-badge-3'
-                          : 'animate-step-badge-4'
-                      }`}
-                    >
-                      {item.step}
-                    </div>
-
-                    <div className="relative z-10">
-                      <h3 className="text-19 md:text-20 font-bold text-primary group-hover:text-secondary-active transition-colors mb-2 leading-snug">
-                        {item.title}
-                      </h3>
-                      <p className="text-14 md:text-15 text-text-2 leading-relaxed">
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Subtle, elegant progress track spanning the wide gap between steps on desktop */}
-                  {idx < steps.length - 1 && (
-                    <div
-                      className="hidden lg:flex absolute top-[52px] right-[-48px] xl:right-[-64px] -translate-y-1/2 w-48 xl:w-64 items-center justify-center pointer-events-none z-20"
-                      aria-hidden="true"
-                    >
-                      {/* Track */}
-                      <div className="w-full h-[2px] bg-white/15 relative overflow-hidden rounded-full">
-                        {/* Flowing Light Beam */}
-                        <div
-                          className={`absolute inset-y-0 w-full rounded-full bg-gradient-to-r from-transparent via-secondary to-transparent ${
-                            idx === 0
-                              ? 'animate-step-beam-1'
-                              : idx === 1
-                              ? 'animate-step-beam-2'
-                              : 'animate-step-beam-3'
-                          }`}
-                        />
-                      </div>
-                    </div>
-                  )}
-                </Reveal>
-              ))}
-            </div>
-          </div>
-
-          {/* Consultative Scoping Callout & CTA */}
-          <Reveal direction="up" delayMs={200}>
-            <div className="relative overflow-hidden w-full rounded-16 bg-gradient-to-r from-white via-surface to-[#F0F7F4] border border-white/60 py-20 md:py-24 px-28 md:px-48 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left shadow-xl group">
-              {/* Dotted texture fading smoothly to the right */}
-              <div
-                className="absolute left-0 top-0 bottom-0 w-full max-w-xl bg-[radial-gradient(var(--color-secondary)_1.5px,transparent_1.5px)] [background-size:16px_16px] opacity-25 pointer-events-none"
-                style={{
-                  maskImage: 'linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 0) 100%)',
-                  WebkitMaskImage: 'linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 0) 100%)',
-                }}
-                aria-hidden="true"
-              />
-
-              <CardCornerGradient size="lg" />
-
-              <div className="max-w-xl relative z-10">
-                <h4 className="text-20 md:text-22 font-bold text-primary leading-snug">
-                  No generic pricing tiers. No guesswork.
-                </h4>
-                <p className="text-14 md:text-15 text-text-2 mt-2 leading-relaxed">
-                  Every partnership begins with understanding your unique requirements. We quote transparently after our discovery session.
-                </p>
-              </div>
-
-              <div className="flex-shrink-0 relative z-10">
-                <Button variant="secondary" href={ctaHref}>
-                  {ctaLabel}
-                </Button>
-              </div>
-            </div>
-          </Reveal>
+        {/* Centered CTA - same pattern as the other section footers */}
+        <div className="flex justify-center mt-32">
+          <Button href={ctaHref} variant="primary" withArrow>
+            {ctaLabel}
+          </Button>
         </div>
       </div>
-    </section>
+    </Section>
   );
 };
 

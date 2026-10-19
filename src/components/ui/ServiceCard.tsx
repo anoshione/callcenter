@@ -1,6 +1,40 @@
 import React from 'react';
-import { PointerIcon, getIconForPointer } from './PointerIcon';
-import { Eyebrow } from './Eyebrow';
+import {
+  LucideIcon,
+  Clock,
+  Languages,
+  ShieldCheck,
+  RefreshCw,
+  Layers,
+  Activity,
+  BookOpen,
+  LifeBuoy,
+  Users,
+  CalendarCheck,
+  Filter,
+  PhoneForwarded,
+  PhoneIncoming,
+  CreditCard,
+  Zap,
+  Workflow,
+  PhoneOutgoing,
+  BarChart3,
+  HeartHandshake,
+  Scale,
+  Server,
+  Lock,
+  HardDrive,
+  Cpu,
+  Timer,
+  Inbox,
+  Sparkles,
+  Smile,
+  Target,
+  FileText,
+  Gauge,
+  CheckCheck,
+  Check,
+} from 'lucide-react';
 import { Button } from './Button';
 
 export interface ServicePointerItem {
@@ -12,82 +46,178 @@ export interface ServiceCardProps {
   id: string;
   slug: string;
   title: string;
-  eyebrow: string;
+  eyebrow?: string;
   description?: string;
   pointers: (string | ServicePointerItem)[];
   image: string;
-  ctaText?: string;
+  tags?: string[];
+  rating?: string;
+  primaryCtaLabel?: string;
+  secondaryCtaLabel?: string;
   onCtaClick?: () => void;
   className?: string;
+}
+
+// Icon registry for service deliverable pointers
+const pointerIconMap: Record<string, LucideIcon> = {
+  Clock,
+  Languages,
+  ShieldCheck,
+  RefreshCw,
+  Layers,
+  Activity,
+  BookOpen,
+  LifeBuoy,
+  Users,
+  CalendarCheck,
+  Filter,
+  PhoneForwarded,
+  PhoneIncoming,
+  CreditCard,
+  Zap,
+  Workflow,
+  PhoneOutgoing,
+  BarChart3,
+  HeartHandshake,
+  Scale,
+  Server,
+  Lock,
+  HardDrive,
+  Cpu,
+  Timer,
+  Inbox,
+  Sparkles,
+  Smile,
+  Target,
+  FileText,
+  Gauge,
+  CheckCheck,
+  Check,
+};
+
+// Keyword fallback to detect best semantic icon if pointers are strings
+function resolvePointerIcon(text: string, iconName?: string): LucideIcon {
+  if (iconName && pointerIconMap[iconName]) {
+    return pointerIconMap[iconName];
+  }
+  const lower = text.toLowerCase();
+  if (lower.includes('24/7') || lower.includes('coverage') || lower.includes('hour') || lower.includes('time')) return Clock;
+  if (lower.includes('bilingual') || lower.includes('language') || lower.includes('multilingual')) return Languages;
+  if (lower.includes('sla') || lower.includes('security') || lower.includes('quality') || lower.includes('audit')) return ShieldCheck;
+  if (lower.includes('crm') || lower.includes('sync') || lower.includes('helpdesk')) return RefreshCw;
+  if (lower.includes('escalation') || lower.includes('tier')) return Layers;
+  if (lower.includes('diagnostic') || lower.includes('logging')) return Activity;
+  if (lower.includes('knowledge') || lower.includes('base') || lower.includes('doc')) return BookOpen;
+  if (lower.includes('incident') || lower.includes('triage') || lower.includes('tracking')) return LifeBuoy;
+  if (lower.includes('decision') || lower.includes('outreach') || lower.includes('b2b') || lower.includes('user')) return Users;
+  if (lower.includes('calendar') || lower.includes('schedule') || lower.includes('meeting')) return CalendarCheck;
+  if (lower.includes('matrix') || lower.includes('lead') || lower.includes('filter')) return Filter;
+  if (lower.includes('transfer') || lower.includes('forward')) return PhoneForwarded;
+  if (lower.includes('answering') || lower.includes('ivr') || lower.includes('inbound')) return PhoneIncoming;
+  if (lower.includes('billing') || lower.includes('order') || lower.includes('payment')) return CreditCard;
+  if (lower.includes('emergency') || lower.includes('dispatch') || lower.includes('fast')) return Zap;
+  if (lower.includes('routing') || lower.includes('workflow')) return Workflow;
+  if (lower.includes('outbound') || lower.includes('prospect')) return PhoneOutgoing;
+  if (lower.includes('market') || lower.includes('survey') || lower.includes('chart')) return BarChart3;
+  if (lower.includes('win-back') || lower.includes('relationship') || lower.includes('partner')) return HeartHandshake;
+  if (lower.includes('compliance') || lower.includes('legal') || lower.includes('scale')) return Scale;
+  if (lower.includes('cloud') || lower.includes('server') || lower.includes('uptime')) return Server;
+  if (lower.includes('access') || lower.includes('cyber') || lower.includes('lock')) return Lock;
+  if (lower.includes('backup') || lower.includes('recovery') || lower.includes('storage')) return HardDrive;
+  if (lower.includes('patch') || lower.includes('cpu') || lower.includes('infrastructure')) return Cpu;
+  if (lower.includes('chat') || lower.includes('response') || lower.includes('speed')) return Timer;
+  if (lower.includes('ticket') || lower.includes('inbox') || lower.includes('queue')) return Inbox;
+  if (lower.includes('proactive') || lower.includes('trigger') || lower.includes('ai')) return Sparkles;
+  if (lower.includes('tone') || lower.includes('human') || lower.includes('empathy')) return Smile;
+  if (lower.includes('accuracy') || lower.includes('verified') || lower.includes('target')) return Target;
+  if (lower.includes('document') || lower.includes('processing') || lower.includes('entry')) return FileText;
+  if (lower.includes('turnaround') || lower.includes('rapid') || lower.includes('gauge')) return Gauge;
+  if (lower.includes('double') || lower.includes('verification')) return CheckCheck;
+  return Check;
 }
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({
   slug,
   title,
-  eyebrow,
   pointers,
   image,
-  ctaText,
+  primaryCtaLabel = 'Get Service',
+  secondaryCtaLabel = 'See Details',
   className = '',
 }) => {
   return (
     <div
-      className={`group relative flex flex-col justify-between rounded-16 bg-surface text-text border border-grey-3 overflow-hidden shadow-sm hover:shadow-md transition-all duration-base hover:-translate-y-1 ${className}`}
+      className={`group relative flex flex-col justify-between rounded-20 bg-surface text-text border border-grey-3/80 overflow-hidden shadow-[var(--shadow-card-crisp)] hover:shadow-[var(--shadow-card-crisp-hover)] transition-all duration-base hover:-translate-y-1 ${className}`}
     >
-      {/* Top Media */}
-      <div className="aspect-[16/10] w-full overflow-hidden bg-grey-2 relative">
-        <img
-          src={image}
-          alt={title}
-          className="h-full w-full object-cover transition-transform duration-base group-hover:scale-104"
-          width="600"
-          height="375"
-          loading="lazy"
-        />
+      {/* Top Framed Media (Ref 1: Small even padding around card framing the photo, 8px / 10px - 2px less than before) */}
+      <div className="relative p-8 sm:p-[10px] pb-0 w-full">
+        <div className="relative w-full aspect-[16/10] overflow-hidden rounded-t-16 bg-grey-2 shadow-xs">
+          <img
+            src={image}
+            alt={title}
+            className="h-full w-full object-cover transition-transform duration-base group-hover:scale-104"
+            width="600"
+            height="375"
+            loading="lazy"
+          />
+
+          {/* Ref 2: Linear transparent gradient starting lower (54%) with aggressive merge to conceal bottom outline */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: `linear-gradient(to bottom, transparent 0%, transparent 54%, color-mix(in srgb, var(--color-surface) 28%, transparent) 68%, color-mix(in srgb, var(--color-surface) 78%, transparent) 82%, color-mix(in srgb, var(--color-surface) 98%, transparent) 92%, var(--color-surface) 98%, var(--color-surface) 100%)`,
+            }}
+            aria-hidden="true"
+          />
+        </div>
       </div>
 
-      {/* Content Body with generous padding */}
-      <div className="flex flex-col flex-1 p-24 md:p-32 gap-5 justify-between">
+      {/* Content Body: Starts on the merged gradient zone */}
+      <div className="relative z-10 -mt-8 sm:-mt-9 px-5 sm:px-6 pb-5 sm:pb-6 flex flex-col flex-1 justify-between">
         <div>
-          <Eyebrow variant="card" className="mb-2">
-            {eyebrow}
-          </Eyebrow>
-
-          <h3 className="text-24 md:text-28 font-medium text-primary leading-tight">
+          <h3 className="text-20 md:text-22 font-bold text-primary leading-snug mb-3.5">
             {title}
           </h3>
 
-          {/* Key Deliverables Pointers */}
-          <div className="mt-20 pt-6 border-t border-grey-3">
-            <span className="text-12 font-bold uppercase tracking-wider text-primary block mb-3.5">
-              Included Deliverables:
-            </span>
-            <ul className="flex flex-col gap-3">
-              {pointers.map((item, idx) => {
-                const text = typeof item === 'string' ? item : item.text;
-                const iconName = typeof item === 'string' ? getIconForPointer(item) : (item.iconName || getIconForPointer(item.text));
+          {/* Direct Deliverables Pointers: dedicated Lucide service icons at proper 18px size */}
+          <ul className="flex flex-col gap-2.5 text-14 text-text mb-5">
+            {pointers.map((item, idx) => {
+              const text = typeof item === 'string' ? item : item.text;
+              const iconName = typeof item === 'object' ? item.iconName : undefined;
+              const IconComponent = resolvePointerIcon(text, iconName);
 
-                return (
-                  <li key={idx} className="flex items-start gap-3 text-14 text-text leading-snug group/item">
-                    <span className="flex w-[24px] h-[24px] min-w-[24px] min-h-[24px] flex-shrink-0 items-center justify-center rounded-full bg-secondary/15 text-secondary-active border border-secondary/25 mt-0.5 shadow-xs transition-colors duration-base group-hover/item:bg-secondary/25 group-hover/item:border-secondary/40">
-                      <PointerIcon name={iconName} className="w-[14px] h-[14px] stroke-[2.2]" />
-                    </span>
-                    <span className="pt-0.5">{text}</span>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+              return (
+                <li key={idx} className="flex items-center gap-2.5 leading-snug group/item">
+                  <IconComponent
+                    size={18}
+                    className="w-[18px] h-[18px] min-w-[18px] min-h-[18px] text-secondary shrink-0 transition-transform duration-fast group-hover/item:scale-110"
+                    strokeWidth={2.2}
+                  />
+                  <span className="pt-0.5">{text}</span>
+                </li>
+              );
+            })}
+          </ul>
         </div>
 
-        {/* Pinned Bottom CTA - standardized 48px height, 16px text, 2-state hover */}
-        <div className="pt-6 mt-4 border-t border-grey-3">
+        {/* Pinned Bottom CTAs: Clean button layout as before without nested arrow badge */}
+        <div className="flex items-center gap-2.5 sm:gap-3 mt-auto">
           <Button
             href={`/#contact?service=${slug}`}
             variant="primary"
-            className="w-full"
+            size="sm"
+            className="flex-1 whitespace-nowrap text-center justify-center px-16 sm:px-20"
           >
-            {ctaText || `Discuss ${title}`}
+            {primaryCtaLabel}
+          </Button>
+
+          <Button
+            to={`/services#${slug}`}
+            variant="outline"
+            size="sm"
+            className="shrink-0 whitespace-nowrap text-center justify-center px-16 sm:px-20"
+          >
+            {secondaryCtaLabel}
           </Button>
         </div>
       </div>

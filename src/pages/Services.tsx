@@ -7,7 +7,6 @@ import { GetStarted } from '../components/sections/GetStarted';
 import { Faq } from '../components/sections/Faq';
 import { Contact } from '../components/sections/Contact';
 import { Button } from '../components/ui/Button';
-import { PointerIcon, getIconForPointer } from '../components/ui/PointerIcon';
 import { site } from '../content/site';
 
 export const Services: React.FC = () => {
@@ -63,17 +62,28 @@ export const Services: React.FC = () => {
                   <h3 className="text-12 font-bold text-primary uppercase tracking-wider mb-3.5">
                     Core Operational Deliverables:
                   </h3>
-                  <ul className="flex flex-col gap-3 text-14 text-text">
+                  <ul className="flex flex-col gap-2.5 text-14 text-text">
                     {srv.pointers.map((item, i) => {
                       const text = typeof item === 'string' ? item : item.text;
-                      const iconName = typeof item === 'string' ? getIconForPointer(item) : (item.iconName || getIconForPointer(item.text));
 
                       return (
-                        <li key={i} className="flex items-center gap-3 group/item">
-                          <span className="flex w-[24px] h-[24px] min-w-[24px] min-h-[24px] items-center justify-center rounded-full bg-secondary/15 text-secondary-active border border-secondary/25 shrink-0 shadow-xs transition-colors duration-base group-hover/item:bg-secondary/25 group-hover/item:border-secondary/40">
-                            <PointerIcon name={iconName} className="w-[14px] h-[14px] stroke-[2.2]" />
-                          </span>
-                          <span className="leading-snug">{text}</span>
+                        <li key={i} className="flex items-center gap-2.5 leading-snug group/item">
+                          <svg
+                            className="w-4 h-4 shrink-0 transition-transform duration-fast group-hover/item:scale-110"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            aria-hidden="true"
+                          >
+                            <circle cx="10" cy="10" r="10" fill="var(--color-secondary)" />
+                            <path
+                              d="M6 10.2L8.6 13L14 7"
+                              stroke="var(--color-surface)"
+                              strokeWidth="2.2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                          <span>{text}</span>
                         </li>
                       );
                     })}

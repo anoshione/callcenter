@@ -4,17 +4,16 @@ import { site } from '../../content/site';
 import { Section } from '../layout/Section';
 import { SectionHeader } from '../ui/SectionHeader';
 import { Reveal } from '../ui/Reveal';
-import { CardCornerGradient } from '../ui/CardCornerGradient';
 
 export const HowWeWork: React.FC = () => {
   const { steps, eyebrow, title, subtitle } = site.howWeWork;
 
   const iconMap: Record<string, React.ReactNode> = {
-    Search: <Search className="h-5 w-5 text-primary" />,
-    Compass: <Compass className="h-5 w-5 text-primary" />,
-    GraduationCap: <GraduationCap className="h-5 w-5 text-primary" />,
-    Rocket: <Rocket className="h-5 w-5 text-primary" />,
-    TrendingUp: <TrendingUp className="h-5 w-5 text-primary" />,
+    Search: <Search className="h-5 w-5" />,
+    Compass: <Compass className="h-5 w-5" />,
+    GraduationCap: <GraduationCap className="h-5 w-5" />,
+    Rocket: <Rocket className="h-5 w-5" />,
+    TrendingUp: <TrendingUp className="h-5 w-5" />,
   };
 
   return (
@@ -37,8 +36,23 @@ export const HowWeWork: React.FC = () => {
               className="flex"
             >
               <div
-                className="relative overflow-hidden flex flex-col items-start justify-between gap-20 p-24 md:p-28 xl:p-32 rounded-16 border border-grey-3/80 border-t-[3px] border-t-primary/70 hover:border-primary hover:border-t-primary bg-gradient-to-b from-white via-surface to-grey-1/90 shadow-md hover:shadow-xl transition-all duration-base hover:-translate-y-1.5 w-full group"
+                className="relative overflow-hidden flex flex-col items-start justify-between gap-20 p-24 md:p-28 xl:p-32 rounded-16 border border-grey-3/80 bg-gradient-to-b from-white via-surface to-grey-1/90 shadow-[var(--shadow-card-crisp)] hover:shadow-[var(--shadow-card-crisp-hover)] transition-all duration-base hover:-translate-y-1.5 w-full group"
               >
+                {/* Animated top-left corner-to-full border stroke */}
+                <svg
+                  className="absolute inset-0 w-full h-full pointer-events-none rounded-16 z-20"
+                  fill="none"
+                >
+                  <rect
+                    x="1.5"
+                    y="1.5"
+                    width="calc(100% - 3px)"
+                    height="calc(100% - 3px)"
+                    rx="15"
+                    pathLength="100"
+                    className="process-card-stroke"
+                  />
+                </svg>
                 {/* Background oversized numeral watermark visual matching GetStarted */}
                 <span
                   className="pointer-events-none absolute -bottom-3 -right-1 font-mono text-[76px] font-black text-secondary/[0.09] select-none leading-none group-hover:text-secondary/[0.18] transition-colors"
@@ -47,18 +61,12 @@ export const HowWeWork: React.FC = () => {
                   {st.number}
                 </span>
 
-                {/* Subtle top-right corner gradient with primary navy glow */}
-                <CardCornerGradient size="md" variant="primary" />
-
                 <div className="relative z-10 flex flex-col justify-between h-full w-full">
                   <div>
-                    {/* Top Row: Step Number Badge & Process Icon */}
-                    <div className="flex items-center justify-between w-full mb-5">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-12 font-mono text-14 font-bold bg-primary/5 border border-primary/15 text-primary group-hover:bg-primary group-hover:text-surface group-hover:border-primary transition-all duration-base shadow-xs">
-                        {st.number}
-                      </div>
-                      <div className="flex h-10 w-10 items-center justify-center rounded-12 bg-primary/5 border border-primary/10 text-primary group-hover:bg-primary/10 transition-colors">
-                        {iconMap[st.iconName] || <Rocket className="h-5 w-5 text-primary" />}
+                    {/* Top Row: Process Icon (replaced the left number item) */}
+                    <div className="flex items-center justify-start w-full mb-5">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-12 bg-primary/5 border border-primary/15 text-primary group-hover:bg-primary group-hover:text-surface group-hover:border-primary transition-all duration-base shadow-xs">
+                        {iconMap[st.iconName] || <Rocket className="h-5 w-5" />}
                       </div>
                     </div>
 
