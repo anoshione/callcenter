@@ -220,12 +220,14 @@ export const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* Floating Glass Stats Bar positioned overlapping the bottom edge of the banner panel */}
+        {/* Floating Glass Stats Bar positioned overlapping the bottom edge of the banner panel:
+            same glass recipe as the navbar (--glass-bg + blur-md token); ~half the bar's height
+            hangs over the hero panel edge */}
       <div
         ref={statsRef}
-        className="relative z-30 mx-auto w-full max-w-[var(--container-max)] px-4 md:px-8 -mt-10 sm:-mt-12 md:-mt-14 xl:-mt-16"
+        className="relative z-30 mx-auto w-full max-w-[var(--container-max)] px-4 md:px-8 -mt-56"
       >
-        <div className="rounded-16 py-16 lg:py-20 px-16 sm:px-24 lg:px-28 border border-white/80 shadow-md bg-white/85 backdrop-blur-md relative overflow-hidden">
+        <div className="rounded-16 py-16 lg:py-20 px-16 sm:px-24 lg:px-28 border border-glass-border shadow-md bg-glass-bg backdrop-blur-md relative overflow-hidden">
           {/* Subtle dotted matrix texture under the stats bar content */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.08] select-none" aria-hidden="true">
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">

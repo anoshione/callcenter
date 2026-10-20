@@ -212,6 +212,8 @@ export interface SiteContent {
     address: string;
     hours: string;
     mapsUrl?: string;
+    visualImage?: string;
+    visualAlt?: string;
     socials: {
       platform: string;
       href: string;
@@ -515,7 +517,7 @@ export const site: SiteContent = {
     },
   ],
   howWeWork: {
-    eyebrow: "Our Proven Process",
+    eyebrow: "Operation procedure",
     title: "How We Deliver Operational Excellence",
     subtitle: "A structured five-stage process built for smooth launch and rapid scale.",
     steps: [
@@ -673,7 +675,7 @@ export const site: SiteContent = {
     ctaHref: "/#contact",
   },
   blogs: {
-    eyebrow: "Industry Insights",
+    eyebrow: "Blogs",
     title: "News, Strategies & Contact Center Insights",
     subtitle: "Proven operational strategies and frontline support best practices.",
     posts: [
@@ -771,7 +773,7 @@ export const site: SiteContent = {
     ],
   },
   gallery: {
-    eyebrow: "Our Facility & Culture",
+    eyebrow: "Gallery",
     title: "Inside Our State-of-the-Art Operations",
     subtitle: "A visual look inside our modern operations floors and training labs.",
     categories: ["All", "Operations", "Technology", "Training", "Team Culture"],
@@ -850,6 +852,8 @@ export const site: SiteContent = {
     address: "Khaja IT Park (2nd to 6th Floor), 07 South Kallyanpur, Mirpur Road, Dhaka-1207, Bangladesh",
     hours: "24/7/365 Global Operations Desk",
     mapsUrl: "https://maps.app.goo.gl/R3Ldi2NzX2cpvKsR9",
+    visualImage: "/assets/contact-visual.svg",
+    visualAlt: "Brand gradient backdrop with global support network arcs",
     socials: [
       { platform: "Facebook", href: "https://facebook.com", iconName: "Facebook" },
       { platform: "Twitter", href: "https://twitter.com", iconName: "Twitter" },

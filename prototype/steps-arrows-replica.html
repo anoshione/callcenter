@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Steps Section — Pixel Reference Replica</title>
+<style>
+  /* ============================================================
+     Pixel replica of the reference infographic (study artifact).
+     Raw hex values here mirror the reference image exactly and are
+     NOT shipped tokens; the production component derives colors
+     from design/tokens.css via color-mix instead.
+     ============================================================ */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+    background: #EFEFEF;
+    display: flex;
+    justify-content: center;
+    padding: 48px 24px;
+  }
+
+  .sheet {
+    background: #F4F5F6;              /* reference inner panel */
+    width: 1040px;
+    max-width: 100%;
+    border-radius: 24px;
+    padding: 96px 72px 120px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+  }
+
+  .col { position: relative; display: flex; flex-direction: column; }
+
+  /* Soft vertical "paper" shadow at each column's left edge */
+  .col::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 46px;
+    height: calc(100% - 46px);
+    width: 10px;
+    background: #C9CFD6;
+    filter: blur(12px);
+    opacity: .55;
+    border-radius: 8px;
+    z-index: 0;
+  }
+
+  .num {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    line-height: 1;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .arrow {
+    position: relative;
+    height: 54px;
+    width: 100%;
+    clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 50%, calc(100% - 30px) 100%, 0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    z-index: 1;
+  }
+
+  .arrow svg { width: 20px; height: 20px; margin-right: 52px; color: #fff; }
+
+  .title {
+    margin-top: 18px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: #1E1E1E;
+    position: relative;
+    z-index: 1;
+  }
+
+  .body {
+    margin-top: 8px;
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: #55585C;
+    max-width: 150px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Reference blues: 01 bright blue, 02 cyan, 03 pale steel, 04 royal, 05 dark steel */
+  .c1 { color: #1F80E0; background-color: #1F80E0; }
+  .c2 { color: #2CAAE4; background-color: #2CAAE4; }
+  .c3 { color: #9FBDD9; background-color: #9FBDD9; }
+  .c4 { color: #2E5FC7; background-color: #2E5FC7; }
+  .c5 { color: #2E5480; background-color: #2E5480; }
+</style>
+</head>
+<body>
+  <div class="sheet" id="steps-sheet">
+    <!-- 5 replica columns; content replaced in the final version -->
+  </div>
+
+  <script>
+    // Columns are generated so the markup stays identical to the reference rhythm
+    const data = [
+      { n: '01', c: 'c1', icon: '<circle cx="10" cy="9" r="6" /><path d="m15.5 15.5 5 5" />',
+        title: 'Shape Title', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer luctus, ante lacinia dignissim commodo' },
+      { n: '02', c: 'c2', icon: '<path d="M14 8a2 2 0 1 0-1.3 3.5L9 15l-4-2 2-3.6L10.5 6z" />',
+        title: 'Shape Title', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer luctus, ante lacinia dignissim commodo' },
+      { n: '03', c: 'c3', icon: '<path d="M12 4v10" /><path d="m8 10 4 4 4-4" /><path d="M5 18h14" />',
+        title: 'Shape Title', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer luctus, ante lacinia dignissim commodo' },
+      { n: '04', c: 'c4', icon: '<rect x="3" y="6" width="13" height="11" rx="1.5" /><path d="M16 9h3a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-3" />',
+        title: 'Shape Title', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer luctus, ante lacinia dignissim commodo' },
+      { n: '05', c: 'c5', icon: '<path d="M5 20V14" /><path d="M10 20V10" /><path d="M15 20V6" />',
+        title: 'Shape Title', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer luctus, ante lacinia dignissim commodo' },
+    ];
+
+    document.getElementById('steps-sheet').innerHTML = data.map(d => `
+      <div class="col">
+        <span class="num ${d.c}">${d.n}</span>
+        <div class="arrow ${d.c}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${d.icon}</svg>
+        </div>
+        <h3 class="title">${d.title}</h3>
+        <p class="body">${d.body}</p>
+      </div>
+    `).join('');
+  </script>
+</body>
+</html>

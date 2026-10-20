@@ -1,244 +1,85 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { TrendingUp, Handshake, Lightbulb, Rocket } from 'lucide-react';
+import React from 'react';
+import { Phone, Search, FileText, Rocket } from 'lucide-react';
 import { site } from '../../content/site';
 import { Section } from '../layout/Section';
 import { SectionHeader } from '../ui/SectionHeader';
 import { Button } from '../ui/Button';
 import { Reveal } from '../ui/Reveal';
 
-interface InfographicCardProps {
-  isTypeA: boolean;
-  isPrimary: boolean;
-  stepNumber: number;
+/**
+ * Arrow fill + number tint ramps, derived 100% from brand tokens via color-mix
+ * (light -> dark navy, mirroring the reference infographic's blue progression).
+ */
+const arrowFill = (strength: number) =>
+  `color-mix(in srgb, var(--color-primary) ${strength}%, var(--color-surface))`;
+
+const numberFill = (strength: number) =>
+  `color-mix(in srgb, var(--color-primary) ${strength}%, var(--color-surface))`;
+
+interface ArrowStepProps {
+  stepNumber: string;
   title: string;
   description: string;
   icon: React.ReactNode;
+  fillStrength: number;
+  numberStrength: number;
 }
 
-const InfographicCard: React.FC<InfographicCardProps> = ({
-  isTypeA,
-  isPrimary,
+/** One numbered arrow column: big tinted number, arrow band with white icon, uppercase title, body copy */
+const ArrowStep: React.FC<ArrowStepProps> = ({
   stepNumber,
   title,
   description,
   icon,
+  fillStrength,
+  numberStrength,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [dims, setDims] = useState({ w: 560, h: 220 });
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const update = () => {
-      if (containerRef.current) {
-        setDims({
-          w: containerRef.current.offsetWidth,
-          h: containerRef.current.offsetHeight,
-        });
-      }
-    };
-    update();
-    const ro = new ResizeObserver(update);
-    ro.observe(containerRef.current);
-    return () => ro.disconnect();
-  }, []);
-
-  const { w, h } = dims;
-  const strokeClass = isPrimary ? 'text-primary' : 'text-secondary';
-  const titleClass = isPrimary ? 'text-primary' : 'text-secondary-active';
-
-  // Geometry tokens matching reference: 84px diameter true circle
-  const cr = 42; // Circle radius
-  const r = 26;  // Corner radius
-
-  if (isTypeA) {
-    // Card 1 & 3: Top-right number, bottom-right curl
-    const cx = Math.max(r + cr + 10, w - 56);
-    const cy = h - 2.5 - cr; // Exact tangent to bottom edge (h - 2.5)
-    const dottedStartX = cx - 75;
-    const dottedEndX = cx - 26;
-
-    // Unbroken continuous vector stroke with mathematically exact 270-degree circle
-    const pathD = `
-      M ${dottedStartX} 2.5
-      L ${r} 2.5
-      A ${r} ${r} 0 0 0 2.5 ${r}
-      L 2.5 ${h - r}
-      A ${r} ${r} 0 0 0 ${r} ${h - 2.5}
-      L ${cx} ${h - 2.5}
-      A ${cr} ${cr} 0 1 0 ${cx - cr} ${cy}
-    `.trim();
-
-    return (
-      <div
-        ref={containerRef}
-        className={`group relative w-full min-h-[220px] flex flex-col justify-center transition-transform duration-base hover:-translate-y-1 pl-36 sm:pl-48 pr-[100px] sm:pr-[125px] py-28 sm:py-32 ${strokeClass}`}
-      >
-        {/* Continuous SVG Vector Frame */}
-        <svg
-          className="absolute inset-0 w-full h-full pointer-events-none overflow-visible"
-          viewBox={`0 0 ${w} ${h}`}
-          fill="none"
-          aria-hidden="true"
-        >
-          {/* Main Continuous Stroke */}
-          <path
-            d={pathD}
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            fill="none"
-          />
-
-          {/* Dotted line leading to Number */}
-          <line
-            x1={dottedStartX}
-            y1="2.5"
-            x2={dottedEndX}
-            y2="2.5"
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeDasharray="1 8"
-          />
-
-          {/* Typographic Outlined Number matching reference DIN / Bahnschrift / Montserrat font */}
-          <text
-            x={cx}
-            y={54}
-            fontFamily="'Bahnschrift', 'DIN Alternate', 'Montserrat', var(--font-family), sans-serif"
-            fontWeight="bold"
-            fontSize="60"
-            fill="var(--color-surface)"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinejoin="round"
-            strokeLinecap="round"
-            textAnchor="middle"
-          >
-            {stepNumber}
-          </text>
-        </svg>
-
-        {/* Large prominent icon centered inside circle */}
-        <div
-          className="absolute flex items-center justify-center text-current pointer-events-none transition-transform duration-base group-hover:scale-110"
-          style={{
-            left: cx - 24,
-            top: cy - 24,
-            width: 48,
-            height: 48,
-          }}
-          aria-hidden="true"
-        >
-          {icon}
-        </div>
-
-        {/* Card Content with bold Montserrat heading and clean typography */}
-        <div className="relative z-10 max-w-[420px]">
-          <h3 className={`font-montserrat font-extrabold text-20 sm:text-22 md:text-24 uppercase tracking-normal mb-2 leading-snug ${titleClass}`}>
-            {title}
-          </h3>
-          <p className="text-15 md:text-16 text-text-2 leading-relaxed font-normal">
-            {description}
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  // Type B: Card 2 & 4: Top-left curl, bottom-left number
-  const cx = 56;
-  const cy = 2.5 + cr; // Exact tangent to top line (2.5)
-  const dottedStartX = cx + 26;
-  const dottedEndX = cx + 75;
-
-  // Unbroken continuous vector stroke with mathematically exact 270-degree circle
-  const pathD = `
-    M ${cx + cr} ${cy}
-    A ${cr} ${cr} 0 1 1 ${cx} 2.5
-    L ${w - r} 2.5
-    A ${r} ${r} 0 0 1 ${w - 2.5} ${r}
-    L ${w - 2.5} ${h - r}
-    A ${r} ${r} 0 0 1 ${w - r} ${h - 2.5}
-    L ${dottedEndX} ${h - 2.5}
-  `.trim();
+  const ARROW_HEAD = 30;
 
   return (
-    <div
-      ref={containerRef}
-      className={`group relative w-full min-h-[220px] flex flex-col justify-center transition-transform duration-base hover:-translate-y-1 pl-[100px] sm:pl-[125px] pr-36 sm:pr-48 py-28 sm:py-32 ${strokeClass}`}
-    >
-      {/* Continuous SVG Vector Frame */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none overflow-visible"
-        viewBox={`0 0 ${w} ${h}`}
-        fill="none"
+    <div className="relative flex flex-col">
+      {/* Soft vertical "paper" shadow at the column's left edge (reference look) */}
+      <span
         aria-hidden="true"
-      >
-        {/* Main Continuous Stroke */}
-        <path
-          d={pathD}
-          stroke="currentColor"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-        />
-
-        {/* Dotted line leading to Number */}
-        <line
-          x1={dottedEndX}
-          y1={h - 2.5}
-          x2={dottedStartX}
-          y2={h - 2.5}
-          stroke="currentColor"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeDasharray="1 8"
-        />
-
-        {/* Typographic Outlined Number sitting on bottom line matching reference font */}
-        <text
-          x={cx}
-          y={h - 2.5}
-          fontFamily="'Bahnschrift', 'DIN Alternate', 'Montserrat', var(--font-family), sans-serif"
-          fontWeight="bold"
-          fontSize="60"
-          fill="var(--color-surface)"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinejoin="round"
-          strokeLinecap="round"
-          textAnchor="middle"
-        >
-          {stepNumber}
-        </text>
-      </svg>
-
-      {/* Large prominent icon centered inside circle */}
-      <div
-        className="absolute flex items-center justify-center text-current pointer-events-none transition-transform duration-base group-hover:scale-110"
+        className="pointer-events-none absolute left-0 top-48 bottom-16 w-8 blur-sm opacity-40 rounded-8"
         style={{
-          left: cx - 24,
-          top: cy - 24,
-          width: 48,
-          height: 48,
+          background:
+            'linear-gradient(to bottom, color-mix(in srgb, var(--color-primary) 25%, transparent), transparent 82%)',
         }}
-        aria-hidden="true"
+      />
+
+      {/* Big tinted step number above the arrow band */}
+      <span
+        className="relative z-10 font-montserrat font-extrabold text-28 md:text-32 leading-none tracking-wide"
+        style={{ color: numberFill(numberStrength) }}
       >
-        {icon}
+        {stepNumber}
+      </span>
+
+      {/* Arrow band with white line icon near the head */}
+      <div
+        className="relative z-10 mt-4 h-56 w-full"
+        style={{
+          background: arrowFill(fillStrength),
+          clipPath: `polygon(0 0, calc(100% - ${ARROW_HEAD}px) 0, 100% 50%, calc(100% - ${ARROW_HEAD}px) 100%, 0 100%)`,
+        }}
+      >
+        <span
+          aria-hidden="true"
+          className="absolute top-1/2 -translate-y-1/2 text-surface"
+          style={{ right: ARROW_HEAD + 20 }}
+        >
+          {icon}
+        </span>
       </div>
 
-      {/* Card Content with bold Montserrat heading and clean typography */}
-      <div className="relative z-10 max-w-[420px]">
-        <h3 className={`font-montserrat font-extrabold text-20 sm:text-22 md:text-24 uppercase tracking-normal mb-2 leading-snug ${titleClass}`}>
-          {title}
-        </h3>
-        <p className="text-15 md:text-16 text-text-2 leading-relaxed font-normal">
-          {description}
-        </p>
-      </div>
+      {/* Uppercase bold title + supporting copy */}
+      <h3 className="relative z-10 mt-14 font-montserrat font-extrabold uppercase text-13 md:text-14 text-primary tracking-wide leading-snug">
+        {title}
+      </h3>
+      <p className="relative z-10 mt-6 text-13 md:text-14 text-text-2 leading-relaxed">
+        {description}
+      </p>
     </div>
   );
 };
@@ -246,11 +87,19 @@ const InfographicCard: React.FC<InfographicCardProps> = ({
 export const GetStarted: React.FC = () => {
   const { steps, eyebrow, title, subtitle, ctaLabel, ctaHref } = site.getStarted;
 
-  const iconList = [
-    <TrendingUp key="trending-up" style={{ width: 36, height: 36 }} strokeWidth={2.2} />,
-    <Handshake key="handshake" style={{ width: 36, height: 36 }} strokeWidth={2.2} />,
-    <Lightbulb key="lightbulb" style={{ width: 36, height: 36 }} strokeWidth={2.2} />,
-    <Rocket key="rocket" style={{ width: 36, height: 36 }} strokeWidth={2.2} />,
+  // Navy ramp (light -> dark) per step, matching the reference's blue progression
+  const ramp = [
+    { fill: 40, number: 72 },
+    { fill: 62, number: 84 },
+    { fill: 84, number: 96 },
+    { fill: 100, number: 100 },
+  ];
+
+  const icons = [
+    <Phone key="phone" size={20} strokeWidth={2.2} aria-hidden="true" />,
+    <Search key="search" size={20} strokeWidth={2.2} aria-hidden="true" />,
+    <FileText key="file" size={20} strokeWidth={2.2} aria-hidden="true" />,
+    <Rocket key="rocket" size={20} strokeWidth={2.2} aria-hidden="true" />,
   ];
 
   return (
@@ -263,28 +112,33 @@ export const GetStarted: React.FC = () => {
           subtitle={subtitle}
         />
 
-        {/* 2x2 Infographic Grid matching reference screenshot with zero white background */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full">
-          {steps.map((item, idx) => {
-            const isPrimary = idx % 2 === 0;
-            const isTypeA = idx === 0 || idx === 2; // Card 1 & 3 (Left side: top number, bottom-right curl)
-            const numberVal = idx + 1;
-            const icon = iconList[idx] || <TrendingUp style={{ width: 36, height: 36 }} strokeWidth={2.2} />;
-
-            return (
-              <Reveal key={item.step} direction="up" delayMs={idx * 80} className="flex">
-                <InfographicCard
-                  isTypeA={isTypeA}
-                  isPrimary={isPrimary}
-                  stepNumber={numberVal}
-                  title={item.title}
-                  description={item.description}
-                  icon={icon}
-                />
-              </Reveal>
-            );
-          })}
-        </div>
+        {/* Arrow Infographic in a bordered, rounded panel (consistent with the design system) */}
+        <Reveal direction="up" delayMs={80}>
+          <div className="relative w-full rounded-24 xl:rounded-32 border border-grey-3/70 bg-white shadow-sm px-16 sm:px-24 md:px-32 py-24 sm:py-32 md:py-40">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-24 lg:gap-24 w-full">
+              {steps.map((item, idx) => {
+                const tone = ramp[idx] || ramp[ramp.length - 1];
+                return (
+                  <Reveal
+                    key={item.step}
+                    direction="up"
+                    delayMs={60 * idx}
+                    className="flex"
+                  >
+                    <ArrowStep
+                      stepNumber={item.step}
+                      title={item.title}
+                      description={item.description}
+                      icon={icons[idx] || icons[0]}
+                      fillStrength={tone.fill}
+                      numberStrength={tone.number}
+                    />
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </Reveal>
 
         {/* Centered CTA - same pattern as the other section footers */}
         <div className="flex justify-center mt-32">

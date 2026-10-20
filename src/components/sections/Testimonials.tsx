@@ -414,7 +414,7 @@ export const Testimonials: React.FC = () => {
                   role="button"
                   tabIndex={0}
                   aria-label={`View review by ${item.author}`}
-                  className="absolute top-0 left-1/2 border border-grey-3 w-[290px] sm:w-[320px] md:w-[340px] h-[375px] sm:h-[405px] md:h-[425px] rounded-24 sm:rounded-32 p-24 sm:p-28 flex flex-col items-center text-center bg-white cursor-pointer select-none will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+                  className="absolute top-0 left-1/2 group overflow-hidden border border-grey-3 w-[290px] sm:w-[320px] md:w-[340px] h-[375px] sm:h-[405px] md:h-[425px] rounded-24 sm:rounded-32 p-24 sm:p-28 flex flex-col items-center text-center bg-white cursor-pointer select-none will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
                 >
                   {/* Top Circular Portrait Image */}
                   <div className="w-[60px] h-[60px] sm:w-[68px] sm:h-[68px] rounded-full overflow-hidden border-2 border-white bg-grey-2 shadow-sm shrink-0 mb-3 pointer-events-none">
@@ -462,22 +462,15 @@ export const Testimonials: React.FC = () => {
                     <blockquote className="text-13 sm:text-14 text-text-2 leading-relaxed italic line-clamp-4 relative z-10">
                       {item.quote.replace('\n\n', ' ')}
                     </blockquote>
-                    <span
-                      className="absolute -bottom-5.5 -right-1 font-serif text-32 sm:text-36 text-secondary/30 select-none pointer-events-none leading-none"
-                      aria-hidden="true"
-                    >
-                      ”
-                    </span>
                   </div>
 
-                  {/* Highlight Badge if present */}
-                  {item.highlight && (
-                    <div className="mt-auto pt-2">
-                      <span className="inline-block text-11 font-medium text-primary/75 bg-grey-1 border border-grey-3/70 rounded-full px-16 py-4">
-                        {item.highlight}
-                      </span>
-                    </div>
-                  )}
+                  {/* Oversized Watermark Quote Glyph (mirrors the Our Proven Process card watermark) */}
+                  <span
+                    className="pointer-events-none absolute -bottom-9 -right-2 font-serif text-[120px] font-black text-secondary/[0.09] select-none leading-none transition-colors duration-slow group-hover:text-secondary/[0.18]"
+                    aria-hidden="true"
+                  >
+                    ”
+                  </span>
                 </div>
               ))}
             </div>

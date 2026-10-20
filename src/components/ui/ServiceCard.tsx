@@ -149,9 +149,9 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
     <div
       className={`group relative flex flex-col justify-between rounded-20 bg-surface text-text border border-grey-3/80 overflow-hidden shadow-[var(--shadow-card-crisp)] hover:shadow-[var(--shadow-card-crisp-hover)] transition-all duration-base hover:-translate-y-1 ${className}`}
     >
-      {/* Top Framed Media (Ref 1: Small even padding around card framing the photo, 8px / 10px - 2px less than before) */}
-      <div className="relative p-8 sm:p-[10px] pb-0 w-full">
-        <div className="relative w-full aspect-[16/10] overflow-hidden rounded-t-16 bg-grey-2 shadow-xs">
+      {/* Framed Media: small even padding around the card framing the photo (8px / 10px), fully rounded */}
+      <div className="relative p-8 sm:p-[10px] w-full">
+        <div className="relative w-full aspect-[16/10] overflow-hidden rounded-16 bg-grey-2 shadow-xs">
           <img
             src={image}
             alt={title}
@@ -160,20 +160,11 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
             height="375"
             loading="lazy"
           />
-
-          {/* Ref 2: Linear transparent gradient starting lower (54%) with aggressive merge to conceal bottom outline */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: `linear-gradient(to bottom, transparent 0%, transparent 54%, color-mix(in srgb, var(--color-surface) 28%, transparent) 68%, color-mix(in srgb, var(--color-surface) 78%, transparent) 82%, color-mix(in srgb, var(--color-surface) 98%, transparent) 92%, var(--color-surface) 98%, var(--color-surface) 100%)`,
-            }}
-            aria-hidden="true"
-          />
         </div>
       </div>
 
-      {/* Content Body: Starts on the merged gradient zone */}
-      <div className="relative z-10 -mt-8 sm:-mt-9 px-5 sm:px-6 pb-5 sm:pb-6 flex flex-col flex-1 justify-between">
+      {/* Content Body: starts cleanly under the framed image with proper padding */}
+      <div className="relative z-10 px-20 sm:px-24 pt-16 sm:pt-20 pb-20 sm:pb-24 flex flex-col flex-1 justify-between">
         <div>
           <h3 className="text-20 md:text-22 font-bold text-primary leading-snug mb-3.5">
             {title}

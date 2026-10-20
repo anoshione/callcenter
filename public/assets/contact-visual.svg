@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="900" viewBox="0 0 720 900" role="img" aria-label="Brand gradient backdrop with support network orbits">
+  <!-- Brand placeholder for the contact visual panel.
+       Palette derives from design/tokens.css brand hues only:
+       primary #00203C, secondary #009966, plus their mixes. -->
+  <defs>
+    <linearGradient id="cp-base" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#003242"/>
+      <stop offset="0.5" stop-color="#00203C"/>
+      <stop offset="1" stop-color="#002A38"/>
+    </linearGradient>
+    <radialGradient id="cp-orb-green" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#009966" stop-opacity="0.38"/>
+      <stop offset="0.6" stop-color="#009966" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#009966" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cp-orb-light" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#F8F8F6" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#F8F8F6" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="cp-dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.6" fill="#F8F8F6" fill-opacity="0.08"/>
+    </pattern>
+  </defs>
+
+  <rect width="720" height="900" fill="url(#cp-base)"/>
+  <rect width="720" height="900" fill="url(#cp-dots)"/>
+
+  <!-- Brand orbs (matching the site's blurred orb atmosphere, but baked in) -->
+  <circle cx="640" cy="120" r="360" fill="url(#cp-orb-green)"/>
+  <circle cx="30" cy="820" r="300" fill="url(#cp-orb-green)"/>
+  <circle cx="150" cy="90" r="260" fill="url(#cp-orb-light)"/>
+
+  <!-- Faint headset line icon texture -->
+  <g stroke="#F8F8F6" stroke-opacity="0.09" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(240 190) scale(10)">
+    <path d="M3 14v-3a9 9 0 0 1 18 0v3"/>
+    <path d="M3 14h3a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2v-4Z"/>
+    <path d="M21 14h-3a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h1a2 2 0 0 0 2-2v-4Z"/>
+  </g>
+
+  <!-- Connection arcs: global support network motif -->
+  <g stroke="#F8F8F6" stroke-opacity="0.12" stroke-width="2.5" fill="none" stroke-linecap="round">
+    <path d="M-40 520 C 140 470, 300 560, 470 520 C 610 488, 700 520, 780 500"/>
+    <path d="M-40 560 C 140 510, 300 600, 470 560 C 610 528, 700 560, 780 540"/>
+    <path d="M-40 600 C 140 550, 300 640, 470 600 C 610 568, 700 600, 780 580"/>
+  </g>
+  <g fill="#009966">
+    <circle cx="180" cy="505" r="7" fill-opacity="0.85"/>
+    <circle cx="470" cy="520" r="7" fill-opacity="0.85"/>
+    <circle cx="640" cy="502" r="7" fill-opacity="0.85"/>
+  </g>
+</svg>

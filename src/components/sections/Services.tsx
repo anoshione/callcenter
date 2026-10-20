@@ -33,7 +33,7 @@ export const Services: React.FC = () => {
           {/* Section Header (Centered, 14px top/bottom, 28px middle, 32px gap to content) */}
           <SectionHeader
             onNavy
-            eyebrow="Our Core Expertise"
+            eyebrow="Our Services"
             title="Enterprise Contact Center & Call Center Solutions"
             subtitle="Scalable customer support and technical helpdesk solutions."
           />

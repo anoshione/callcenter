@@ -71,7 +71,7 @@ export const Button: React.FC<ButtonProps> = ({
 
       case 'outline':
         if (onNavy) {
-          return 'bg-surface/20 text-surface group-hover:bg-surface group-hover:text-primary';
+          return 'bg-surface text-primary group-hover:bg-primary group-hover:text-surface';
         }
         return 'bg-primary text-surface group-hover:bg-surface group-hover:text-primary';
 

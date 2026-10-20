@@ -55,7 +55,7 @@ export const CtaBanner: React.FC = () => {
 
               <div className="flex-shrink-0 self-center flex items-center">
                 <Button
-                  variant="secondary"
+                  variant="primary"
                   href={site.ctaBanner.ctaHref}
                   withArrow
                   className="shadow-sm"

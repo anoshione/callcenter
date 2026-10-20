@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useLocation } from 'react-router-dom';
-import { Phone, Mail, MapPin, Clock, Facebook, Twitter, Instagram, Youtube, ArrowUpRight, CheckCircle2, AlertCircle, ChevronDown, Send } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Facebook, Twitter, Instagram, Youtube, ArrowUpRight, CheckCircle2, AlertCircle, ChevronDown } from 'lucide-react';
 import { site } from '../../content/site';
 import { submitContact, ContactFormData } from '../../lib/submitContact';
 import { SectionHeader } from '../ui/SectionHeader';
 import { Button } from '../ui/Button';
 import { Reveal } from '../ui/Reveal';
-import { CardCornerGradient } from '../ui/CardCornerGradient';
 
 export const Contact: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -80,64 +79,55 @@ export const Contact: React.FC = () => {
       className="w-full py-0 px-3 bg-surface"
       style={{ marginBottom: 'var(--space-section-gap)' }}
     >
-      {/* Outer panel with Google Map background from https://maps.app.goo.gl/R3Ldi2NzX2cpvKsR9 */}
-      <div className="relative overflow-hidden rounded-32 py-16 md:py-20 px-6 md:px-12 xl:px-16 shadow-md w-full">
-        {/* Background Map Container with sharp visibility (no blur) and top white shade */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
-          <img
-            src="/assets/clean-contact-map.jpg"
-            alt="Operations Center Location Map"
-            className="w-full h-full object-cover object-center"
+      {/* Container: header sits OUTSIDE the white card, card follows with 32px gap */}
+      <div className="mx-auto w-full max-w-[var(--container-max)] flex flex-col">
+        <Reveal direction="up" delayMs={50}>
+          {/* Section Header - outside the card */}
+          <SectionHeader
+            eyebrow={site.contact.eyebrow}
+            title={site.contact.title}
+            subtitle={site.contact.description}
           />
+        </Reveal>
 
-          {/* Top white shade: clean luminous gradient protecting header text legibility while letting the map stay crisp and recognizable below */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.88) 18%, rgba(255, 255, 255, 0.45) 38%, rgba(255, 255, 255, 0.12) 65%, rgba(255, 255, 255, 0.22) 100%)',
-            }}
-          />
-        </div>
+        {/* White contact card (32px below the header via SectionHeader's mb-32) */}
+        <Reveal direction="up" delayMs={120}>
+        <div className="relative overflow-hidden rounded-32 bg-white border border-grey-3/60 shadow-md w-full p-16 sm:p-24 md:p-28 -mt-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 lg:gap-32 items-stretch">
+                {/* Left Visual Panel: brand placeholder image with our contact information */}
+                <div className="lg:col-span-6 relative overflow-hidden rounded-24 shadow-md flex flex-col justify-center aspect-[4/5] min-h-[540px] sm:aspect-[16/10] lg:aspect-auto lg:min-h-0">
+                  <img
+                    src={site.contact.visualImage}
+                    alt={site.contact.visualAlt}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    width="720"
+                    height="900"
+                    loading="lazy"
+                  />
 
-        {/* Form Content Structure */}
-        <div className="mx-auto w-full max-w-[var(--container-max)] relative z-10 flex flex-col">
-          <Reveal direction="up" delayMs={50}>
-            {/* Section Header (Centered, 14px top/bottom, 28px middle, 32px gap to content) */}
-            <SectionHeader
-              eyebrow={site.contact.eyebrow}
-              title={site.contact.title}
-              subtitle={site.contact.description}
-            />
+                  {/* Legibility scrim (navy, derived from --color-primary) */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background: 'linear-gradient(to bottom, color-mix(in srgb, var(--color-primary) 8%, transparent) 0%, color-mix(in srgb, var(--color-primary) 45%, transparent) 48%, color-mix(in srgb, var(--color-primary) 88%, transparent) 100%)',
+                    }}
+                    aria-hidden="true"
+                  />
 
-            {/* Unified Wrapper Container wrapping both Left Details & Right Form */}
-            <div className="relative overflow-hidden rounded-24 xl:rounded-32 bg-white/85 backdrop-blur-xl border border-white/90 shadow-2xl p-6 sm:p-8 md:p-10 xl:p-12 transition-all duration-base group">
-              <CardCornerGradient size="lg" />
-
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 xl:gap-12 items-stretch relative z-10">
-                {/* Left Info Column (5 cols) */}
-                <div className="lg:col-span-5 flex flex-col justify-between gap-32 p-2 sm:p-4 md:p-6 relative">
-                  {/* Background Paperplane Send Watermark Visual on Left Info Side extending under form */}
-                  <div className="pointer-events-none absolute -bottom-12 lg:-bottom-20 -right-48 lg:-right-64 select-none text-secondary/[0.08] transition-transform duration-slow group-hover:scale-105 z-0" aria-hidden="true">
-                    <Send className="w-56 h-56 sm:w-72 sm:h-72 stroke-[1.25]" />
-                  </div>
-
-                  <div className="relative z-10">
-                    <h3 className="text-22 md:text-26 font-bold text-primary">
-                      Contact Us
-                    </h3>
-                  </div>
+                  {/* Our information only (no cards) */}
+                  <div className="relative z-10 w-full p-24 sm:p-28 flex flex-col gap-24">
 
                 {/* Direct Contact Details */}
                 <div className="relative z-10 flex flex-col gap-24 text-15">
                   <div className="flex items-start gap-16 group/item">
-                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-12 bg-secondary/10 border border-secondary/20 text-secondary-active shadow-xs group-hover/item:bg-secondary group-hover/item:text-primary transition-all duration-base">
+                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-12 bg-white/10 text-white shadow-xs">
                       <Phone className="h-5 w-5" />
                     </div>
                     <div>
-                      <span className="block text-12 text-grey-5 font-medium">Direct Line</span>
+                      <span className="block text-12 font-medium text-white/70">Direct Line</span>
                       <a
                         href={`tel:${site.contact.phone.replace(/[^0-9+]/g, '')}`}
-                        className="text-16 md:text-17 font-bold text-primary hover:text-secondary-active transition-colors mt-0.5 block"
+                        className="text-16 md:text-17 font-bold text-white hover:text-grey-1 transition-colors mt-0.5 block"
                       >
                         {site.contact.phone}
                       </a>
@@ -145,14 +135,14 @@ export const Contact: React.FC = () => {
                   </div>
 
                   <div className="flex items-start gap-16 group/item">
-                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-12 bg-secondary/10 border border-secondary/20 text-secondary-active shadow-xs group-hover/item:bg-secondary group-hover/item:text-primary transition-all duration-base">
+                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-12 bg-white/10 text-white shadow-xs">
                       <Mail className="h-5 w-5" />
                     </div>
                     <div>
-                      <span className="block text-12 text-grey-5 font-medium">Inquiries & Proposals</span>
+                      <span className="block text-12 font-medium text-white/70">Inquiries & Proposals</span>
                       <a
                         href={`mailto:${site.contact.email}`}
-                        className="text-16 md:text-17 font-bold text-primary hover:text-secondary-active transition-colors mt-0.5 block"
+                        className="text-16 md:text-17 font-bold text-white hover:text-grey-1 transition-colors mt-0.5 block"
                       >
                         {site.contact.email}
                       </a>
@@ -160,29 +150,29 @@ export const Contact: React.FC = () => {
                   </div>
 
                   <div className="flex items-start gap-16 group/item">
-                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-12 bg-secondary/10 border border-secondary/20 text-secondary-active shadow-xs group-hover/item:bg-secondary group-hover/item:text-primary transition-all duration-base">
+                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-12 bg-white/10 text-white shadow-xs">
                       <MapPin className="h-5 w-5" />
                     </div>
                     <div>
-                      <span className="block text-12 text-grey-5 font-medium">Operations Center</span>
-                      <span className="text-15 text-text font-medium mt-0.5 block leading-relaxed">{site.contact.address}</span>
+                      <span className="block text-12 font-medium text-white/70">Operations Center</span>
+                      <span className="text-15 text-white/90 font-medium mt-0.5 block leading-relaxed">{site.contact.address}</span>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-16 group/item">
-                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-12 bg-secondary/10 border border-secondary/20 text-secondary-active shadow-xs group-hover/item:bg-secondary group-hover/item:text-primary transition-all duration-base">
+                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-12 bg-white/10 text-white shadow-xs">
                       <Clock className="h-5 w-5" />
                     </div>
                     <div>
-                      <span className="block text-12 text-grey-5 font-medium">Availability</span>
-                      <span className="text-15 text-text font-medium mt-0.5 block">{site.contact.hours}</span>
+                      <span className="block text-12 font-medium text-white/70">Availability</span>
+                      <span className="text-15 text-white/90 font-medium mt-0.5 block">{site.contact.hours}</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Socials */}
-                <div className="relative z-10 pt-2">
-                  <div className="flex items-center gap-20">
+                {/* Socials (double the detail-row spacing above it) */}
+                <div className="relative z-10 pt-24">
+                  <div className="flex items-center gap-16">
                     {site.contact.socials.map((s) => {
                       const getIcon = () => {
                         switch (s.platform.toLowerCase()) {
@@ -206,7 +196,7 @@ export const Contact: React.FC = () => {
                           href={s.href}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex h-10 w-10 items-center justify-center rounded-12 bg-white text-primary border border-grey-3/80 shadow-md hover:shadow-lg hover:border-primary/40 hover:text-secondary-active hover:-translate-y-0.5 transition-all duration-base"
+                          className="flex h-10 w-10 items-center justify-center rounded-12 bg-white/10 border border-white/25 text-white shadow-xs hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-base"
                           aria-label={`Follow on ${s.platform}`}
                         >
                           {getIcon()}
@@ -215,14 +205,12 @@ export const Contact: React.FC = () => {
                     })}
                   </div>
                 </div>
+                  </div>
                 </div>
 
-                {/* Right Form Container (7 cols) - Nested Container Card for Proposal Form */}
-                <div className="lg:col-span-7 relative z-10 overflow-hidden rounded-20 xl:rounded-24 bg-gradient-to-br from-surface/90 via-grey-1/80 to-surface/85 backdrop-blur-xl border border-grey-3/80 shadow-md p-6 sm:p-8 xl:p-10 flex flex-col justify-between transition-all duration-base group/form">
-                  <CardCornerGradient size="md" />
-
-                  <div className="relative z-10 flex flex-col h-full justify-between">
-                {status === 'success' ? (
+                {/* Right Form Column (7 cols), +16px top/bottom breathing room */}
+                <div className="lg:col-span-6 flex flex-col justify-center py-16">
+                  {status === 'success' ? (
                   <div className="my-auto flex flex-col items-center text-center p-32 gap-20 bg-grey-1/80 rounded-16 border border-secondary/30">
                     <div className="flex h-16 w-16 items-center justify-center rounded-full bg-secondary/20 text-secondary-active">
                       <CheckCircle2 className="h-9 w-9" />
@@ -240,12 +228,6 @@ export const Contact: React.FC = () => {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="flex flex-col gap-24">
-                    <div>
-                      <h3 className="text-22 md:text-26 font-bold text-primary">
-                        Request a Custom Proposal
-                      </h3>
-                    </div>
-
                     {status === 'error' && (
                       <div className="flex items-center gap-12 rounded-16 bg-error/10 border border-error/20 p-16 text-14 text-error">
                         <AlertCircle className="h-5 w-5 flex-shrink-0" />
@@ -253,7 +235,7 @@ export const Contact: React.FC = () => {
                       </div>
                     )}
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-20">
+                    <div className="flex flex-col gap-20">
                       {/* Full Name */}
                       <div className="flex flex-col gap-2">
                         <label htmlFor="fullName" className="text-14 font-medium text-text">
@@ -267,7 +249,7 @@ export const Contact: React.FC = () => {
                           value={formData.fullName}
                           onChange={handleChange}
                           placeholder="e.g. Sarah Jenkins"
-                          className="rounded-16 border border-grey-3 bg-white hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 shadow-xs transition-all px-16 py-12 text-15 text-text placeholder:text-grey-4"
+                          className="rounded-16 border border-grey-3 bg-white hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 shadow-xs transition-all px-16 py-16 text-15 text-text placeholder:text-grey-4"
                         />
                       </div>
 
@@ -284,12 +266,12 @@ export const Contact: React.FC = () => {
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="e.g. sarah@company.com"
-                          className="rounded-16 border border-grey-3 bg-white hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 shadow-xs transition-all px-16 py-12 text-15 text-text placeholder:text-grey-4"
+                          className="rounded-16 border border-grey-3 bg-white hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 shadow-xs transition-all px-16 py-16 text-15 text-text placeholder:text-grey-4"
                         />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-20">
+                    <div className="flex flex-col gap-20">
                       {/* Phone */}
                       <div className="flex flex-col gap-2">
                         <label htmlFor="phone" className="text-14 font-medium text-text">
@@ -302,7 +284,7 @@ export const Contact: React.FC = () => {
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="e.g. +1 (555) 019-2834"
-                          className="rounded-16 border border-grey-3 bg-white hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 shadow-xs transition-all px-16 py-12 text-15 text-text placeholder:text-grey-4"
+                          className="rounded-16 border border-grey-3 bg-white hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 shadow-xs transition-all px-16 py-16 text-15 text-text placeholder:text-grey-4"
                         />
                       </div>
 
@@ -317,7 +299,7 @@ export const Contact: React.FC = () => {
                             name="service"
                             value={formData.service}
                             onChange={handleChange}
-                            className="w-full appearance-none rounded-16 border border-grey-3 bg-white hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 shadow-xs transition-all pl-16 pr-48 py-12 text-15 text-text cursor-pointer"
+                            className="w-full appearance-none rounded-16 border border-grey-3 bg-white hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 shadow-xs transition-all pl-16 pr-48 py-16 text-15 text-text cursor-pointer"
                           >
                             <option value="">Select a service</option>
                             {site.services.map((srv) => (
@@ -342,15 +324,15 @@ export const Contact: React.FC = () => {
                         id="message"
                         name="message"
                         required
-                        rows={4}
+                        rows={5}
                         value={formData.message}
                         onChange={handleChange}
                         placeholder="Describe your current team size, expected call/ticket volume, hours needed, or CRM tools..."
-                        className="rounded-16 border border-grey-3 bg-white hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 shadow-xs transition-all px-16 py-12 text-15 text-text placeholder:text-grey-4 resize-none"
+                        className="rounded-16 border border-grey-3 bg-white hover:border-grey-4 focus:bg-white focus:border-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/25 shadow-xs transition-all px-16 py-16 text-15 text-text placeholder:text-grey-4 resize-none"
                       />
                     </div>
 
-                    <div className="pt-8 flex justify-end">
+                    <div className="pt-8 flex justify-center">
                       <Button
                         type="submit"
                         isLoading={status === 'submitting'}
@@ -365,10 +347,8 @@ export const Contact: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
         </div>
-      </div>
     </section>
   );
 };
